@@ -1,0 +1,299 @@
+		</p>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ua">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title>CS50. Семінар 2.</title>
+	</head>
+	<body>
+		<br>
+		<h1></h1>
+		<h2></h2>
+		<p></p>
+		<h1>Вступ</h1>
+		<p>У цьому семінарі йде мова про цикли (повторення матеріалу), масиви, таблицю ASCII, функції та аргументи командного рядка.</p>
+		<h1>Цикли</h1>
+		<p>Цикли - це спосіб виконати щось декілька разів, не повторюючи код.</p>
+		<h2>Цикл <i>for</i></h2>
+		<p>Цикли <i>for</i> зазвичай використовують коли відомо, скільки разів треба виконати якусь інструкцію. Загальний вигляд:</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>for</span><span style='color:#808030; '>(</span><span style='color:#0000ff; '>ініціалізація</span><span style='color:#800080; '>;</span> <span style='color:#ff0000; '>умова</span><span style='color:#800080; '>;</span> <span style='color:#CCCC00; '>оновлення</span><span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+    <span style='color:#696969; '>// execute this code</span>
+<span style='color:#800080; '>}</span>
+</pre></p>
+		<p><img src=".\section2_pictures\02_01.png"></p>
+		<p><i>Ініціалізація</i> - це встановлення початкового значення циклу. Наприклад, int i = 0. Поітм йде перевірка <i>умови</i>. Якщо умова істинна - виконується тіло циклу. Потім знов перевіряється умова, і знову виконується тіло. Окрім тіла, виконується інструкція <i>оновлення</i> ініціалізованої раніше змінної (наприклад, i++)</p>
+		<p>Тобто кожен прохід циклу оновлюється змінна, перевіряється умова і виконується тіло циклу.</p>
+		<h3>Приклад</h3>
+		<p>Вивести на екран "This is CS50!" десять разів:</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>for</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> i <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span> i <span style='color:#808030; '>&lt;</span> <span style='color:#008c00; '>10</span><span style='color:#800080; '>;</span> i<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+    <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>This is CS50!</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre></p>	
+		<p>Змінна <i>i</i> на початку циклу встановлюється в 0, на кожному повторенні вона збільшується на 1, і цикл завершується, коли <i>і</i> перестає бути меншим за 10. Таким чином, інструкція в тілі циклу виконується 10 разів.</p>	
+		<h2>Цикл <i>while</i></h2>
+		<p>Цикли <i>while</i> корисні тоді, коли невідомо скільки разів треба виконати якусь дію. Натомість, є умова яка перевіряється при кожному проході циклу:</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>while</span><span style='color:#808030; '>(</span><span style='color:#ff0000; '>умова</span><span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+    <span style='color:#696969; '>//Виконувати цей код</span>
+<span style='color:#800080; '>}</span>
+</pre></p>
+		<p><img src=".\section2_pictures\02_02.png"></p>
+		<p>Таким чином, є умова, яка перевіряється при кожному проході циклу. Якщо вона істинна - виконуємо тіло циклу ще раз, якщо хибна - виходимо з нього.</p>
+		<h3>Приклад</h3>
+		<p>Вивести на екран числа від 1 до 10 в зворотньому порядку:</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>int</span> count <span style='color:#808030; '>=</span> <span style='color:#008c00; '>10</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>while</span> <span style='color:#808030; '>(</span>count <span style='color:#808030; '>></span><span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+    <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#007997; '>%i</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> count<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    count<span style='color:#808030; '>-</span><span style='color:#808030; '>-</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre></p>
+		<h2>Цикли <i>do/while</i></h2>
+		<p>Зазвичай застосовуються тоді, коли необхідно виконати цикл хоча б один раз, - наприклад, при очікуванні вводу від користувача.</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>do</span>
+<span style='color:#800080; '>{</span>
+    <span style='color:#696969; '>//Виконати цей код</span>
+<span style='color:#800080; '>}</span>
+<span style='color:#800000; font-weight:bold; '>while</span> <span style='color:#808030; '>(</span><span style='color:#ff0000; '>умова</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+</pre></p>
+		<p><img src=".\section2_pictures\02_03.png"></p>
+		<p>Цикл буде виконано хоча б один раз, після чого пройде перевірка умови, і, якщо вона істинна, то цикл буде виконано ще раз.</p>
+		<h3>Приклад</h3>
+		<p>Запитує введення числа в користувача, допоки він не введе додатнє число:</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>int</span> input<span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>do</span>
+<span style='color:#800080; '>{</span>
+    <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>Enter a positive number: </span><span style='color:#800000; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    input <span style='color:#808030; '>=</span> GetInt<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+<span style='color:#800000; font-weight:bold; '>while</span><span style='color:#808030; '>(</span>input <span style='color:#808030; '>&lt;</span> <span style='color:#008c00; '>1</span><span style='color:#808030; '>)</span>
+</pre></p>
+		<h1>Масиви</h1>
+		<p>Масиви - це структури даних, що дозволяють зберігати однотипні дані в одному місці. В масиві не може бути даних різних типів, і масиви мають визначену довжину.</p>
+		<p>Нижче зображено масив з довжиною 3, у якому розміщено три цілих числа (int).</p>
+		<p><img src=".\section2_pictures\02_04.png"></p>
+		<p>Масиви не можуть змінювати свій розмір, бо це визначені комірки в пам'яті.</p>
+		<h2>Оголошення масиву</h2>
+		<p>Щоб створити масив, необхідно оголосити тип даних, які він зберігатиме, і його розмір. Загальний вигляд оголошення масива:</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#1111FF; '>&lt;тип даних></span> ім'я<span style='color:#808030; '>[</span><span style='color:#CCCC00; '>&lt;розмір></span><span style='color:#808030; '>]</span>;
+</pre></p>
+		<p>Щоб записати значення у масив, треба вказати порядковий номер "комірки" (<i>індекс</i>), в яку записуємо значення. Нумерація "комірок" масиву починається <i>з нуля!</i></p>
+<p><pre style='color:#000000;background:#ffffff;'>ім'я<span style='color:#808030; '>[</span><span style='color:#CCCC00; '>&lt;комірка></span><span style='color:#808030; '>]</span> = <span style='color:#1111FF; '>&lt;значення></span>;
+</pre></p>
+		<p>Приклад: оголошення і заповнення масиву, який зображено вище:</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>int</span> temperature<span style='color:#808030; '>[</span><span style='color:#008c00; '>3</span><span style='color:#808030; '>]</span><span style='color:#800080; '>;</span>
+temperature<span style='color:#808030; '>[</span><span style='color:#008c00; '>0</span><span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span> <span style='color:#008c00; '>65</span><span style='color:#800080; '>;</span>
+temperature<span style='color:#808030; '>[</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span> <span style='color:#008c00; '>87</span><span style='color:#800080; '>;</span>
+temperature<span style='color:#808030; '>[</span><span style='color:#008c00; '>2</span><span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span> <span style='color:#008c00; '>30</span><span style='color:#800080; '>;</span>
+</pre></p>
+		<p>В першу комірку, за індексом 0 буде записано значення 65, у другу (індекс 1) - значення 87, у третю - значення 30.</p>
+		<p>Також можна ініціалізувати масив, одразу вказавши у фігурних дужках значення, які він буде зберігати. В такому випадку автоматично буде визначено розмір масиву за кількістю значень, що знаходяться у фігурних дужках:</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>int</span> temperature[] <span style='color:#808030; '>=</span> <span style='color:#800080; '>{</span><span style='color:#008c00; '>65</span><span style='color:#808030; '>,</span> <span style='color:#008c00; '>87</span><span style='color:#808030; '>,</span> <span style='color:#008c00; '>30</span><span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+</pre></p>
+		<p>У циклі <i>for</i> початковим значенням змінної зазвичай встановлюють нуль якраз тому, що індексація масивів починається з нуля.</p>
+		<p></p>
+		<h2>Доступ до елементів масиву</h2>
+		<p>Щоб отримати доступ до елемента масиву, необхідно, як і при записі значення, вказати індекс елемента:</p>
+<p><pre style='color:#000000;background:#ffffff;'>ім'я<span style='color:#808030; '>[</span><span style='color:#CCCC00; '>&lt;комірка></span><span style='color:#808030; '>]</span>;
+</pre></p>
+		<h3>Приклад 1</h3>
+		<p>Вивести усі значення з масиву <i>temperature</i>:</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>for</span> <span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> i <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span> i <span style='color:#808030; '>&lt;</span> <span style='color:#008c00; '>3</span><span style='color:#800080; '>;</span> i<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+    <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#007997; '>%d</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> temperature<span style='color:#808030; '>[</span>i<span style='color:#808030; '>]</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre></p>
+		<h3>Приклад 2</h3>
+		<p>Запис значень у масив з клавіатури:</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#004a43; '>#</span><span style='color:#004a43; '>include </span><span style='color:#800000; '>&lt;</span><span style='color:#40015a; '>stdio.h</span><span style='color:#800000; '>></span>
+<span style='color:#004a43; '>#</span><span style='color:#004a43; '>include </span><span style='color:#800000; '>&lt;</span><span style='color:#40015a; '>cs50.h</span><span style='color:#800000; '>></span>
+
+<span style='color:#004a43; '>#</span><span style='color:#004a43; '>define</span><span style='color:#004a43; '> CLASS_SIZE 30</span>
+
+<span style='color:#800000; font-weight:bold; '>int</span> <span style='color:#400000; '>main</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>void</span><span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+    <span style='color:#696969; '>//Оголошення масиву</span>
+    <span style='color:#800000; font-weight:bold; '>int</span> scores_array<span style='color:#808030; '>[</span>CLASS_SIZE<span style='color:#808030; '>]</span><span style='color:#800080; '>;</span>
+
+    <span style='color:#696969; '>//Заповнення масиву</span>
+    <span style='color:#800000; font-weight:bold; '>for</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> i <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span> i <span style='color:#808030; '>&lt;</span> CLASS_SIZE<span style='color:#800080; '>;</span> i<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#808030; '>)</span>
+    <span style='color:#800080; '>{</span>
+         <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>Enter score for student </span><span style='color:#007997; '>%d</span><span style='color:#0000e6; '>: </span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> i<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+         scores_array<span style='color:#808030; '>[</span>i<span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span> GetInt<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+</pre></p>
+		<p>Зверніть увагу, що CLASS_SIZE має значення 30, і ми оголошуємо масив цілих чисел scores_array розміру 30, а потім у циклі <i>for</i> проходимо по масиву 30 разів, кожного разу запитуючи введення нового значення у масив.</p>
+		<h3>Приклад 3</h3>
+		<p>Знайдіть помилку (підказка: помилка в описі циклу <i>for</i>):</p>
+<p><pre style='color:#000000;background:#ffffff;'>string class<span style='color:#808030; '>[</span><span style='color:#008c00; '>3</span><span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span> <span style='color:#800080; '>{</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>Sam</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>Jess</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>Kim</span><span style='color:#800000; '>"</span> <span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+
+<span style='color:#800000; font-weight:bold; '>for</span> <span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> i <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span> i <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>=</span> <span style='color:#008c00; '>3</span><span style='color:#800080; '>;</span> i<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+    <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#007997; '>%s</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> class<span style='color:#808030; '>[</span>i<span style='color:#808030; '>]</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre></p>
+		<p>Помилка - у виразі <i>i</i> <= <i>3</i>, бо таким чином у циклі ми спробуємо отримати доступ до комірки масиву з індексом 3. Але у масиві розміру 3 остання комірка має індекс 2.</p>
+		<p>Масив розміру <i>n</i> має <i>n-1</i> індексів.</p>
+		<h2>Багатовимірні масиви</h2>
+		<p>Багатовимірні масиви - це своєрідні "масиви масивів", тобто масиви, у комірках яких зберігаються інші масиви.</p>
+		<p><img src=".\section2_pictures\02_05.png"></p>
+		<p>Оголошуються вони таким самим чином, як і одновимірні, тільки треба вказати не один розмір масиву, а два. Це буде кількість рядків та стовпчиків у масиві. Оголошення масиву, що на рисунку вище:</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>char</span> board<span style='color:#808030; '>[</span><span style='color:#008c00; '>3</span><span style='color:#808030; '>]</span><span style='color:#808030; '>[</span><span style='color:#008c00; '>3</span><span style='color:#808030; '>]</span><span style='color:#800080; '>;</span>
+board<span style='color:#808030; '>[</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span><span style='color:#808030; '>[</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span> <span style='color:#0000e6; '>'o'</span><span style='color:#800080; '>;</span>
+board<span style='color:#808030; '>[</span><span style='color:#008c00; '>0</span><span style='color:#808030; '>]</span><span style='color:#808030; '>[</span><span style='color:#008c00; '>0</span><span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span> <span style='color:#0000e6; '>'x'</span><span style='color:#800080; '>;</span>
+board<span style='color:#808030; '>[</span><span style='color:#008c00; '>2</span><span style='color:#808030; '>]</span><span style='color:#808030; '>[</span><span style='color:#008c00; '>0</span><span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span> <span style='color:#0000e6; '>'o'</span><span style='color:#800080; '>;</span>
+board<span style='color:#808030; '>[</span><span style='color:#008c00; '>0</span><span style='color:#808030; '>]</span><span style='color:#808030; '>[</span><span style='color:#008c00; '>2</span><span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span> <span style='color:#0000e6; '>'x'</span><span style='color:#800080; '>;</span>
+</pre></p>
+		<h3>Приклад</h3>
+		<p>Обчислення довжини рядка:</p>
+<p><pre style='color:#000000;background:#ffffff;'>string s <span style='color:#808030; '>=</span> GetString<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>int</span> length <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>while</span> <span style='color:#808030; '>(</span>s<span style='color:#808030; '>[</span>length<span style='color:#808030; '>]</span> <span style='color:#808030; '>!</span><span style='color:#808030; '>=</span> <span style='color:#0000e6; '>'\0'</span><span style='color:#808030; '>)</span>
+    length<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#800080; '>;</span>
+</pre></p>
+		<p>Рядок - це масив символів, що завжди закінчується символом '\0'. Тому, для обчислення довжини рядка ми застосовуємо цикл <i>while</i> і збільшуємо змінну <i>length</i>, переглядаючи кожен символ у рядку, поки не зустрінемо символ кінця рядка.</p>
+		<h3>Ще приклад</h3>
+		<p>Створити масив із числами 1, 2, 3. Вивести його вміст на екран:</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>int</span> example <span style='color:#808030; '>=</span> <span style='color:#800080; '>{</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>,</span> <span style='color:#008c00; '>2</span><span style='color:#808030; '>,</span> <span style='color:#008c00; '>3</span><span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>for</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> i <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span> i <span style='color:#808030; '>&lt;</span> <span style='color:#008c00; '>3</span><span style='color:#800080; '>;</span> i<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+    <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#007997; '>%i</span><span style='color:#0000e6; '> </span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> example<span style='color:#808030; '>[</span>i<span style='color:#808030; '>]</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre></p>
+		<h1>Функції</h1>
+		<p>Функція - це "чорний ящик", куди потрапляють вхідні дані, над ними відбуваються маніпуляції і на основі цих даних ми отримуємо результат.</p>
+		<p><img src=".\section2_pictures\02_06.png"></p>
+		<p>Раніше ви вже використовували функції: <i>GetInt()</i>, <i>GetString()</i>, <i>printf()</i>. Кожна з них отримує певні дані, виконує певні дії і повертає певний результат.</p>
+		<p>Навіщо потрібні функції:</p>
+		<p><ul>
+				<li>Упорядкування коду</li>
+				<p>Код простіше підтримувати, коли він розбитий на функції, кожна з яких робить певну невелику частину роботи.</p>
+				<li>Спрощення коду</li>
+				<p>Вам не потрібно знати, як працює функція - головне, що вона робить і який результат її роботи. Це спрощує розуміння великої програми.</p>
+				<li>Повторне використання</li>
+				<p>Якщо вам потрібно зробити схожі дії у різних частинах програми - можна написати одну функцію, і використати її багато разів.</p>				
+			</ul>
+		</p>
+		<h2>Структура функції</h2>		
+		<p>Функції мають наступну структуру:</p>
+<p><pre style="color:#000000;background:#ffffff;">
+<span style="color:#0000CD;">&lt;тип результату&gt;</span> <span style="color:#DAA520;">ім&#39;я</span>(<span style="color:#008000;">список параметрів</span>)
+{
+&nbsp; &nbsp; <span style="color:#B22222;">&lt;тіло функції&gt;</span>
+}</pre></p>
+		<p>Приклад:</p>
+		<p><img src=".\section2_pictures\02_07.png"></p>
+		<p><ul>
+				<li>Тип результату</li>
+				<p>На С потрібно завжди вказувати тип результату - тобто якого типу буде те значення, яке має повернути функція. У прикладі вище, функція повертає куб цілого числа - це тип <i>int</i>.</p>
+				<li>Ім'я функції</li>
+				<p>Будь-яка назва для функції. Бажано називати функції так, щоб було зрозуміло, що вони роблять. У прикладі функція має назву <i>cube</i></p>
+				<li>Список параметрів</li>
+				<p>Перелік вхідних даних для функції. Функція може не мати параметрів, може мати один або декілька параметрів. Для кожного параметра треба вказати його ім'я та тип. У прикладі функція приймає єдиний параметр - ціле число <i>int input</i>.</p>				
+				<li>Тіло функції</li>
+				<p>Тут описують дії, що виконує функція. Слово <i>return</i> вказує на кінець роботи функції і вказує значення, яке повертає функція як результат роботи (значення змінної <i>output</i> у прикладі). Функція може і не повертати результату.</p>
+			</ul></p>
+		<h3>Прототип функції</h3>	
+		<p>Прототипом функції називають оголошення лише заголовку функції, без тіла. Прототип вказує компілятору, що існує функція з певним ім'ям, типом результату та списком параметрів, тіло якої буде описано пізніше у коді.</p>
+		<h3>Приклад</h3>	
+		<p>У прикладі нижче у головній функції ми знаходимо куб числа <i>x</i>, використовуючи функцію <i>cube</i>:</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#004a43; '>#</span><span style='color:#004a43; '>include </span><span style='color:#800000; '>&lt;</span><span style='color:#40015a; '>stdio.h</span><span style='color:#800000; '>></span>
+
+<span style='color:#800000; font-weight:bold; '>int</span> cube<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> input<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> <span style='color:#696969; '>//Прототип функції cube</span>
+
+<span style='color:#800000; font-weight:bold; '>int</span> <span style='color:#400000; '>main</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>void</span><span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+     <span style='color:#800000; font-weight:bold; '>int</span> x <span style='color:#808030; '>=</span> <span style='color:#008c00; '>2</span><span style='color:#800080; '>;</span>
+     <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>x is </span><span style='color:#007997; '>%i</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> x<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+     x <span style='color:#808030; '>=</span> cube<span style='color:#808030; '>(</span>x<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+     <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>x is </span><span style='color:#007997; '>%i</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> x<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+
+<span style='color:#800000; font-weight:bold; '>int</span> cube<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> input<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+     <span style='color:#800000; font-weight:bold; '>int</span> output <span style='color:#808030; '>=</span> input <span style='color:#808030; '>*</span> input <span style='color:#808030; '>*</span> input<span style='color:#800080; '>;</span>
+     <span style='color:#800000; font-weight:bold; '>return</span> output<span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre></p>
+		<h2>Структура пам'яті програми</h2>	
+		<p><img src=".\section2_pictures\02_08.png"></p>
+		<p>Структура стеку (для програми знаходження кубу числа):</p>
+		<p><img src=".\section2_pictures\02_09.png"></p>
+		<p>Коли ви викликаєте якусь функцію, її паметри та локальні змінні розташовуються у стеку над тією функцією, у якій її викликали (<i>cube()</i> розташовано над <i>main()</i>). Коли функція завершує роботу, вона передає результат функції, що знаходиться під нею у стеку.</p>
+		<h3>Приклад</h3>
+		<p>Програма, що міняє місцями значення змінних <i>x</i> та <i>y</i></p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#004a43; '>#</span><span style='color:#004a43; '>include </span><span style='color:#800000; '>&lt;</span><span style='color:#40015a; '>stdio.h</span><span style='color:#800000; '>></span>
+
+<span style='color:#800000; font-weight:bold; '>int</span> swap<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> a<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> b<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> <span style='color:#696969; '>//Прототип функції swap</span>
+
+<span style='color:#800000; font-weight:bold; '>int</span> <span style='color:#400000; '>main</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>void</span><span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+     <span style='color:#800000; font-weight:bold; '>int</span> x <span style='color:#808030; '>=</span> <span style='color:#008c00; '>1</span><span style='color:#808030; '>,</span> y <span style='color:#808030; '>=</span> <span style='color:#008c00; '>2</span><span style='color:#800080; '>;</span>
+     swap<span style='color:#808030; '>(</span>x<span style='color:#808030; '>,</span> y<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+     <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>x is </span><span style='color:#007997; '>%i</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> x<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+     <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>y is </span><span style='color:#007997; '>%i</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> y<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+
+<span style='color:#800000; font-weight:bold; '>void</span> swap<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> a<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> b<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+     <span style='color:#800000; font-weight:bold; '>int</span> tmp <span style='color:#808030; '>=</span> a<span style='color:#800080; '>;</span>
+     a <span style='color:#808030; '>=</span> b<span style='color:#800080; '>;</span>
+     b <span style='color:#808030; '>=</span> tmp<span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre></p>
+		<p>Ця програма не працює - змінні <i>x</i> та <i>y</i> у програмі не змінюються. Це відбувається тому, що у функції передаються <i>копії</i> значень змінних.</p>
+		<h1>Агрументи командного рядка</h1>
+		<p>Раніше у програмах ми писали:</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>int</span> <span style='color:#400000; '>main</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>void</span><span style='color:#808030; '>)</span>
+</pre></p>
+		<p>Проте, у більшості програм пишуть так:</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>int</span> <span style='color:#400000; '>main</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> argc<span style='color:#808030; '>,</span> string argv<span style='color:#808030; '>[</span><span style='color:#808030; '>]</span><span style='color:#808030; '>)</span>
+</pre></p>
+		<p>Тут <i>int argc</i> - це лічильник кількості аргументів командного рядка,<br> <i>string argv[]</i> - масив, що містить аргументи командного рядка.</p>
+		<p>Коли ви запускаєте у командному рядку якусь програму, після імені програми ви можете вказати ще й параметри, які ви хочете їй передати. Ці параметри і є <i>аргументами командного рядка.</i></p>
+		<p><img src=".\section2_pictures\02_10.png"></p>
+		<p>У цьому прикладі: 
+			<ul>
+				<li><i>argc</i> == 3</li>
+				<li><i>argv[0]</i> == ./copy</li>
+				<li><i>argv[1]</i> == infile</li>
+				<li><i>argv[2]</i> == outfile</li>
+			</ul>
+		</p>
+		<h1>ASCII</h1>
+		<p>ASCII - це таблиця, в якій символам співставляються числові значення.</p>
+		<p><img src=".\section2_pictures\02_11.png"></p>
+		<p>Так як можна однозначно переводити символи в числа і навпаки, наступний код буде робочим:</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#007997; '>%d</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>'a'</span> <span style='color:#808030; '>-</span> <span style='color:#0000e6; '>'A'</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>                    <span style='color:#696969; '>//32</span>
+<span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#007997; '>%c</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>'B'</span> <span style='color:#808030; '>+</span> <span style='color:#808030; '>(</span><span style='color:#0000e6; '>'a'</span> <span style='color:#808030; '>-</span> <span style='color:#0000e6; '>'A'</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>            <span style='color:#696969; '>//b</span>
+<span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#007997; '>%c</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>'b'</span> <span style='color:#808030; '>-</span> <span style='color:#808030; '>(</span><span style='color:#0000e6; '>'a'</span> <span style='color:#808030; '>-</span> <span style='color:#0000e6; '>'A'</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>            <span style='color:#696969; '>//B</span>
+<span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#007997; '>%c</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>'B'</span> <span style='color:#808030; '>+</span> <span style='color:#008c00; '>1</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>                      <span style='color:#696969; '>//C</span>
+<span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#007997; '>%c</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> <span style='color:#808030; '>(</span><span style='color:#0000e6; '>'z'</span> <span style='color:#808030; '>-</span> <span style='color:#0000e6; '>'a'</span> <span style='color:#808030; '>+</span> <span style='color:#008c00; '>1</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>%</span> <span style='color:#008c00; '>26</span> <span style='color:#808030; '>+</span> <span style='color:#0000e6; '>'a'</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>   <span style='color:#696969; '>//a</span>
+</pre></p>
+		<p>В коментарях до кожного рядку у прикладі вище вказано результат, який виводить команда.</p>
+		<p></p>
+		<p></p>
+		<h2>Функція <i>atoi()</i></h2>
+		<p>Функція <i>atoi()</i> перетворює рядок, що містить числа, на число. За допомогою цієї функції можна зробити так:</p>
+<p><pre style='color:#000000;background:#ffffff;'>string number <span style='color:#808030; '>=</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>125</span><span style='color:#800000; '>"</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>int</span> a <span style='color:#808030; '>=</span> <span style='color:#603000; '>atoi</span><span style='color:#808030; '>(</span>number<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#007997; '>%d</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> a<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>     <span style='color:#696969; '>//125</span>
+</pre></p>
+		<h1>Оператор %</h1>
+		<p>Оператор <i>%</i> використовують для отримання залишку від ділення одного числа на інше. Він має такий самий пріоритет, як оператори множення та ділення:</p>
+		<p>
+			<ol>
+				<li>55 % 10 = 5</li>
+				<li>3 % 5 = 3</li>
+				<li>8 % 8 = 0</li>
+				<li>16 % 15 = 1</li>
+				<li>(1 + 2) * 2 % 2 + 2 = 2</li>
+			</ol>
+		</p>
+	</body>
+</html>
