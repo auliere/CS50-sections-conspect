@@ -1,0 +1,619 @@
+		</p>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ua">
+	<head>
+		<meta http-equiv="refresh" content="5" >
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title>CS50. Семінар 1.</title>
+	</head>
+	<body>
+		<h1>Вступ</h1>
+		<p>У цьому семінарі розглянуто основи взаємодії з командним рядком Linux і основні конструкції мови С: типи даних, оператори (арифметичні та логічні), умовні оператори (if/else, switch, тернарний оператор), цикли (while, do/while, for).</p>
+		<h1>Командний рядок Linux</h1>
+		<p>У курсі використовується спеціальна віртуальна лабораторія – віртуальна машина, на якій встановлено ОС Linux та всі необхідні для курсу програми. Вигляд віртуальної лабораторії зображено на рисунку 1.1.</p>
+		<div align=center><p><img src=".\less1_pictures\01_01.png"></p>
+		<div align=center><p>Рисунок 1.1 Віртуальна лабораторія</p></div></div>
+		<h2>Основні команди терміналу</h2>
+		<ul list-style-type=circle>
+			<li>
+				<p>ls : відобразити вміст папки (показати список файлів і папок)</p>
+				<div align=center><p><img src=".\less1_pictures\01_02.png"></p></div>
+				<ul list-style-type=square>
+					<li>ls –l : відобразити вміст папки і додаткову інформацію</li>
+					<p>Перший стовпчик – це інформація про дозволи для файлу (дозвіл на читання, запис і т. ін.)</p>
+					<div align=center><p><img src=".\less1_pictures\01_03.png"></p></div>
+					<li>ls –a : відобразити також приховані файли.</li>
+					<p>Червоним прямокутником виділено «.» (поточна папка) і «..» (папка на рівень вище).</p>		
+					<div align=center><p><img src=".\less1_pictures\01_03a.png"></p></div>
+					<div align=center><p><img src=".\less1_pictures\01_03b.png"></p></div>
+				</ul>					
+			</li>
+			<li>
+				<p>cd : перейти в іншу папку (без параметрів – у домашню папку, що позначається тильдою «~»)</p>
+				<div align=center><p><img src=".\less1_pictures\01_03c.png"></p></div>
+				<ul list-style-type=square>
+					<li>
+						<p>cd .. : перейти в попередню папку (на рівень вище)</p>
+						<div align=center><p><img src=".\less1_pictures\01_03d.png"></p></div>
+					</li>
+					<li>
+						<p>cd [PATH] : перейти у папку за шляхом [PATH]</p>
+						<div align=center><p><img src=".\less1_pictures\01_03e.png"></p></div>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<p>clear : очистити екран терміналу</p>
+			</li>
+			<li>
+				<p>mkdir [DIRECTORY_NAME] : створити нову папку із назвою [DIRECTORY_NAME]</p>
+				<div align=center><p><img src=".\less1_pictures\01_04.png"></p></div>
+			</li>
+			<li>
+				<p>gedit [FILE_NAME] : відкрити у текстовому редакторі файл [FILE_NAME]</p>
+				<p>Створимо файл hi.txt, напишемо у ньому нашу першу програму (вона виводитиме на екран слово «Hi!»)</p>				
+				<div align=center><p><img src=".\less1_pictures\01_05.png"></p></div>
+				<div align=center><p><img src=".\less1_pictures\01_06.png"></p></div>
+				<div align=center><p><img src=".\less1_pictures\01_07.png"></p></div>				
+			</li>
+			<li>
+				<p>mv [FILE_NAME] [DIRECTORY_PATH] : перемістити файл із назвою [FILE_NAME] у папку за шляхом [DIRECTORY_PATH]</p>
+				<div align=center><p><img src=".\less1_pictures\01_08.png"></p></div>
+				<p>Також цю команду можна використовувати для перейменування файла, якщо замість [DIRECTORY_PATH] просто вказати нову назву файла:</p>				
+				<div align=center><p><img src=".\less1_pictures\01_08a.png"></p></div>
+			</li>
+			<li>
+				<p>make [PROGRAM_NAME] : Скомпілювати програму і створити виконуваний файл із іменем [PROGRAM_NAME]</p>
+				<div align=center><p><img src=".\less1_pictures\01_09.png"></p></div>
+				<div align=center><p><img src=".\less1_pictures\01_10.png"></p></div>
+			</li>
+			<li>
+				<p>./[PROGRAM_NAME] : запустити програму [PROGRAM_NAME]</p>
+				<div align=center><p><img src=".\less1_pictures\01_11.png"></p></div>
+			</li>
+			<li>
+				<p>cp [FILE_NAME] [NEW_FILE_NAME] : скопіювати файл із назвою [FILE_NAME], надавши копіїї ім’я [NEW_FILE_NAME]</p>
+				<div align=center><p><img src=".\less1_pictures\01_11a.png"></p></div>	
+				<div align=center><p><img src=".\less1_pictures\01_12.png"></p></div>
+				<p>Вправа: створити нову папку, hi_dir, і перемістити всі файли в цю нову папку:</p>	
+				<div align=center><p><img src=".\less1_pictures\01_13.png"></p></div>
+			</li>
+			<li>
+				<p>rm [FILE] : видаляє файл із іменем [FILE], запитуючи підтвердження.</p>
+				<div align=center><p><img src=".\less1_pictures\01_14.png"></p></div>
+				<ul list-style-type=square>
+					<li>
+						<p>rm –f [FILE] : видаляє файл без підтвердження.</p>
+						<div align=center><p><img src=".\less1_pictures\01_15.png"></p></div>							
+						<p>Можна побачити, що файлів hi та hi.c, які раніше існували, тепер немає.</p>
+					</li>
+					<li>
+						<p>rm –rf [DIRECTORY] : видаляє папку [DIRECTORY] та все, що в ній знаходиться.</p>
+						<div align=center><p><img src=".\less1_pictures\01_16.png"></p></div>
+						<p>Команда ls нічого не вивела – отже, папка hi_dir більше не існує.</p>
+						<div align=center><p><img src=".\less1_pictures\01_17.png"></p></div>
+					</li>
+				</ul>				
+			</li>
+			<li>
+				<p>CTRL + C : перервати виконання програми (наприклад, якщо вона зависла або ви хочете її вимкнути)</p>
+				<p>Всі ключі в команд можна комбінувати. Наприклад, можна ввести ls –la, щоб вивести дозволи для прихованих файлів:</p>
+				<div align=center><p><img src=".\less1_pictures\01_18.png"></p></div>
+			</li>		
+		</ul>
+		<h1>Типи даних</h1>
+			<table border="1" cellspacing="0" cellpadding="0">
+				<tbody>
+					<tr>
+						<td width="113" valign="top">
+							<p align="center">
+								Тип
+							</p>
+						</td>
+						<td width="198" valign="top">
+							<p align="center">
+								Що це?
+							</p>
+						</td>
+						<td width="208" valign="top">
+							<p align="center">
+								Приклад даних
+							</p>
+						</td>
+						<td width="122" valign="top">
+							<p align="center">
+								Розмір (байт)
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td width="113" valign="top">
+							<p>
+								int
+							</p>
+						</td>
+						<td width="198" valign="top">
+							<p>
+								Цілі числа
+							</p>
+						</td>
+						<td width="208" valign="top">
+							<p>
+								0; 1; 2; -3; 4; 10254
+							</p>
+						</td>
+						<td width="122" valign="top">
+							<p>
+								4
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td width="113" valign="top">
+							<p>
+								float
+							</p>
+						</td>
+						<td width="198" valign="top">
+							<p>
+								Дробові числа
+							</p>
+						</td>
+						<td width="208" valign="top">
+							<p>
+								1.5; 5.0; 123.4567
+							</p>
+						</td>
+						<td width="122" valign="top">
+							<p>
+								4
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td width="113" valign="top">
+							<p>
+								double
+							</p>
+						</td>
+						<td width="198" valign="top">
+							<p>
+								Дробові числа
+							</p>
+						</td>
+						<td width="208" valign="top">
+							<p>
+								1.5; 5.0; 123.45678932
+							</p>
+						</td>
+						<td width="122" valign="top">
+							<p>
+								8
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td width="113" valign="top">
+							<p>
+								long long
+							</p>
+						</td>
+						<td width="198" valign="top">
+							<p>
+								Довгі цілі
+							</p>
+						</td>
+						<td width="208" valign="top">
+							<p>
+								0; 1; 2;
+							</p>
+						</td>
+						<td width="122" valign="top">
+							<p>
+								8
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td width="113" valign="top">
+							<p>
+								char
+							</p>
+						</td>
+						<td width="198" valign="top">
+							<p>
+								Символ
+							</p>
+						</td>
+						<td width="208" valign="top">
+							<p>
+								'A'; 'B'; 'x'; '@'
+							</p>
+						</td>
+						<td width="122" valign="top">
+							<p>
+								1
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td width="113" valign="top">
+							<p>
+								short
+							</p>
+						</td>
+						<td width="198" valign="top">
+							<p>
+								Короткі цілі
+							</p>
+						</td>
+						<td width="208" valign="top">
+							<p>
+								-124; 0; 1; 125
+							</p>
+						</td>
+						<td width="122" valign="top">
+							<p>
+								2
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td width="113" valign="top">
+							<p>
+								string
+							</p>
+						</td>
+						<td width="198" valign="top">
+							<p>
+								Рядки символів
+							</p>
+						</td>
+						<td width="208" valign="top">
+							<p>
+								"Hi"; "This is fine"
+							</p>
+						</td>
+						<td width="122" valign="top">
+							<p>
+								4
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td width="113" valign="top">
+							<p>
+								bool
+							</p>
+						</td>
+						<td width="198" valign="top">
+							<p>
+								Істина чи хибність
+							</p>
+						</td>
+						<td width="208" valign="top">
+							<p>
+								true; false
+							</p>
+						</td>
+						<td width="122" valign="top">
+							<p>
+								1
+							</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>		
+		<p>Знати розмір типу даних може бути корисно, щоб переміщуватися по наборах однотипних даних. </p>
+		<p>Рядки string записуються в подвійних лапках (наприкалад, "Hi"), а символи char – в одинарних (наприклад, 'B'). Різниця полягає в тому, що у рядку string можна зберігати багато символів (хоча можна зробити й рядок з одного символа, наприклад, "H", або пустий рядок, ""), а символ char – це завжди лише один символ.</p>
+		<h1>Основні арифметичні оператори</h1>
+		<p>Порядок пріоритету операцій – такий самий, як в математиці:</p>
+			<table border="1" cellspacing="0" cellpadding="0" width="643">
+				<tbody>
+					<tr>
+						<td width="161" valign="top">
+							<p>
+								Операція
+							</p>
+						</td>
+						<td width="85" valign="top">
+							<p align="center">
+								Символ
+							</p>
+						</td>
+						<td width="85" valign="top">
+							<p align="center">
+								Приклад
+							</p>
+						</td>
+						<td width="312" valign="top">
+							<p align="left">
+								Коли повертає значення true (істина)
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td width="161" valign="top">
+							<p>
+								Рівність
+							</p>
+						</td>
+						<td width="85" valign="top">
+							<p align="center">
+								==
+							</p>
+						</td>
+						<td width="85" valign="top">
+							<p align="center">
+								a == b
+							</p>
+						</td>
+						<td width="312" valign="top">
+							<p align="left">
+								Значення а і b однакові
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td width="161" valign="top">
+							<p>
+								Не дорівнює
+							</p>
+						</td>
+						<td width="85" valign="top">
+							<p align="center">
+								!=
+							</p>
+						</td>
+						<td width="85" valign="top">
+							<p align="center">
+								a != b
+							</p>
+						</td>
+						<td width="312" valign="top">
+							<p align="left">
+								Значення a i b різні
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td width="161" valign="top">
+							<p>
+								Менше
+							</p>
+						</td>
+						<td width="85" valign="top">
+							<p align="center">
+								&lt;
+							</p>
+						</td>
+						<td width="85" valign="top">
+							<p align="center">
+								a &lt; b
+							</p>
+						</td>
+						<td width="312" valign="top">
+							<p align="left">
+								Значення a менше ніж b
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td width="161" valign="top">
+							<p>
+								Менше або рівне
+							</p>
+						</td>
+						<td width="85" valign="top">
+							<p align="center">
+								&lt;=
+							</p>
+						</td>
+						<td width="85" valign="top">
+							<p align="center">
+								a &lt;= b
+							</p>
+						</td>
+						<td width="312" valign="top">
+							<p align="left">
+								Значення a менше або рівне b
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td width="161" valign="top">
+							<p>
+								Більше
+							</p>
+						</td>
+						<td width="85" valign="top">
+							<p align="center">
+								&gt;
+							</p>
+						</td>
+						<td width="85" valign="top">
+							<p align="center">
+								a &gt; b
+							</p>
+						</td>
+						<td width="312" valign="top">
+							<p align="left">
+								Значення a більше ніж b
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td width="161" valign="top">
+							<p>
+								Більше або рівне
+							</p>
+						</td>
+						<td width="85" valign="top">
+							<p align="center">
+								&gt;=
+							</p>
+						</td>
+						<td width="85" valign="top">
+							<p align="center">
+								a &gt;= b
+							</p>
+						</td>
+						<td width="312" valign="top">
+							<p align="left">
+								Значення a більше або рівне b
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td width="161" valign="top">
+							<p>
+								Логічне «І»
+							</p>
+						</td>
+						<td width="85" valign="top">
+							<p align="center">
+								&amp;&amp;
+							</p>
+						</td>
+						<td width="85" valign="top">
+							<p align="center">
+								a &amp;&amp; b
+							</p>
+						</td>
+						<td width="312" valign="top">
+							<p align="left">
+								Коли a – true, b – true.
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td width="161" valign="top">
+							<p>
+								Логічне «АБО»
+							</p>
+						</td>
+						<td width="85" valign="top">
+							<p align="center">
+								||
+							</p>
+						</td>
+						<td width="85" valign="top">
+							<p align="center">
+								a || b
+							</p>
+						</td>
+						<td width="312" valign="top">
+							<p align="left">
+								Коли або а – true, або b – true.
+							</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		<ul>
+			<li>Спочатку обчислюються вирази в дужках;</li>
+			<li>Потім – множення та ділення;</li>
+			<li>Додавання і віднімання.</li>
+		</ul>		
+		<p>Для логічних І та АБО a i b повинні мати тип boolean, або бути логічними виразами. Тобто з допомогою логічного І можна, наприклад, об’єднати умови, щоб перевірити, чи значення якоїсь зміннох x лежить в діапазоні від 5 до 15:</p>
+		<p>(x > 5) && (x < 15)</p>
+		<h1>Умовні оператори</h1>
+		<p>Умовні оператори перевіряють умову, і виконують дії, якщо ця умова – істинна. Умова – це логічний вираз.</p>
+		<p>Оператор if перевіряє умову, і виконує все, що описано між фігурними дужками:</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>умова<span style='color:#808030; '>)</span> 
+<span style='color:#800080; '>{</span>
+  <span style='color:#696969; '>//Зробити щось, якщо умова істинна</span>
+<span style='color:#800080; '>}</span>
+</pre></p>
+		<p>Оператор if/else перевіряє умову, і виконує одні дії, якщо умова істинна, якщо ж хибна – то інші дії.</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>умова<span style='color:#808030; '>)</span> 
+<span style='color:#800080; '>{</span>
+  <span style='color:#696969; '>//Зробити щось, якщо умова істинна</span>
+<span style='color:#800080; '>}</span>
+<span style='color:#800000; font-weight:bold; '>else</span> 
+<span style='color:#800080; '>{</span>
+  <span style='color:#696969; '>//Зробити щось, якщо умова хибна</span>
+<span style='color:#800080; '>}</span>
+</pre></p>
+		<p>Приклад: якщо час менше 12 години, вивести «Доброго ранку», інакше (else) – вивести «Доброго дня».</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span><span style='color:#603000; '>time</span> <span style='color:#808030; '>&lt;</span> <span style='color:#008c00; '>12</span><span style='color:#808030; '>)</span> 
+<span style='color:#800080; '>{</span>
+  <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>Доброго ранку!</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+<span style='color:#800000; font-weight:bold; '>else</span>
+<span style='color:#800080; '>{</span>
+  <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>Доброго дня!</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre></p>
+		<p>В мові С існує оператор вибору (switch). Він має такий вигляд:</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>switch</span> <span style='color:#808030; '>(</span>n<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+  <span style='color:#800000; font-weight:bold; '>case </span><span style='color:#7d0045; '>константа</span><span style='color:#008c00; '>1</span><span style='color:#e34adc; '>:</span>
+    <span style='color:#696969; '>// виконати, якщо n дорівнює константі1</span>
+    <span style='color:#800000; font-weight:bold; '>break</span><span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>case </span><span style='color:#7d0045; '>константа</span><span style='color:#008c00; '>2</span><span style='color:#e34adc; '>:</span>
+    <span style='color:#696969; '>// виконати, якщо n дорівнює константі2</span>
+    <span style='color:#800000; font-weight:bold; '>break</span><span style='color:#800080; '>;</span>
+   <span style='color:#808030; '>.</span><span style='color:#808030; '>.</span><span style='color:#808030; '>.</span>
+<span style='color:#e34adc; '>&#xa0;&#xa0;</span><span style='color:#800000; font-weight:bold; '>default</span><span style='color:#e34adc; '>:</span>
+    <span style='color:#696969; '>// виконати, якщо n не дорівнює жодній із вказаних констант.</span>
+    <span style='color:#800000; font-weight:bold; '>break</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre></p>
+		<p>Приклад: якщо n = 50, вивести "CS50 is Introduction to Computer Science I", якщо n = 51, вивести "CS51 is Introduction to Computer Science II", інакше – вивести "Sorry, I'm not familiar with that class!"</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>switch</span> <span style='color:#808030; '>(</span>n<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+  <span style='color:#800000; font-weight:bold; '>case </span><span style='color:#008c00; '>50</span><span style='color:#e34adc; '>:</span>
+    <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>CS50 is Introduction to Computer Science I</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>break</span><span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>case </span><span style='color:#008c00; '>51</span><span style='color:#e34adc; '>:</span>
+    <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>CS51 is Introduction to Computer Science II</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>break</span><span style='color:#800080; '>;</span>
+<span style='color:#e34adc; '>&#xa0;&#xa0;</span><span style='color:#800000; font-weight:bold; '>default</span><span style='color:#e34adc; '>:</span>
+    <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>Sorry, I'm not familiar with that class!</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>break</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre></p>
+		<p>Без оператора break програма не буде зупинятися, а переходитиме до наступної умови.</p>
+		<p>Також є тернарний оператор. Загальний вигляд:</p>
+<p><pre style='color:#000000;background:#ffffff;'>condition <span style='color:#800080; '>?</span> <span style='color:#808030; '>(</span>виконати якщо умова істинна<span style='color:#808030; '>)</span> <span style='color:#800080; '>:</span> <span style='color:#808030; '>(</span>виконати якщо умова хибна<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+</pre></p>
+		<p>Наприклад:</p>
+<p><pre style='color:#000000;background:#ffffff;'>string professor <span style='color:#808030; '>=</span> <span style='color:#808030; '>(</span>class_num <span style='color:#808030; '>=</span><span style='color:#808030; '>=</span> <span style='color:#008c00; '>50</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>?</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>David Malan</span><span style='color:#800000; '>"</span> <span style='color:#800080; '>:</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>not David Malan</span><span style='color:#800000; '>"</span><span style='color:#800080; '>;</span>
+</pre></p>
+		<h1>Цикли</h1>
+		<p>Цикл while спершу перевіряє умову, а потім виконує дії, поки умова істинна:</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>while</span> <span style='color:#808030; '>(</span>умова<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+  <span style='color:#696969; '>// виконувати поки умова істинна</span>
+<span style='color:#800080; '>}</span>
+</pre></p>
+		<p>Цикл do/while виконує дію, потім перевіряє умову. Якщо умова істинна, то повторює дію, знову перевіряє умову і так далі:</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>do</span>
+<span style='color:#800080; '>{</span>
+  <span style='color:#696969; '>// виконувати поки умова істинна</span>
+<span style='color:#800080; '>}</span>
+<span style='color:#800000; font-weight:bold; '>while</span> <span style='color:#808030; '>(</span>умова<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+</pre></p>
+		<p>Цикл do/while, на відміну від while, обов’язково виконується хоча б один раз, навіть якщо умова хибна.</p>
+		<p>Цикл for повторює дію певну кількість разів.</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>for</span> <span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> dwarves <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span> dwarves <span style='color:#808030; '>&lt;</span> <span style='color:#008c00; '>7</span><span style='color:#800080; '>;</span> dwarves<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+  <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>I'm here to help you, Snow White!</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre></p>
+		<p>Цикли можна вкладати один в одний:</p>
+<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>for</span> <span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> row <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span> row <span style='color:#808030; '>&lt;</span> <span style='color:#008c00; '>3</span><span style='color:#800080; '>;</span> row<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+  <span style='color:#800000; font-weight:bold; '>for</span> <span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> column <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span> column <span style='color:#808030; '>&lt;</span> <span style='color:#008c00; '>4</span><span style='color:#800080; '>;</span> column<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#808030; '>)</span>
+  <span style='color:#800080; '>{</span>
+    <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>x</span><span style='color:#800000; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+  <span style='color:#800080; '>}</span>
+  <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre></p>
+
+	</body>
+</html>
