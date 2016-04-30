@@ -1,0 +1,555 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ua">
+	<head>	
+		<meta http-equiv="refresh" content="3" >
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title>CS50. Семінар 3.</title>
+		<script>
+			var show;
+			function hidetxt(type){
+			 param=document.getElementById(type);
+			 if(param.style.display == "none") {
+			 if(show) show.style.display = "none";
+			 param.style.display = "block";
+			 show = param;
+			 }else param.style.display = "none"
+			}
+		</script>
+	</head>
+	<body>
+<!--		<h1></h1>
+		<h2></h2>
+		<ol>
+			<li></li>
+		</ol>
+		<ul>
+			<li></li>
+		</ul>
+		<p></p>-->
+		<h1>Вступ</h1>
+		<p>У семінарі №3 ви дізнаєтесь про відлагоджувач <b>GDB</b> (ваш кращий друг!), навчитеся реалізовувати (програмувати) алгоритм двійкового пошуку та різні алгоритми сортування: 
+			<ul>
+				<li>Бульбашкове сортування (<i>Bubble sort</i>)</li>
+				<li>Сортування вибором (<i>Selection sort</i>)</li>
+				<li>Сортування вставкою (<i>Insertion sort</i>)</li>
+				<li>Сортування злиттям (<i>Merge sort</i>)</li>
+			</ul>		
+		</p>
+		<h1>GDB (GNU Project Debugger)</h1>
+		<h2>Що це таке?</h2>
+		<p>GDB - це засіб для налагоджування програм. Налагоджування загалом - це процес пошуку та усунення помилок у коді. Для того, щоб знайти помилки, треба якимось чином дізнатись, як виконується програма та які значення мають змінні в будь-який момент роботи програми. Це можна легко зробити за допомогою спеціального інструмента - налагоджувача.</p>
+		<p>Одним із них і є GDB: завдяки ньому можна не використовувати <i>printf</i> кожного разу, коли ви хочете знайти помилку.</p>
+		<h2>Команди GDB</h2>
+		<p>GDB працює лише на виконуваних файлах. Для запуску GDB, просто наберіть у командному рядку: </p>
+<p><pre style='color:#000000;background:#ffffff;'>gdb <span style='color:#808030; '>[</span>ім'я програми<span style='color:#808030; '>]</span>
+</pre></p>
+		<p>Відкриється командний рядок для налагоджування програми. У ньому ви можете вводити одну з наступних команд (і не лише їх):</p>
+		<p>
+			<ul>
+				<li><pre style='color:#000000;background:#ffffff;'>run [аргументи командного рядка програми]</pre>
+					<p>Запустити програму.</p>
+				</li>			
+				<li> <pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>break</span> <span style='color:#808030; '>[</span>номер рядка<span style='color:#808030; '>/</span>ім'я функції<span style='color:#808030; '>]</span></pre>
+				<p>Встановити точку зупинки програми на певному рядку або функції.</p>
+				</li>				
+				<li><pre style='color:#000000;background:#ffffff;'>next</pre>
+				<p>Перейти на наступний рядок, не заходячи всередину функцій.</p>
+				</li>				
+				<li><pre style='color:#000000;background:#ffffff;'>step</pre>
+				<p>Перейти на наступний рядок. Якщо на рядку виклик функції - зайти всередину неї.</p>
+				</li>				
+				<li><pre style='color:#000000;background:#ffffff;'>list</pre>
+				<p>Вивести код програми навколо поточного місця.</p>
+				</li>				
+				<li><pre style='color:#000000;background:#ffffff;'>print <span style='color:#808030; '>[</span>змінна<span style='color:#808030; '>]</span></pre>
+				<p>Вивести значення змінної на екран.</p>
+				</li>				
+				<li><pre style='color:#000000;background:#ffffff;'>info locals</pre>
+				<p>Вивести усі локальні (поточні) змінні: всередині циклу, функції абощо. Зручно, щоб не вводити підряд декілька команд <i>print</i></p>
+				</li>				
+				<li><pre style='color:#000000;background:#ffffff;'>display <span style='color:#808030; '>[</span>змінна<span style='color:#808030; '>]</span></pre>
+				<p>Виводитиме значення змінної на кожному кроці налагоджування.</p>
+				</li>							
+				<li><pre style='color:#000000;background:#ffffff;'>help <span style='color:#808030; '></pre>
+				<p>Показати список усіх команд GDB.</p>
+				</li>							
+			</ul>
+		</p>
+		<h2>Приклади</h2>
+		<p>Запуск налагоджувача:</p>
+		<p><pre style='color:#000000;background:#ffffff;'>gdb <span style='color:#808030; '>[</span>ім'я програми<span style='color:#808030; '>]</span></pre></p>
+		<p><div align=center><p><img src=".\section3_pictures\03_01.png"></p></div></p>
+		<p>
+			<ul>		
+				<li> <pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>break</span> <span style='color:#808030; '></pre>
+				<p>У програмі <i>caesar</i> є одна функція, <i>main</i>. Встановимо точку зупинки програми на функції <i>main</i>:</p>
+				<p><div align=center><p><img src=".\section3_pictures\03_02.png"></p></div></p>
+				</li>				
+				<li><pre style='color:#000000;background:#ffffff;'>run</pre>
+					<p>Запустимо програму <i>caesar</i> з аргументом "3":</p>
+					<p><div align=center><p><img src=".\section3_pictures\03_03.png"></p></div></p>
+				</li>	
+				<li><pre style='color:#000000;background:#ffffff;'>print</pre>
+				<p>Припустимо, нам треба перевірити значення <i>argc</i>:</p>
+				<p><div align=center><p><img src=".\section3_pictures\03_04.png"></p></div></p>
+				</li>				
+				<li><pre style='color:#000000;background:#ffffff;'>next</pre>
+				<p>Продовжимо покроково виконувати програму далі:</p>
+				<p><div align=center><p><img src=".\section3_pictures\03_05.png"></p></div></p>
+				<p>Тут відбувається присвоєння значення змінній <i>key</i>. Перевіримо, яке значення вона має на цьому рядку:</p>				
+				<p><div align=center><p><img src=".\section3_pictures\03_06.png"></p></div></p>				
+				<p>Чому "0"? Адже ми ввели "3"? Річ у тому, що присвоєння відбувається саме на цьому рядку. Команду просто ще не було виконано. Щоб її виконати, треба ввести <i>next</i> ще раз:</p>				
+				<p><div align=center><p><img src=".\section3_pictures\03_07.png"></p></div></p>				
+				<p>Коли ми знову введемо <i>next</i>, то почне виконуватись функція GetString(). Вона очікує на введення даних з клавіатури, тому треба щось ввести:</p>				
+				<p><div align=center><p><img src=".\section3_pictures\03_08.png"></p></div></p>				
+				<p>Виконавши команду <i>next</i> ще раз, зайдемо всередину циклу і опинимося на умові:</p>				
+				<p><div align=center><p><img src=".\section3_pictures\03_09.png"></p></div></p>				
+				</li>	
+				<li><pre style='color:#000000;background:#ffffff;'>info locals</pre>
+				<p>Як программа повина виконуватись далі? Щоб дізнатись це, нам потрібно переглянути значення усіх локальних змінних (тих, що існують в межах циклу):</p>
+				<p><div align=center><p><img src=".\section3_pictures\03_10.png"></p></div></p>
+				<p>Умову буде виконано, і, увівши next ще декілька разів, ми виконаємо інструкції всередині циклу, і опинимося на початку наступної ітерації циклу:</p>
+				<p><div align=center><p><img src=".\section3_pictures\03_11.png"></p></div></p>
+				<p>Зверніть увагу, що змінилось значення змінної <i>text</i>.</p>
+				</li>				
+				<li><pre style='color:#000000;background:#ffffff;'>list</pre>
+				<p>Подивимось код біля того рядка, де ми зупинились:</p>
+				<p><div align=center><p><img src=".\section3_pictures\03_12.png"></p></div></p>
+				</li>				
+				<li><pre style='color:#000000;background:#ffffff;'>display</pre>
+				<p>Щоб відловити момент, коли змінюється значення змінної <i>text</i>, необхідно використати команду <i>display</i>:</p>
+				<p><div align=center><p><img src=".\section3_pictures\03_13.png"></p></div></p>
+				</li>							
+				<li><pre style='color:#000000;background:#ffffff;'>help <span style='color:#808030; '></pre>
+				<p>Приклад:</p>
+				<p><div align=center><p><img src=".\section3_pictures\03_14.png"></p></div></p>
+				</li>							
+			</ul>
+		</p>
+		<h1>Двійковий пошук</h1>
+		<p><div align=center><p><img src=".\section3_pictures\03_15.png"></p></div></p>
+		<p>Алгоритм двійкового пошуку базується на принципі "розділяй і володарюй". Якщо значення середини масиву співпадає з шуканим шуканим значенням, то ми вже знайшли його позицію. Якщо ж не співпадає, то потрібно з'ясувати, чи воно знаходиться у лівій чи правій частині масиву.</p>
+		<p>Якщо шукане значення менше значення в середині масиву, то необхідно шукати його в лівій частині, інакше - в правій, за таким самим принципом, як і спочатку: розділивши відповідну частину на дві половини, і т. д.</p>
+		<p>На рисунку нижче зображено асимптотичну складність (швидкість роботи за різної кількості вхідних значень) простого алгоритму пошуку, та алгоритму двійкового пошуку.</p>
+		<p><div align=center><p><img src=".\section3_pictures\03_16.png"></p></div></p>
+		<p>Для простого алгоритму складність - N (швидко зростає), для двійкового пошуку - log(n) (зростає повільно).</p>
+		<h2>Приклад роботи алгоритму</h2>
+		<p>Необхідно знайти у масиві число <i>7</i>:</p>
+		<p><div align=center><p><img src=".\section3_pictures\03_17.png"></p></div></p>
+		<p>Спершу, подивимось в середину масиву (чи <i>array[3]</i> більше, менше або рівне <i>7</i>?):</p>
+		<p><div align=center><p><img src=".\section3_pictures\03_18.png"></p></div></p>
+		<p>Значення <i>6</i> менше ніж шукане число <i>7</i>, тому ліву частину масиву можна відкинути і продовжити пошук у правій частині. Тепер перевірятимемо значення <i>array[5]</i>:</p>
+		<p><div align=center><p><img src=".\section3_pictures\03_19.png"></p></div></p>
+		<p>Оскільки <i>9</i> більше за шукане <i>7</i>, шукатимемо далі у лівій половині:</p>
+		<p><div align=center><p><img src=".\section3_pictures\03_20.png"></p></div></p>
+		<p>Ось ми і знайшли шукане значення, всього лише за 3 кроки!</p>
+		<p>Для семи вхідних значень розв'язок можна знайти у найгіршому випадку за 3 кроки. Для чотирьох мільярдів вхідних значень - лише за 32 кроки! (2^32 ~ 4 000 000 000)</p>
+		<h2>Кодування алгоритму</h2>
+		<h3>Вправа</h3>
+		<p>Нижче подано заготовку функції двійкового пошуку. Необхідно доповнити її власним кодом:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#3f5fbf; '>/**</span>
+<span style='color:#3f5fbf; '>*  Повертає значення true, якщо значення value є в масиві</span>
+<span style='color:#3f5fbf; '>*  values, інакше - false.</span>
+<span style='color:#3f5fbf; '>*/</span>
+
+bool search<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> value<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> values<span style='color:#808030; '>[</span><span style='color:#808030; '>]</span><span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> n<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+  <span style='color:#696969; '>// Встановити значення верхньої і нижньої межі пошуку</span>
+  <span style='color:#800000; font-weight:bold; '>int</span> lower <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>int</span> upper <span style='color:#808030; '>=</span> n <span style='color:#808030; '>-</span> <span style='color:#008c00; '>1</span><span style='color:#800080; '>;</span>
+  
+  <span style='color:#800000; font-weight:bold; '>while</span><span style='color:#808030; '>(</span>lower <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>=</span> upper<span style='color:#808030; '>)</span>
+  <span style='color:#800080; '>{</span>
+    <span style='color:#696969; '>// Що треба робити тут?</span>
+  <span style='color:#800080; '>}</span>
+  
+  <span style='color:#800000; font-weight:bold; '>return</span> false<span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre>
+</p>
+		<div>
+			<a onclick="hidetxt('div1'); return false;" href="#" rel="nofollow"><h3>Розв'язок</h3></a>
+			<div style="display:none;" id="div1">
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#3f5fbf; '>/**</span>
+<span style='color:#3f5fbf; '>*  Повертає значення true, якщо значення value є в масиві</span>
+<span style='color:#3f5fbf; '>*  values, інакше - false.</span>
+<span style='color:#3f5fbf; '>*/</span>
+
+bool search<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> value<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> values<span style='color:#808030; '>[</span><span style='color:#808030; '>]</span><span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> n<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+  <span style='color:#696969; '>// Встановити значення верхньої і нижньої межі пошуку</span>
+  <span style='color:#800000; font-weight:bold; '>int</span> lower <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>int</span> upper <span style='color:#808030; '>=</span> n <span style='color:#808030; '>-</span> <span style='color:#008c00; '>1</span><span style='color:#800080; '>;</span>
+  
+  <span style='color:#800000; font-weight:bold; '>while</span><span style='color:#808030; '>(</span>lower <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>=</span> upper<span style='color:#808030; '>)</span>
+  <span style='color:#800080; '>{</span>
+    <span style='color:#696969; '>// Знайти середину</span>
+    <span style='color:#800000; font-weight:bold; '>int</span> middle <span style='color:#808030; '>=</span> <span style='color:#808030; '>(</span>upper <span style='color:#808030; '>+</span> lower<span style='color:#808030; '>)</span> <span style='color:#808030; '>/</span> <span style='color:#008c00; '>2</span><span style='color:#800080; '>;</span>
+    
+    <span style='color:#696969; '>//Порівняти значення в середині з шуканим</span>
+    <span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>values<span style='color:#808030; '>[</span>middle<span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span><span style='color:#808030; '>=</span> value<span style='color:#808030; '>)</span>
+    <span style='color:#800080; '>{</span>
+      <span style='color:#800000; font-weight:bold; '>return</span> true<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+    <span style='color:#800000; font-weight:bold; '>else</span> <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>value<span style='color:#808030; '>[</span>middle<span style='color:#808030; '>]</span> <span style='color:#808030; '>&lt;</span> value<span style='color:#808030; '>)</span>
+    <span style='color:#800080; '>{</span>
+      lower <span style='color:#808030; '>=</span> middle <span style='color:#808030; '>+</span> <span style='color:#008c00; '>1</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+    <span style='color:#800000; font-weight:bold; '>else</span> <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>value<span style='color:#808030; '>[</span>middle<span style='color:#808030; '>]</span> <span style='color:#808030; '>></span> value<span style='color:#808030; '>)</span>
+    <span style='color:#800080; '>{</span>
+      upper <span style='color:#808030; '>=</span> middle <span style='color:#808030; '>-</span> <span style='color:#008c00; '>1</span><span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+  <span style='color:#800080; '>}</span>
+  
+  <span style='color:#800000; font-weight:bold; '>return</span> false<span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre>
+</p>
+			</div>
+		</div>
+		<h2>Двійковий пошук - узагальнення</h2>
+		<p>
+			<ul>
+				<li>Найкращий випадок - Ω(<i>1</i>)</li>
+				<li>Найгірший випадок - O(<i>log n</i>)</li>
+				<li>Вхідний список повинен бути відсортованим</li>
+			</ul>
+		</p>
+		<h1>Бульбашкове сортування</h1>
+		<p>В алгоритмі бульбашкового сортування, ви просто проходите по масиву і послідовно порівнюєте числа. Якщо перше з них більше за друге, то вони міняються місцями.</p>
+		<h2>Алгоритм</h2>
+		<ol>
+			<li>Пройти по всьому списку значень, міняючи місцями сусідні значення, якщо вони не впорядковані;</li>
+			<li>Повторити крок 1, якщо було зроблено хоча б один обмін.</li>
+		</ol>
+		<h2>Приклад</h2>
+		<p>Застосуємо алгоритм бульбашкового сортування, щоб впорядкувати за зростанням такий масив:</p>
+		<p><div align=center><p><img src=".\section3_pictures\03_21.png"></p></div></p>
+		<h3>Прохід 1</h3>
+		<p>Здійснюємо три обміни (червоним виділено елементи, що порівнюються):</p>
+		<p><div align=center><p><img src=".\section3_pictures\03_22.png"></p></div></p>
+		<h3>Прохід 2</h3>
+		<p>Оскільки на проході 1 ми здійснили обмін, то робимо ще один прохід (тут також здійснюємо три обміни):</p>
+		<p><div align=center><p><img src=".\section3_pictures\03_23.png"></p></div></p>
+		<h3>Прохід 3</h3>
+		<p>Лише один обмін:</p>
+		<p><div align=center><p><img src=".\section3_pictures\03_24.png"></p></div></p>
+		<p>Хоча після цього проходу масив вже впорядковано, але оскільки був зроблений обмін, необхідно зробити ще один прохід.</p>
+		<h3>Прохід 4</h3>
+		<p><div align=center><p><img src=".\section3_pictures\03_25.png"></p></div></p>
+		<p>Це останній прохід, бо масив вже впорядковано і ми не зробили жодного обміну значень.</p>
+		<h2>Псевдокод</h2>
+<p>
+<pre style='color:#000000;background:#ffffff;'>Ініціалізувати лічильник
+повторювати
+<span style='color:#800080; '>{</span>
+  Встановити лічильник на <span style='color:#008c00; '>0</span>
+  
+  Пройти в циклі весь масив
+    якщо n<span style='color:#808030; '>-</span>те значення більше за n<span style='color:#808030; '>+</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>-</span>ше
+      обміняти їх місцями
+      збільшити лічильник  
+<span style='color:#800080; '>}</span> поки <span style='color:#808030; '>(</span>лічильник <span style='color:#808030; '>></span> <span style='color:#008c00; '>0</span><span style='color:#808030; '>)</span>
+</pre>
+</p>
+		<h2>Кодування алгоритму</h2>
+		<h3>Вправа</h3>
+		<p>Нижче подано заготовку функції бульбашкового сортування. Необхідно доповнити її власним кодом:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>void</span> sort<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> array<span style='color:#808030; '>[</span><span style='color:#808030; '>]</span><span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> n<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+  <span style='color:#696969; '>//Циклічний прохід по масиву</span>
+  <span style='color:#800000; font-weight:bold; '>for</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> k <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span> k <span style='color:#808030; '>&lt;</span> n <span style='color:#808030; '>-</span> <span style='color:#008c00; '>1</span><span style='color:#800080; '>;</span> k<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#808030; '>)</span>
+  <span style='color:#800080; '>{</span>
+    <span style='color:#696969; '>//Оптимізація: перевірка на здійснення обмінів</span>
+    <span style='color:#800000; font-weight:bold; '>int</span> swaps <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span>
+    
+    <span style='color:#696969; '>//обміняти сусідні елементи, якщо вони не впорядковані</span>
+        
+    <span style='color:#696969; '>//Пройтися по масиву</span>
+    
+    <span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span><span style='color:#808030; '>!</span>swaps<span style='color:#808030; '>)</span>
+      <span style='color:#800000; font-weight:bold; '>break</span><span style='color:#800080; '>;</span>
+  <span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+</pre>
+</p>
+		<p></p>
+<div>
+	<a onclick="hidetxt('div2'); return false;" href="#" rel="nofollow"><h3>Розв'язок</h3></a>
+	<div style="display:none;" id="div2">
+		<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>void</span> sort<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> array<span style='color:#808030; '>[</span><span style='color:#808030; '>]</span><span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> n<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+  <span style='color:#696969; '>//Циклічний прохід по масиву</span>
+  <span style='color:#800000; font-weight:bold; '>for</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> k <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span> k <span style='color:#808030; '>&lt;</span> n <span style='color:#808030; '>-</span> <span style='color:#008c00; '>1</span><span style='color:#800080; '>;</span> k<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#808030; '>)</span>
+  <span style='color:#800080; '>{</span>
+    <span style='color:#696969; '>//Оптимізація: перевірка на здійснення обмінів</span>
+    <span style='color:#800000; font-weight:bold; '>int</span> swaps <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span>
+    
+    <span style='color:#696969; '>//обміняти сусідні елементи, якщо вони не впорядковані</span>
+      <span style='color:#696969; '>//Пройтися по масиву</span>
+      <span style='color:#800000; font-weight:bold; '>for</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> i <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span> i <span style='color:#808030; '>&lt;</span> n <span style='color:#808030; '>-</span> <span style='color:#008c00; '>1</span> <span style='color:#808030; '>-</span> k<span style='color:#800080; '>;</span> i<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#808030; '>)</span>
+      <span style='color:#800080; '>{</span>
+        <span style='color:#696969; '>//Перевірити елементи i та i+1</span>
+        <span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>array<span style='color:#808030; '>[</span>i<span style='color:#808030; '>]</span> <span style='color:#808030; '>></span> array<span style='color:#808030; '>[</span>i<span style='color:#808030; '>+</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span><span style='color:#808030; '>)</span>
+        <span style='color:#800080; '>{</span>
+          <span style='color:#800000; font-weight:bold; '>int</span> temp <span style='color:#808030; '>=</span> array<span style='color:#808030; '>[</span>i<span style='color:#808030; '>+</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span><span style='color:#800080; '>;</span>
+          array<span style='color:#808030; '>[</span>i<span style='color:#808030; '>+</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span> array<span style='color:#808030; '>[</span>i<span style='color:#808030; '>]</span><span style='color:#800080; '>;</span>
+          array<span style='color:#808030; '>[</span>i<span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span> temp<span style='color:#800080; '>;</span>
+          swaps<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#800080; '>;</span>
+        <span style='color:#800080; '>}</span>
+      <span style='color:#800080; '>}</span>
+    <span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span><span style='color:#808030; '>!</span>swaps<span style='color:#808030; '>)</span>
+      <span style='color:#800000; font-weight:bold; '>break</span><span style='color:#800080; '>;</span>
+  <span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+</pre>
+		</p>
+	</div>
+</div>
+		<h2>Бульбашкове сортування - узагальнення</h2>
+		<p>
+			<ul>
+				<li>Найгірший випадок - O(<i>n</i>)</li>
+				<li>Найкращий випадок - Ω(<i>n<sup>2</sup></i>)</li>
+				<li>Примітивний і повільний алгоритм сортування.</li>
+			</ul>
+		</p>
+		<h1>Сортування вибором</h1>
+		<h2>Алгоритм</h2>
+		<ol>
+			<li>Знайти найменше невпорядковане значення.</li>
+			<li>Поміняти це значення місцями з першим невпорядкованим значенням.</li>
+			<li>Повторити з кроку 1, якщо ще є невпорядковані значення.</li>
+		</ol>
+		<h2>Приклад</h2>
+		<p>Впорядкуємо за зростанням масив, зображений нижче.</p>
+		<p>На початку роботи алгоритму, всі значення є невпорядкованими.</p>
+		<p><div align=center><p><img src=".\section3_pictures\03_26.png"></p></div></p>
+		<p>Шукаємо у масиві найменше невпорядковане значення. Це - <i>2</i>, тому ми міняємо його місцями із першим невпорядкованим значенням <i>3</i>:</p>
+		<p></p>
+		<p><div align=center><p><img src=".\section3_pictures\03_27.png"></p></div></p>
+		<p>Далі ми обробляємо лише невідсортовану частину:</p>
+		<p><div align=center><p><img src=".\section3_pictures\03_28.png"></p></div></p>
+		<p><div align=center><p><img src=".\section3_pictures\03_29.png"></p></div></p>
+		<p><div align=center><p><img src=".\section3_pictures\03_30.png"></p></div></p>
+		<p><div align=center><p><img src=".\section3_pictures\03_31.png"></p></div></p>
+		<p>Отже, масив упорядковано.</p>
+		<h2>Псевдокод</h2>
+<p><pre style='color:#000000;background:#ffffff;'>Для i в межах від <span style='color:#008c00; '>0</span> до n<span style='color:#808030; '>-</span><span style='color:#008c00; '>2</span>
+  <span style='color:#603000; '>min</span> <span style='color:#808030; '>=</span> i
+  для j в межах від i<span style='color:#808030; '>+</span><span style='color:#008c00; '>1</span> до n<span style='color:#808030; '>-</span><span style='color:#008c00; '>1</span>
+    якщо array<span style='color:#808030; '>[</span>j<span style='color:#808030; '>]</span> <span style='color:#808030; '>&lt;</span> array<span style='color:#808030; '>[</span><span style='color:#603000; '>min</span><span style='color:#808030; '>]</span>
+      <span style='color:#603000; '>min</span> <span style='color:#808030; '>=</span> j
+    якщо <span style='color:#603000; '>min</span> <span style='color:#808030; '>!</span><span style='color:#808030; '>=</span> i
+      обмін array<span style='color:#808030; '>[</span><span style='color:#603000; '>min</span><span style='color:#808030; '>]</span> та array<span style='color:#808030; '>[</span>j<span style='color:#808030; '>]</span>
+</pre></p>
+		<h2>Кодування алгоритму</h2>
+		<h3>Вправа</h3>
+		<p>Нижче подано заготовку для функції сортування вибором. Необхідно доповнити її, щоб отримати робочий алгоритм.</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#3f5fbf; '>/**</span>
+<span style='color:#3f5fbf; '>* Сортування масиву із використанням сортування вибором.</span>
+<span style='color:#3f5fbf; '>*/</span>
+
+<span style='color:#800000; font-weight:bold; '>void</span> sort<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> array<span style='color:#808030; '>[</span><span style='color:#808030; '>]</span><span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> size<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+	<span style='color:#696969; '>//Пройти по масиву</span>
+	<span style='color:#800000; font-weight:bold; '>for</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> i <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span> i <span style='color:#808030; '>&lt;</span> size <span style='color:#808030; '>-</span> <span style='color:#008c00; '>1</span><span style='color:#800080; '>;</span> i<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#808030; '>)</span>
+	<span style='color:#800080; '>{</span>
+		<span style='color:#696969; '>//Найменший елемент у відсортованій частині</span>
+		
+		<span style='color:#696969; '>//Пройти по невідсортованій частині масиву</span>
+		
+			<span style='color:#696969; '>// Знайти наступний найменший елемент</span>
+			
+		<span style='color:#696969; '>//Обміняти місцями</span>
+		<span style='color:#800000; font-weight:bold; '>int</span> temp <span style='color:#808030; '>=</span> array<span style='color:#808030; '>[</span>i<span style='color:#808030; '>]</span><span style='color:#800080; '>;</span>
+		array<span style='color:#808030; '>[</span>i<span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span> smallest<span style='color:#800080; '>;</span>
+		array<span style='color:#808030; '>[</span>position<span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span> temp<span style='color:#800080; '>;</span>
+	<span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+</pre>
+</p>
+<p>
+<div>
+	<a onclick="hidetxt('div3'); return false;" href="#" rel="nofollow"><h3>Розв'язок</h3></a>
+	<div style="display:none;" id="div3">
+		<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#3f5fbf; '>/**</span>
+<span style='color:#3f5fbf; '>* Сортування масиву із використанням сортування вибором.</span>
+<span style='color:#3f5fbf; '>*/</span>
+
+<span style='color:#800000; font-weight:bold; '>void</span> sort<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> array<span style='color:#808030; '>[</span><span style='color:#808030; '>]</span><span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> size<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+	<span style='color:#696969; '>//Пройти по масиву</span>
+	<span style='color:#800000; font-weight:bold; '>for</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> i <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span> i <span style='color:#808030; '>&lt;</span> size <span style='color:#808030; '>-</span> <span style='color:#008c00; '>1</span><span style='color:#800080; '>;</span> i<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#808030; '>)</span>
+	<span style='color:#800080; '>{</span>
+		<span style='color:#696969; '>//Найменший елемент у відсортованій частині</span>
+		<span style='color:#800000; font-weight:bold; '>int</span> smallest <span style='color:#808030; '>=</span> array<span style='color:#808030; '>[</span>i<span style='color:#808030; '>]</span><span style='color:#800080; '>;</span>
+		<span style='color:#800000; font-weight:bold; '>int</span> position <span style='color:#808030; '>=</span> i<span style='color:#800080; '>;</span>
+		
+		<span style='color:#696969; '>//Пройти по невідсортованій частині масиву</span>
+		<span style='color:#800000; font-weight:bold; '>for</span> <span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> k <span style='color:#808030; '>=</span> i <span style='color:#808030; '>+</span> <span style='color:#008c00; '>1</span><span style='color:#800080; '>;</span> k <span style='color:#808030; '>&lt;</span> size<span style='color:#800080; '>;</span> k<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#808030; '>)</span>
+		<span style='color:#800080; '>{</span>
+			<span style='color:#696969; '>// Знайти наступний найменший елемент</span>
+			<span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>array<span style='color:#808030; '>[</span>k<span style='color:#808030; '>]</span> <span style='color:#808030; '>&lt;</span> smallest<span style='color:#808030; '>)</span>
+			<span style='color:#800080; '>{</span>
+				smallest <span style='color:#808030; '>=</span> array<span style='color:#808030; '>[</span>k<span style='color:#808030; '>]</span><span style='color:#800080; '>;</span>
+				position <span style='color:#808030; '>=</span> k<span style='color:#800080; '>;</span>
+			<span style='color:#800080; '>}</span>
+		<span style='color:#800080; '>}</span>
+		
+		<span style='color:#696969; '>//Обміняти місцями</span>
+		<span style='color:#800000; font-weight:bold; '>int</span> temp <span style='color:#808030; '>=</span> array<span style='color:#808030; '>[</span>i<span style='color:#808030; '>]</span><span style='color:#800080; '>;</span>
+		array<span style='color:#808030; '>[</span>i<span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span> smallest<span style='color:#800080; '>;</span>
+		array<span style='color:#808030; '>[</span>position<span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span> temp<span style='color:#800080; '>;</span>
+	<span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+</pre>
+		</p>
+	</div>
+</div>
+</p>
+		<h2>Сортування вибором - узагальнення</h2>
+		<p>
+			<ul>
+				<li>Найгірший випадок - O(<i>n<sup>2</sup></i>)</li>
+				<li>Найкращий випадок - Ω(<i>n<sup>2</sup></i>)</li>
+				<li>Простий і легкий в реалізації алгоритм, проте менш ефективний ніж сортування включенням.</li>
+			</ul>
+		</p>
+		<h1>Сортування включенням</h1>		
+		<p>На кожному кроці алгоритму сортування включенням ми вибираємо один з елементів вхідних даних і вставляємо його на потрібну позицію у вже відсортованому списку до тих пір, доки набір вхідних даних не буде вичерпано. Метод вибору чергового елементу з початкового масиву довільний; може використовуватися практично будь-який алгоритм вибору. Зазвичай (і з метою отримання стійкого алгоритму сортування), елементи вставляються за порядком їх появи у вхідному масиві.</p>
+		<h2>Алгоритм</h2>
+		<p>Для кожного невпорядкованого елемента <i>n</i>:</p>
+		<ol>
+			<li>Визначити позицію <i>n</i> у впорядкованій частині масиву</li>
+			<li>Зсунути впорядковані елементи вправо так, щоб звільнити місце для <i>n</i></li>
+			<li>Вставити <i>n</i> у впорядковану частину масиву.</li>
+		</ol>
+		<h2>Псевдокод</h2>
+<p>
+<pre style='color:#000000;background:#ffffff;'>Для і в межах від <span style='color:#008c00; '>0</span> до n <span style='color:#808030; '>-</span> <span style='color:#008c00; '>1</span>
+  element <span style='color:#808030; '>=</span> array<span style='color:#808030; '>[</span>i<span style='color:#808030; '>]</span>
+  j <span style='color:#808030; '>=</span> i
+  поки <span style='color:#808030; '>(</span><span style='color:#808030; '>(</span>j <span style='color:#808030; '>></span> <span style='color:#008c00; '>0</span><span style='color:#808030; '>)</span> та array<span style='color:#808030; '>[</span>j<span style='color:#808030; '>-</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span> <span style='color:#808030; '>></span> element<span style='color:#808030; '>)</span>
+    array<span style='color:#808030; '>[</span>j<span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span> array<span style='color:#808030; '>[</span>j <span style='color:#808030; '>-</span> <span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span>
+    j <span style='color:#808030; '>=</span> j <span style='color:#808030; '>-</span> <span style='color:#008c00; '>1</span>
+  array<span style='color:#808030; '>[</span>j<span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span> element
+</pre>
+</p>	
+		<h2>Приклад</h2>
+		<p>Як і в алоритмі сортування вибором, спершу всі елементи масиву є невпорядкованими.</p>
+		<p><div align=center><p><img src=".\section3_pictures\03_32.png"></p></div></p>
+		<p>На першій ітерації алгоритму, ми беремо перше значення із масиву, і вставляємо його у список впорядкованих значень</p>
+		<p><div align=center><p><img src=".\section3_pictures\03_33.png"></p></div></p>
+		<p>Далі, на другій ітерації алгоритму, ми беремо перше значення у невідсортованій частині масиву, і починаємо шукати для нього підходяще місце у вже відсортованій частині масиву. Оскільки <i>5 > 3</i>, то ми вставляємо нове значення праворуч від старого.</p>
+		<p><div align=center><p><img src=".\section3_pictures\03_34.png"></p></div></p>
+		<p>На наступній ітерації, ми беремо значення <i>2</i>. Оскільки <i>2 < 5</i> та <i>2 < 3</i>, необхідно вставити <i>2</i> ліворуч <i>3</i> та <i>5</i>. Щоб зробити це, ми посуваємо трійку та п'ятірку праворуч, і вставляємо двійку на її місце:</p>
+		<p><div align=center><p><img src=".\section3_pictures\03_35.png"></p></div></p>
+		<p>Оскільки наступний елемент, <i>6</i>, - найбільше значення у відсортованій частині масиву, вставляємо її праворуч від <i>5</i>.</p>
+		<p><div align=center><p><img src=".\section3_pictures\03_36.png"></p></div></p>
+		<p>Останній елемент, <i>4</i>, - менший за 5 та 6, але більший за 3 - тому ми вставляємо його між 3 та 5.</p>
+		<p><div align=center><p><img src=".\section3_pictures\03_37.png"></p></div></p>
+		<p>Масив відсортовано.</p>
+		<h2>Сортування включенням - узагальнення</h2>
+		<p>
+			<ul>
+				<li>Найгірший випадок - O(<i>n<sup>2</sup></i>)</li>
+				<li>Найкращий випадок - Ω(<i>n</i>)</li>
+				<li>Алгоритм ефективний, коли потрібно відсортувати частково впорядкований масив.</li>
+			</ul>
+		</p>
+		<h1>Сортування злиттям</h1>
+		<p>Сортування злиттям — рекурсивний алгоритм сортування, в основі якого лежить принцип «Розділяй та володарюй». В основі цього способу сортування лежить злиття двох упорядкованих ділянок масиву в одну впорядковану ділянку іншого масиву. </p>
+		<p>Рекурсивна функція - це така функція, що викликає саму себе.</p>
+		<h2>Алгоритм</h2>
+		<p>Для  масиву з <i>n</i> елементів на вході:</p>
+		<ul>
+			<li>Якщо <i>n < 2</i> - закінчити виконання (масив з одного чи нуля елементів вже впорядкований)</li>
+			<li> Інакше:
+				<ol>
+				<li>Відсортувати праву половину масиву</li>
+				<li>Відсортувати ліву половину масиву</li>
+				<li>Злити відсортовані половини.</li>
+				</ol>
+			</li>
+		</ul>
+		<h2>Приклад</h2>
+		<p>Розбиваємо на половинки, доки у кожному підмасиві опиниться лише один елемент.</p>
+		<p><div align=center><p><img src=".\section3_pictures\03_38.png"></p></div></p>		
+		<p>Далі ми починаємо зливати ці підмасиви, формуючи з них відсортований більший масив. Під час злиття ми знаходимо, у якому з двох підмасивів перший елемент менший, видаляємо цей елемент і вставляємо у кінець злитого масиву, доки підмасиви не стануть пустими.</p>
+		<p><div align=center><p><img src=".\section3_pictures\03_39.png"></p></div></p>
+		<h2>Вправа</h2>
+		<p>Необхідно доповнити функцію <i>merge</i> своїм кодом так, щоб працювала функція <i>sort</i>.</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>void</span> sort<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> array<span style='color:#808030; '>[</span><span style='color:#808030; '>]</span><span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> start<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> end<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+	<span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>end <span style='color:#808030; '>></span> start<span style='color:#808030; '>)</span>
+	<span style='color:#800080; '>{</span>
+		<span style='color:#800000; font-weight:bold; '>int</span> middle <span style='color:#808030; '>=</span> <span style='color:#808030; '>(</span>start <span style='color:#808030; '>+</span> end<span style='color:#808030; '>)</span> <span style='color:#808030; '>/</span> <span style='color:#008c00; '>2</span><span style='color:#800080; '>;</span>
+		sort<span style='color:#808030; '>(</span>array<span style='color:#808030; '>,</span> start<span style='color:#808030; '>,</span> middle<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+		sort<span style='color:#808030; '>(</span>array<span style='color:#808030; '>,</span> middle <span style='color:#808030; '>+</span> <span style='color:#008c00; '>1</span><span style='color:#808030; '>,</span> end<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+		merge<span style='color:#808030; '>(</span>array<span style='color:#808030; '>,</span> start<span style='color:#808030; '>,</span> middle<span style='color:#808030; '>,</span> middle<span style='color:#808030; '>+</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>,</span> end<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+	<span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+
+<span style='color:#800000; font-weight:bold; '>void</span> merge <span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> array<span style='color:#808030; '>[</span><span style='color:#808030; '>]</span><span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> start_1<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> end_1<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> start_2<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> end_2<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+    <span style='color:#696969; '>// Виконайте злиття відсортованих підмасивів, використовуючи допоміжний масив temp</span>
+<span style='color:#800080; '>}</span>
+</pre>void sort(int array[], int start, int end)
+{
+	if(end > start)
+	{
+		int middle = (start + end) / 2;
+		sort(array, start, middle);
+		sort(array, middle + 1, end);
+		merge(array, start, middle, middle+1, end);
+	}
+}
+
+void merge (int array[], int start_1, int end_1, int start_2, int end_2)
+{
+    // Виконайте злиття відсортованих підмасивів, використовуючи допоміжний масив temp
+}
+</p>
+		<h2>Сортування злиттям - узагальнення</h2>
+		<p>
+			<ul>
+				<li>Найгірший випадок - O(<i>nlogn</i>)</li>
+				<li>Найкращий випадок - Ω(<i>nlogn</i>)</li>
+				<li>Алгоритм сортування злиттям працює значно швидше за інші, розглянуті у цьому конспекті (як видно з графіка нижче)</li>
+			</ul>
+		</p>
+		<p><div align=center><p><img src=".\section3_pictures\03_40.png"></p></div></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+	</body>
+</html>
