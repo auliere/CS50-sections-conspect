@@ -1,0 +1,312 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ua">
+	<head>	
+		<!-- <meta http-equiv="refresh" content="3" > -->
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title>CS50. Семінар 4.</title>
+		<script>
+			var show;
+			function hidetxt(type){
+			 param=document.getElementById(type);
+			 if(param.style.display == "none") {
+			 if(show) show.style.display = "none";
+			 param.style.display = "block";
+			 show = param;
+			 }else param.style.display = "none"
+			}
+		</script>
+	</head>
+	<body>
+
+		<h1>Вступ</h1>
+		<p>На семінарі №4 розглянуто:
+		<ul>
+			<li>Перенаправлення у Linux</li>
+			<li>Файлове введення/виведення</li>
+			<li>Покажчики та динамічне виділення пам'яті</li>
+		</ul>		
+		</p>
+		<h1>Перенаправлення</h1>
+		<p>За допомогою перенаправлення у Linux можна змусити програму друкувати у файл, а не на екран консолі, вводити дані з текстового файлу або передати результати роботи однієї програми на вхід іншої програми.</p>
+		<ul>
+			<li><p>><br>Перенаправляє вивдення програми у файл замість консолі. Наприклад, <pre style='color:#000000;background:#ffffff;'><span style='color:#808030; '>./</span>hello <span style='color:#808030; '>></span> output<span style='color:#808030; '>.</span>txt
+</pre>
+			<ul>
+				<li>>><br>Перенаправляє виведення програми у файл, доповнюючи цей файл (а не перезаписуючи його).</li>
+				<li>2><br>Виводить у файл лише повідомлення про помилки.</li>
+			</ul>
+</p></li>
+			<li> <<br>Перенаправляє дані з файлу на вхід програми, наприклад, 
+			<pre style='color:#000000;background:#ffffff;'><span style='color:#808030; '>.</span><span style='color:#808030; '>/</span>hello <span style='color:#808030; '>></span> input<span style='color:#808030; '>.</span>txt
+			</pre></li>
+			<li>|<br>Перенаправляє виведення однієї програми на вхід іншої. Наприклад, 
+			<pre style='color:#000000;background:#ffffff;'><span style='color:#808030; '>.</span>\hello <span style='color:#808030; '>|</span> <span style='color:#808030; '>.</span>\program_1
+			</pre></li>
+		</ul>
+		<h1>Файлове введення/виведення</h1>
+		<p>Раніше ми зчитували дані тільки з терміналу та писали дані лише у термінал (читали з <i>stdin</i>, записували в <i>stdout</i>). Але дані можна також зчитувати з файла або записувати у файл. Запис у файл та зчитування з файлу називаються відповідно файловим введенням та файловим виведенням.</p>
+		<h2>Функції для роботи з файлами</h2>
+		<p>Для зчитування або запису у файл треба:</p>		
+		<ol>
+			<li>
+				<p>Створити покажчик на файл.</p>
+				<p><pre style='color:#000000;background:#ffffff;'><span style='color:#603000; '>FILE</span><span style='color:#808030; '>*</span> file<span style='color:#800080; '>;</span></pre></p>
+			</li>
+			<li>
+				<p>Відкрити файл</p>
+				<p>Файл можна відкрити за допомогою функціїї <i>fopen</i>. Ця функція повертає покажчик на відкритий файл, або NULL, якщо не вдалось відкрити файл. Треба завжди перевіряти, чи був відкритий файл, перед тим як щось із ним робити.</p>		
+				<p><pre style='color:#000000;background:#ffffff;'>file <span style='color:#808030; '>=</span> <span style='color:#603000; '>fopen</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>file.txt</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>r</span><span style='color:#800000; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span></pre></p>				
+				<p>
+					<ul>
+						<li>Перший аргумент: шлях до файлу</li>
+						<li>Другий аргумент - режим
+							<ul>
+								<li><span style='color:#800000; '>"r"</span> - читання з файлу</li>
+								<li><span style='color:#800000; '>"w"</span> - запис у файл. Створить файл, якщо він ще не існує.</li>
+								<li><span style='color:#800000; '>"a"</span> - дописування в кінець файлу. Створить файл, якщо він ще не існує.</li>
+							</ul>
+						</li>
+					</ul>					
+				</p>
+			</li>
+			<li>
+				<p>Зчитати або записати щось у файл:</p>
+				<p>
+					<ol>
+						<li>
+							<p>Функції зчитування з файлу:</p>
+							<p>
+								<ul>
+									<li><span style='color:#800000; '>fgetc</span> - повертає наступний символ</li>
+									<li><span style='color:#800000; '>fgets</span> - повертає текстовий рядок</li>
+									<li><span style='color:#800000; '>fread</span> - зчитує певну кількість байтів та записує їх у масив</li>
+									<li><span style='color:#800000; '>fseek</span> - переходить на визначену позицію у файлі</li>
+								</ul>
+							</p>
+						</li>
+						<li>
+							<p>Функції запису у файл:</p>
+							<ul>
+								<li><span style='color:#800000; '>fputc</span> - записує символ</li>
+								<li><span style='color:#800000; '>fputs</span> - записує текстовий рядок</li>
+								<li><span style='color:#800000; '>fprintf</span> - записує відформадований рядок у файл</li>
+								<li><span style='color:#800000; '>fwrite</span> - записує масив байтів у файл</li>
+							</ul>
+						</li>
+					</ol>					
+				</p>
+			</li>
+			<li>Закрити файл: <pre style='color:#000000;background:#ffffff;'><span style='color:#603000; '>fclose</span><span style='color:#808030; '>(</span>file<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span></pre></li>
+		</ol>		
+		<h2>Приклади</h2>
+		<h3>Приклад 1. Запис у файл</h3>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#004a43; '>#</span><span style='color:#004a43; '>include </span><span style='color:#800000; '>&lt;</span><span style='color:#40015a; '>stdio.h</span><span style='color:#800000; '>></span>
+
+<span style='color:#004a43; '>#</span><span style='color:#004a43; '>define</span><span style='color:#004a43; '> STUDENTS 3</span>
+
+<span style='color:#800000; font-weight:bold; '>int</span> <span style='color:#400000; '>main</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>void</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span> 
+  <span style='color:#800000; font-weight:bold; '>int</span> scores <span style='color:#808030; '>[</span><span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span> <span style='color:#800080; '>{</span> <span style='color:#008c00; '>96</span><span style='color:#808030; '>,</span> <span style='color:#008c00; '>90</span><span style='color:#808030; '>,</span> <span style='color:#008c00; '>83</span> <span style='color:#800080; '>}</span><span style='color:#800080; '>;</span> 
+  <span style='color:#603000; '>FILE</span><span style='color:#808030; '>*</span> file <span style='color:#808030; '>=</span> <span style='color:#603000; '>fopen</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>database</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>w</span><span style='color:#800000; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> <span style='color:#696969; '>//Відкриваємо файл</span>
+  <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>file <span style='color:#808030; '>!</span><span style='color:#808030; '>=</span> <span style='color:#7d0045; '>NULL</span><span style='color:#808030; '>)</span> <span style='color:#696969; '>//Якщо файл відкрито</span>
+  <span style='color:#800080; '>{</span>  
+    <span style='color:#800000; font-weight:bold; '>for</span> <span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> i <span style='color:#800080; '>;</span> i <span style='color:#808030; '>&lt;</span> STUDENTS<span style='color:#800080; '>;</span> i<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#808030; '>)</span> 
+    <span style='color:#800080; '>{</span> 
+      <span style='color:#603000; '>fprintf</span><span style='color:#808030; '>(</span>file<span style='color:#808030; '>,</span> <span style='color:#800000; '>"</span><span style='color:#007997; '>%i</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> scores<span style='color:#808030; '>[</span>i<span style='color:#808030; '>]</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> <span style='color:#696969; '>//Записуємо дані</span>
+    <span style='color:#800080; '>}</span>
+    <span style='color:#603000; '>fclose</span><span style='color:#808030; '>(</span>file<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> <span style='color:#696969; '>//Закриваємо файл</span>
+  <span style='color:#800080; '>}</span>  
+<span style='color:#800080; '>}</span>
+</pre>
+</p>
+		<h3>Приклад 2. Читання з файлу</h3>
+		<p>Програма, наведена нижче, приймає як аргумент командного рядка назву файла, який потрібно зчитати, і виводить на екран вміст цього файлу, або помилку, якщо файл не існує.</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#004a43; '>#</span><span style='color:#004a43; '>include </span><span style='color:#800000; '>&lt;</span><span style='color:#40015a; '>stdio.h</span><span style='color:#800000; '>></span><span style='color:#004a43; '> </span>
+
+<span style='color:#800000; font-weight:bold; '>int</span> <span style='color:#400000; '>main</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> argc<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>char</span><span style='color:#808030; '>*</span> argv<span style='color:#808030; '>[</span><span style='color:#808030; '>]</span><span style='color:#808030; '>)</span> 
+<span style='color:#800080; '>{</span> 
+  <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>argc <span style='color:#808030; '>&lt;</span> <span style='color:#008c00; '>2</span><span style='color:#808030; '>)</span> 
+  <span style='color:#800080; '>{</span> 
+    <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>Usage: cat file [file ...]</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> 
+    <span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#008c00; '>1</span><span style='color:#800080; '>;</span> 
+  <span style='color:#800080; '>}</span> 
+  <span style='color:#800000; font-weight:bold; '>for</span> <span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> i <span style='color:#808030; '>=</span> <span style='color:#008c00; '>1</span><span style='color:#800080; '>;</span> i <span style='color:#808030; '>&lt;</span> argc<span style='color:#800080; '>;</span> i<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#808030; '>)</span> 
+  <span style='color:#800080; '>{</span> 
+    <span style='color:#603000; '>FILE</span><span style='color:#808030; '>*</span> file <span style='color:#808030; '>=</span> <span style='color:#603000; '>fopen</span><span style='color:#808030; '>(</span>argyfil<span style='color:#808030; '>,</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>r</span><span style='color:#800000; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> 
+    <span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>file <span style='color:#808030; '>=</span> <span style='color:#7d0045; '>NULL</span><span style='color:#808030; '>)</span> <span style='color:#696969; '>//Перевіряємо чи відкрито файл</span>
+    <span style='color:#800080; '>{</span> 
+      <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>cat: </span><span style='color:#007997; '>%s</span><span style='color:#0000e6; '>: No such file or directory</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> argv<span style='color:#808030; '>[</span>i<span style='color:#808030; '>]</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> 
+      <span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#008c00; '>1</span><span style='color:#800080; '>;</span> <span style='color:#696969; '>//Якщо файл не відкрито, отже він не існує - помилка</span>
+    <span style='color:#800080; '>}</span> 
+    <span style='color:#696969; '>//Цикл, у якому зчитуємо символи з файлу</span>
+    <span style='color:#800000; font-weight:bold; '>for</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> c <span style='color:#808030; '>=</span> <span style='color:#603000; '>fgetc</span><span style='color:#808030; '>(</span>file<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> c <span style='color:#808030; '>!</span><span style='color:#808030; '>=</span> <span style='color:#7d0045; '>EOF</span><span style='color:#800080; '>;</span> c <span style='color:#808030; '>=</span> <span style='color:#603000; '>fgetc</span><span style='color:#808030; '>(</span>file<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span> 
+    <span style='color:#800080; '>{</span> 
+      <span style='color:#603000; '>putchar</span><span style='color:#808030; '>(</span>c<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> <span style='color:#696969; '>//Виведення символу на екран</span>
+    <span style='color:#800080; '>}</span> 
+    <span style='color:#603000; '>fclose</span><span style='color:#808030; '>(</span>file<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> 
+  <span style='color:#800080; '>}</span>
+  <span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span> 
+<span style='color:#800080; '>}</span>
+</pre>
+</p>
+		<h2>Вправа</h2>		
+		<p>Доповніть код, щоб програма виводила "Hello, world" у файл:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#004a43; '>#</span><span style='color:#004a43; '>include </span><span style='color:#800000; '>&lt;</span><span style='color:#40015a; '>stdio.h</span><span style='color:#800000; '>></span>
+<span style='color:#800000; font-weight:bold; '>int</span> <span style='color:#400000; '>main</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>void</span><span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+  <span style='color:#696969; '>//Ваш код</span>
+<span style='color:#800080; '>}</span>
+</pre>
+</p>
+		<a onclick="hidetxt('div1'); return false;" href="#" rel="nofollow"><h3>Розв'язок</h3></a>
+<div style="display:none;" id="div1">
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#004a43; '>#</span><span style='color:#004a43; '>include </span><span style='color:#800000; '>&lt;</span><span style='color:#40015a; '>stdio.h</span><span style='color:#800000; '>></span>
+<span style='color:#800000; font-weight:bold; '>int</span> <span style='color:#400000; '>main</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>void</span><span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+  <span style='color:#603000; '>FILE</span><span style='color:#808030; '>*</span> file <span style='color:#808030; '>=</span> <span style='color:#603000; '>fopen</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>hello</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>w</span><span style='color:#800000; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>file <span style='color:#808030; '>!</span><span style='color:#808030; '>=</span> <span style='color:#7d0045; '>NULL</span><span style='color:#808030; '>)</span>
+  <span style='color:#800080; '>{</span>
+    <span style='color:#603000; '>fprintf</span><span style='color:#808030; '>(</span>file<span style='color:#808030; '>,</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>Hello, world!</span><span style='color:#800000; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#603000; '>fclose</span><span style='color:#808030; '>(</span>file<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+  <span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+</pre>
+</p>
+</div>
+		<h1>Покажчики</h1>
+		<h2>Пам'ять комп'ютера</h2>
+		<p>Мова C дає програмісту можливість прямого доступу до пам'яті комп'ютера. Для використання покажчиків необхідно розуміти, як влаштовано пам'ять.</p>
+		<p>Нижче схематично зображено, як саме виглядає пам'ять комп'ютера.</p>
+		<p><div align=center><p><img src=".\section4_pictures\04_01.png"></p></div></p>
+		<p>Загалом, пам'ять - це величезний масив комірок, розміром 1 байт. У кожного блока пам'яті є своя шістнадцяткова адреса (на рисунку вище префікс <i>0х</i> показує, що адреса є саме шістнадцятковим числом).</p>
+		<h2>Поняття покажчика</h2>
+		<p>Ми маємо змінні різних типів - <i>int</i>, <i>float</i> тощо. З їх допомогою ми зберігаємо у пам'яті різні дані - цілі, дробові числа. Покажчик - це також певного роду тип даних, але покажчики зберігають адреси в пам'яті.</p>
+		<p>Варто зазначити, що у 32-розрядній системі, усі адреси в пам'яті мають розмір 4 байти, тому й покажчики теж мають розмір 3 байти.</p>
+		<h2>Основні види роботи з покажчиками</h2>
+		<h3>Створення покажчиків</h3>
+		<p>Покажчики створюються майже так само як і інші змінні. Загальний синтаксис оголошення покажчика:</p>
+		<p><pre style='color:#000000;background:#ffffff;'><span style='color:#808030; '>&lt;</span>тип<span style='color:#808030; '>></span><span style='color:#808030; '>*</span> <span style='color:#808030; '>&lt;</span>ім'я змінної<span style='color:#808030; '>></span></pre></p>
+		<p>За адресою, на яку вказує покажчик, можна зберігати лише дані того ж типу, що має покажчик.</p>
+		<p>Приклади:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>int</span><span style='color:#808030; '>*</span> x<span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>char</span><span style='color:#808030; '>*</span> y<span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>float</span><span style='color:#808030; '>*</span> z<span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<h3>Розіменування покажчика</h3>
+		<p>Розіменування - це отримання доступу до значення, що зберігається у комірці пам'яті, адреса якої зберігається в покажчику. Простіше кажучи, розіменування дозволяє отримати значення, на яке посилається покажчик. Синтаксис:</p>
+		<p><pre style='color:#000000;background:#ffffff;'><span style='color:#808030; '>*</span><span style='color:#808030; '>&lt;</span>ім'я покажчика<span style='color:#808030; '>></span></pre></p>
+		<h3>Взяття адреси</h3>
+		<p>Взяття адреси - це операція, за допомогою якої можна дізнатися, за якою адресою зберігається змінна у пам'яті. Синтаксис:</p>
+		<p><pre style='color:#000000;background:#ffffff;'><span style='color:#808030; '>&amp;</span><span style='color:#808030; '>&lt;</span>ім'я покажчика<span style='color:#808030; '>></span></pre></p>
+		<h3>Приклад 1</h3>
+		<p>У цьому прикладі можна побачити, як працюють операції з покажчиками.</p>
+		<p><div align=center><p><img src=".\section4_pictures\04_02.png"></p></div></p>
+		<p>У першому рядку ми створюємо змінну <i>x</i>, із значенням 5. Ця змінна розміщується за адресою <i>0х04</i></p>
+		<p>У другому рядку, ми створюємо покажчик, що <i>посилається</i> на змінну <i>х</i>. Значення покажчика - це адреса змінної у пам'яті.</p>
+		<p>У третьому рядку ми створюємо змінну <i>copy</i>, в яку записуємо значення, що зберігається за адресою, на яку вказує покажчик <i>ptr</i>.</p>
+		<h3>Приклад 2</h3>
+		<p><div align=center><p><img src=".\section4_pictures\04_03.png"></p></div></p>
+		<p>У цьому прикладі, ми створюємо покажчик, який вказує на змінну <i>x</i>. Потім, у рядку 3, ми використовуємо розіменування покажчика і таким чином змінюємо значення змінної <i>x</i>.</p>
+		<h3>Вправа</h3>
+		<p>Необхідно заповнити таблицю, вписавши значення змінних у комірки.</p>
+		<p><div align=center><p><img src=".\section4_pictures\04_04.png"></p></div></p>
+<a onclick="hidetxt('div2'); return false;" href="#" rel="nofollow"><h3>Розв'язок</h3></a>
+<div style="display:none;" id="div2">
+<div align=center><p><img src=".\section4_pictures\04_05.png"></p></div>
+</div>
+		<h2>Арифметика покажчиків</h2>
+		<p>Додавання або віднімання числа <i>n</i> до покажчика зсуває адресу, на яку вказує покажчик, на певну кількість байтів. Кількість байтів вираховується за формулою:</p>
+		<p><pre style='color:#000000;background:#ffffff;'>n <span style='color:#808030; '>*</span> <span style='color:#800000; font-weight:bold; '>sizeof</span><span style='color:#808030; '>(</span><span style='color:#808030; '>&lt;</span>тип покажчика<span style='color:#808030; '>></span><span style='color:#808030; '>)</span></pre></p>
+		<p>У нижченаведеному коді ми використовуємо покажчики, щоб дізнатись довжину рядка. У циклі ми створюємо покажчик, і на кожній ітерації циклу зсуваємо покажчик на наступний символ у рядку.</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>int</span> <span style='color:#400000; '>main</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>void</span><span style='color:#808030; '>)</span> 
+<span style='color:#800080; '>{</span> 
+  <span style='color:#800000; font-weight:bold; '>char</span><span style='color:#808030; '>*</span> str <span style='color:#808030; '>=</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>happy cat</span><span style='color:#800000; '>"</span><span style='color:#800080; '>;</span> 
+  <span style='color:#800000; font-weight:bold; '>int</span> counter <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span> 
+  <span style='color:#800000; font-weight:bold; '>for</span> <span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>char</span><span style='color:#808030; '>*</span> ptr <span style='color:#808030; '>=</span> str<span style='color:#800080; '>;</span> <span style='color:#808030; '>*</span>ptr <span style='color:#808030; '>!</span><span style='color:#808030; '>=</span> <span style='color:#0000e6; '>'\0'</span><span style='color:#800080; '>;</span> ptr<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#808030; '>)</span> 
+  <span style='color:#800080; '>{</span> 
+    counter<span style='color:#808030; '>+</span><span style='color:#808030; '>+</span><span style='color:#800080; '>;</span> 
+  <span style='color:#800080; '>}</span> 
+  <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#007997; '>%d</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> counter<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> 
+<span style='color:#800080; '>}</span>
+</pre>
+</p>
+		<h2>Покажчики і масиви</h2>
+		<p>Масиви - це неперервні блоки пам'яті. Змінна-масив - це просто покажчик на першу комірку пам'яті, яку займає масив. Тому можна використовувати арифметику покажчиків для роботи з масивами</p>
+		<p>Наприклад, можна заповнити масив чисел таким чином:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>int</span> array<span style='color:#808030; '>[</span><span style='color:#008c00; '>3</span><span style='color:#808030; '>]</span>
+<span style='color:#808030; '>*</span>array <span style='color:#808030; '>=</span> <span style='color:#008c00; '>1</span><span style='color:#800080; '>;</span> <span style='color:#696969; '>//Записуємо 1 в першу комірку</span>
+<span style='color:#808030; '>*</span><span style='color:#808030; '>(</span>array <span style='color:#808030; '>+</span> <span style='color:#008c00; '>1</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>=</span> <span style='color:#008c00; '>2</span><span style='color:#800080; '>;</span> <span style='color:#696969; '>//Записуємо 2 в другу комірку</span>
+<span style='color:#808030; '>*</span><span style='color:#808030; '>(</span>array <span style='color:#808030; '>+</span> <span style='color:#008c00; '>2</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>=</span> <span style='color:#008c00; '>3</span><span style='color:#800080; '>;</span> <span style='color:#696969; '>//Записуємо 3 в третю комірку</span>
+</pre>
+</p>
+		<p><div align=center><p><img src=".\section4_pictures\04_06.png"></p></div></p>
+		<h2>Динамічна робота з пам'яттю</h2>
+		<p><div align=center><p><img src=".\section4_pictures\04_07.png"></p></div></p>
+		<p>Відомо, що пам'ять під змінні, які ми оголошуємо, виділяється у стеку. Ця пам'ять автоматично очищається при виході з області видимості змінних, які там зберігаються.</p>
+		<p>У мові C можна також виділити пам'ять для даних у купі. Дані, записані туди, будуть зберігатись поки ви не вивільните пам'ять вручну.</p>
+		<h3>Виділення пам'яті</h3>
+		<p>Пам'ять виділяють за допомогою функції malloc. Ця функція виділяє певну кількість байтів пам'яті та повертає покажчик на цю область пам'яті.</p>
+		<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>void</span><span style='color:#808030; '>*</span> <span style='color:#603000; '>malloc</span><span style='color:#808030; '>(</span>розмір в байтах<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span></pre></p>
+		<p>Приклад:</p>
+		<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>int</span><span style='color:#808030; '>*</span> ptr <span style='color:#808030; '>=</span> <span style='color:#603000; '>malloc</span><span style='color:#808030; '>*</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>sizeof</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span><span style='color:#808030; '>)</span><span style='color:#808030; '>*</span><span style='color:#008c00; '>10</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span></pre></p>
+		<p>У випадку, якщо пам'ять неможливо виділити, <i>malloc</i> повертає <i>NULL</i>. Необхідно завжди робити перевірку на <i>NULL</i>, щоб уникнути помилок роботи з пам'яттю:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>int</span><span style='color:#808030; '>*</span> ptr <span style='color:#808030; '>=</span> <span style='color:#603000; '>malloc</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>sizeof</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>*</span> <span style='color:#008c00; '>10</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>	
+<span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>ptr <span style='color:#808030; '>=</span><span style='color:#808030; '>=</span> <span style='color:#7d0045; '>NULL</span><span style='color:#808030; '>)</span>	
+<span style='color:#800080; '>{</span>	
+  <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>Error -- out of memory.</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#008c00; '>1</span><span style='color:#800080; '>;</span>	
+<span style='color:#800080; '>}</span></pre>
+</p>
+		<h3>Вивільнення пам'яті</h3>
+		<p>Пам'ять, виділену за допомогою функції <i>malloc</i>, завжди необхідно вивільняти за допомогою функції <i>free</i>, оскільки інакше область пам'яті залишиться недоступною для використання.</p>
+		<p><pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>void</span> <span style='color:#603000; '>free</span><span style='color:#808030; '>(</span>покажчик на пам'ять в купі<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span></pre></p>
+		<p>Наприклад:</p>
+		<p><pre style='color:#000000;background:#ffffff;'><span style='color:#603000; '>free</span><span style='color:#808030; '>(</span>ptr<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span></pre></p>
+		<h3>Приклад динамічної роботи з пам'яттю</h3>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#004a43; '>#</span><span style='color:#004a43; '>include </span><span style='color:#800000; '>&lt;</span><span style='color:#40015a; '>stdio.h</span><span style='color:#800000; '>></span>
+<span style='color:#004a43; '>#</span><span style='color:#004a43; '>include </span><span style='color:#800000; '>&lt;</span><span style='color:#40015a; '>cs50.h</span><span style='color:#800000; '>></span><span style='color:#004a43; '> </span>
+<span style='color:#800000; font-weight:bold; '>int</span> <span style='color:#400000; '>main</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>void</span><span style='color:#808030; '>)</span> 
+<span style='color:#800080; '>{</span> 
+  <span style='color:#696969; '>//Виділяємо пам'ять під одне ціле число</span>
+  <span style='color:#800000; font-weight:bold; '>int</span><span style='color:#808030; '>*</span> ptr <span style='color:#808030; '>=</span> <span style='color:#603000; '>malloc</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>sizeof</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>  
+  <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>ptr <span style='color:#808030; '>=</span><span style='color:#808030; '>=</span> <span style='color:#7d0045; '>NULL</span><span style='color:#808030; '>)</span> <span style='color:#696969; '>//Якщо пам'ять не виділено</span>
+  <span style='color:#800080; '>{</span> 
+    <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>Error -- out of memory.</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+    <span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#008c00; '>1</span><span style='color:#800080; '>;</span>
+  <span style='color:#800080; '>}</span>
+  <span style='color:#808030; '>*</span>ptr <span style='color:#808030; '>=</span> GetInt<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+  <span style='color:#603000; '>printf</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>You entered </span><span style='color:#007997; '>%d</span><span style='color:#0000e6; '>.</span><span style='color:#0f69ff; '>\n</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> <span style='color:#808030; '>*</span>ptr<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> 
+  <span style='color:#696969; '>//Вивільняємо пам'ять</span>
+  <span style='color:#603000; '>free</span><span style='color:#808030; '>(</span>ptr<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> 
+<span style='color:#800080; '>}</span>
+</pre>
+</p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+	</body>
+</html>

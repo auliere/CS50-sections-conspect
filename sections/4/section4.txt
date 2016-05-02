@@ -1,0 +1,369 @@
+[THEME MUSIC] 
+
+SPEAKER 1: Hi, everyone. Welcome back to section. Lovely day out-- which is why, I'm sure, there are only four of you here and not our usual pack. I have been sick this weekend. So I don't have Starburst for you guys. And I may start coughing terribly throughout this. So just bear with me. I'm going to really try and get through this first, though, before I have a coughing attack. But just be easy on me a little bit-- that's all I ask. 
+
+So our agenda for today-- just a reminder-- your quiz is next week. I told you this last week so it wouldn't catch you off guard. So I'm reminding you again. Next week's your quiz. To that end, next week's section will be much more of-- I'll try and work in some review. So if you guys could help me out by sending me things that you're comfortable with, that you're worried about, topics that you'd like for me to cover, that'd be great. So I can try and work them into our section next week or send you extra material or prep that you might not get elsewhere. 
+
+Yeah! More people are coming! I thought, did I do that badly last week, that no one wants to come back? I'm scared. So the other three things that we're going to go over are redirection, file I/O, and then pointers and dynamic memory. I'm sure you're all super excited about pointers-- everyone's favorite topic, so simple to understand. I'm sure you guys all got that, right? 
+
+So first things first, redirection-- this is basically just a way to control how you input things into your program, how you output things from your program. The main ways that you guys have been interacting with it is just through standard out with your print screen here. But there are ways to pipe-- as we see here is one of our words-- kind of pipe that information or that data into a file from a file. It's just different ways of getting things into your program and out of your program, instead of just printing them to this screen or inputting things from the command line. 
+
+So first one is little greater than caret. So output-- it just prints the output to a file instead of your screen. So if you had something that printed "Hello, world!" to the screen, if you put it instead to output.text, that creates this file called output.text. And when you open it, it'll say "Hello, world!" in there. This can be super useful if you have a ton of errors actually, as we see in this one. If you do two caret, it'll print the error messages. 
+
+So if you're having a problem with compiling, it has a lot of errors and you're getting bogged down in trying to scroll through in your command line through all them, you can just print them to a file, open up that file so that you can scroll through them easier. I actually used that a lot when I was debugging my 181 psets for machine learning. So it can be super useful later on. It's also useful if you have a program that maybe is generating a library or generating some set of strings, and you need to be able to see that it's generating them properly. This is the way to do that. 
+
+So if you print them to a file, you can more easily examine them, right? Versus trying to scroll through your command line. And then one thing to note is that with just the greater than caret, if you are writing to a file that already exists-- so like if we ran this the first time, we put it to output.text, and then we had a second program that printed this as program two and did a greater than to output.text, it will overwrite that-- so overwrite what was ever in that file to begin with. 
+
+So if you want to append to a file, as we see here, you just do two greater than signs. And it will append to it. It won't overwrite it. So if you need to run multiple programs and kind of keep track of what all of them are returning to you in a file, that's a way to do it. If you don't care what's in your file and it's allowed to be overwritten, you can just use a single greater than. Does that make sense to everyone? 
+
+AUDIENCE: Like dot slash hello greater than output dot text, like twice, it'll just only show on output dot text a second time-- 
+
+SPEAKER 1: Right. So it would basically just completely overwrite what was there to begin with. If this file here, the output.text already exists, basically whatever you call that again with a single greater than you can just think of it as like it replaced the file. Like when you're saving a Word document and you do save as, and you keep the same name, and it completely overwrites it-- this is the same sort of thing. Anyone have any questions on just outputting to a file? Awesome. 
+
+So obviously, if you reverse the arrow direction, it can do input. So when you guys had like Caesar or Visioneer and you had to input something, you had a command line argument that actually input it. This is another way to do that. So instead of waiting for a command prompt, like when you asked for your message in Caesar or Visioneer, if you had a text file that had your message, you could just type it into that. 
+
+So if this were like dot slash Caesar 3 less than arrow input text, which is your message, that would run just fine. When your Caesar program actually asked for input from the user, it would already have it because you've typed in this file. That's just another way. Just a reverse of output-- just input for your data. 
+
+And then the last one is pipe. So this one's pretty cool. Because it allows you to take the output of one program and put it as input to another program. I don't know if any of you played with the decipher that CS50 might have given you, but it would allow you to take some sample file, type it into your encryption, and then from there type that into your decryption to make sure it turned out the same. So it's kind of like three-way loop. Go for it. 
+
+AUDIENCE: If a program has multiple inputs, is there a way to tell it which input to use the text file or the output for? 
+
+SPEAKER 1: It has multiple inputs. Whatever file your input-- when it's asking for input that first time, it's going to assume, I think, it's going to pipe in the entire file. So if you have multiple inputs, you're going to be piping in multiple files. So if you're asking for messages three times in your code, you're going to be putting in three different files. And it gets crazy. And you shouldn't have to worry about that right now. But that's the idea. 
+
+So yeah, pipe is just output of one program uses input into the other. Everyone good there? Cool. OK. You probably won't have to do too much with it. But you should understand ways you can use this. And there are some cases that you might want to use it. 
+
+So file I/O-- I know what you're saying-- we're used to reading from and writing to our screen there, which is standard in and standard out. And that's what you guys have been doing since the beginning of class here. But you can also read and write files, which is all file I/O-- so file input, output is all it stands for. So this basically means that you can store your data now. 
+
+When you just print it to the screen, it's basically gone, right? As soon as you make "Hello world" and run "Hello world" it prints "Hello world" to the screen. But you can't really do anything with it from there. If you store in a text file, then suddenly you have this data that you're allowed to manipulate or put it into a file, or put it into a program later. One of the reasons why we do this is just as a way to store data for later use. 
+
+I have a couple of steps here just walking through standard I/O. In step one, you need to create a reference to the file with all caps FILE star file. So that creates a pointer to a file. So then you want to open it. And you say, literally, just file equals fopen. And this is going to return a pointer to the file you just opened. I saw a couple of you guys at office hours. 
+
+But one of the things is remember-- pointers can be some address or null, right? If we ever have a case where something can return null, what do we have to do before we ever use it? We need to check if it's null or not, right? Because some of you may have had the issue where whatever object was being returned in breakout was null. You tried to perform some function on it. And your computer site faulted. Right? I bet a couple of you may have had that issue. 
+
+So with fopen, fopen will either return a pointer to the file, or if something goes wrong, it's going to return null. So you always need to check that it has not returned null before you attempt to do anything else. This is like a standard paradigm that you're going to need here. If there's ever a chance that something could return null, check to make sure it doesn't before you proceed. Otherwise, you're going to get lovely site faults. And no one likes to deal with those. 
+
+So as we see here, the first argument is just the path to the file. If that file doesn't exist, it's going to create that file. And it's just going to be blank. And then the second argument is the mode that you want. Do we want to read from this file? Do you want to write from it? Do you want to append? So actually what I just said-- if the file doesn't exist and you're trying to read from it, it's going to throw an error. If the file name-- like if file.text doesn't exist yet and you want to write to it, it will create a blank file called file.text for you. And if you want to append, you should do the same thing. Does that make sense? If you're trying to read from a file that doesn't exist yet, it'll throw an error. Otherwise, it will create the file for you do what you want to it. Cool. Now we can read from the file. And this is just kind of going through the different functions that we have for file I/O. This will be necessary in this week's pset, if I remember correctly. Yes, it absolutely will be necessary in this week's pset. So fgetc returns the next character. fgets just returns a line of text. It will return anything up to a new line, and it will break. So fread reads a certain number of bytes and places them into an array, which is something you might want to do with re-size-- might be useful. 
+
+How many people have read the pset spec, by the way? OK. [INAUDIBLE] 
+
+SPEAKER 1: OK. All right. Definitely read that-- it's a fun pset. You get to recover a deleted memory card-- really exciting when it works. But definitely, start reading that. Come talk to me if you have questions about it. 
+
+OK, so as I was saying, fread reads a certain number of bytes. That's some arbitrary number that you're going to set. And then fseek just moves to a certain position. So maybe you don't care about the next 10 bytes. You just want to skip ahead. You don't care about those. You want to read starting at byte 11. fseek allows you to do that. So it allows you to be selective about what you're reading. Because fgetc, fgets, and fread read from a certain place in the file. 
+
+A way to think about this is if this is our file, when you first open it, you have this position in file that starts at the beginning. Whenever you call fgetc, fgetf, or fread, it's going to start from this position marker. Let's say you just want to read this chunk of memory over here. You can't just call. You have to seek over here and then read from there or read, gets, or getc, depending on what you want. So seek just allows you to skip portions of memory. And that's the only way you can skip things without reading them into your buffer. Does that make sense to everyone? 
+
+Obviously, there's a lot of parallel here-- our output, or input redirection, you have read and write. So fputc just writes a character into the file. fputs writes a line. Fprintf prints a formatted output. So if you have tabs, or space, or whatnot. And then fwrite writes some array of bytes to a file. So this is the same way fwrite and fread are analogous opposites-- fgets, fputs, and then fputc and fgetc-- lots of crazy, quick things. 
+
+Just kind of keep this handy-- you'll have different times where maybe you just want one character at a time. Maybe you want a whole line. With your dictionary pset-- which is in two psets, I believe, we give you a whole dictionary in a text format which has every word separated by a line. So if you wanted to read in one word at a time, what might you use if you're reading and they're all separated on new lines, and you just want one word at a time? 
+
+AUDIENCE: Fgets 
+
+SPEAKER 1: Right. Fgets-- because that returns whatever is on one line. And if every word is its own line, we can use fgets. Cool. Does that make sense, everyone? Cool? Yeah, we're going to get to the fun part with pointers very soon, where you get to do some math. And it'll be great. 
+
+Last step-- close your file. With so many things here, one of our paradigms is if it can return null, check for null. If you open something, you'd better close it. OK, so you're not done until you're done unless you've closed it. Kind of like it's not over until the fat lady sings. That's like closing your file. As it says here, just to reiterate, always open your file before you're reading or writing to it. And always close it if you've opened it. All right? Cool. 
+
+So here's an example. So tiny-- I don't know if you guys can see that very well. If only we could increase the brightness somehow. Let me actually do this if I can. OK, you guys can't really see that at all, can you? OK, we're going to do this, then. [INAUDIBLE] 
+
+I assume this is much better to see. Can anyone see where my mouse went is the question? Ah, there it is-- what struggles! 
+
+OK. Basically, you guys should have kind of an idea of what this is doing. It's not perfect. But I'd rather explain it than spend more time trying to format it properly. Basically, as you see here, we start with file open. And we have some database file that we are opening that says it's our students. And we're going to write to it. So of course, return null. So we have to check for null. And then if it's not null, we go through. And as you see, we're looping through here. There are students. Students is hash defined as three. And what we're doing is we are printing to the file, right? So what are we printing out to our file? 
+
+AUDIENCE: The scores that are in the array? 
+
+SPEAKER 1: Yeah. The scores that are in the array-- exactly. So we are opening this database file, which I assume is some sort of grades database. And we're just printing out the scores of each student to that file. Cool? Good. Awesome. OK. Let's get back to-- 
+
+AUDIENCE: I have a quick question. Is the printf not in the for loop? That's just in the if loop? SPEAKER 1: No, it's in the for loop. I cannot see my mouse very well up here. So I'm struggling to format that properly. This bracket should be gone. It should be down here. This is what's in your for loop. There. Now it's pretty. So that's how it should be-- except for that last bracket that I dismissed. OK. Does that make sense to everyone? OK. We're going to move on to the next thing then-- which, actually, you're going to need to see the code. So I'm just going to copy that over right now. OK. So I'm going to show you guys this code. And I want you to try and figure out what it's supposed to do. 
+
+So given that-- take a minute or so. Try and figure out what's going on here. 
+
+Any ideas? 
+
+We know that we have at least two arguments in the command line, right? I assume one of which is going to be that [INAUDIBLE] of our program is and then something else. Because if [INAUDIBLE] is less than two, we yell at them. Right? And from the usage, it looks like it's going to be some sort of file. We all agree to that? So now, what's the loop doing? What's it going through? 
+
+AUDIENCE: All the files. SPEAKER 1: Exactly. It's going through all the files that we've input there. So for each file, it's opening up some string there. It's opening up that file. Right? And it's reading from it. Of course, checking if it's null. And then it's printing. If it's null, it's just telling us that that's not a file that exists. Because remember, with read our file has to exist. Right? With write and append, you can get away with it. But with read, our file has to exist. 
+
+And then if it does exist, what are we doing here? Let's just start here. What's this do-- this first character. What does it do? He gets one character, right? So what is this doing? It's getting the first character. Anyone know EOF? 
+
+AUDIENCE: End of file? 
+
+SPEAKER 1: End of file-- exactly. So it's going to go through the entire file, right? And then it's going to update by getting every subsequent character. Right? And what's it doing? AUDIENCE: Putting that in-- 
+
+SPEAKER 1: Putchar prints to your screensaver. [INAUDIBLE] the character. And then when it [INAUDIBLE] this will close the file. 
+
+AUDIENCE: Do you not need an [? else? ?] 
+
+SPEAKER 1: Not necessarily. I mean, it's kind of implied in this. Because this returns, though, as long as this doesn't catch this, you're fine. I mean it's probably good practice to do an else. But an else is not always necessary especially if you have something like a return, which means that in this case if it catches it, your program's going to end and it'll never get to this. It's more for the case where you're not necessarily returning something. Because if this wasn't returning anything, it would mean that if this were true, the rest of this would still run. And in that case, you would want a false. If it's returning, and your program's ending, an else isn't necessary all the time, depending on context. Jacob, did you have a question? AUDIENCE: Yeah. So does fgetc get the next character? How does the character increase? SPEAKER 1: Yeah. So fgetc gets the next character. You can think of it like C++ in a sense. 
+
+AUDIENCE: So what was EOF? 
+
+SPEAKER 1: EOF is end of file. It's just a marker that lets you know that you're at the end of your file. So this is going to print to your standard out. And then it's going to close the file when it's done. And then let's go to the next file, right? So overall, what does this program do? 
+
+[INAUDIBLE] 
+
+SPEAKER 1: Yeah. It just prints out everything there. So if you guys have ever used CAT and then the name of some file-- I don't know if any of you have ever done that on your terminal. But if you ever use the command CAT-- C-A-T-- and then whatever file you have there-- it prints it out to your terminal, which can be super handy for some things. I use it a lot. Does that make sense to everyone? Cool? 
+
+OK so your task now-- either by yourself or with the people around you-- is to just write a simple program that will just write "Hello, world!" out to a file. 
+
+[INAUDIBLE] 
+
+[INAUDIBLE] 
+
+SPEAKER 1: I was like, did I do that badly last week? I didn't think it was that bad. I'm glad you're all here. It really makes me happy. I'm a girl of simple pleasures. I just like when my section attends. So I'm just getting this started for you guys so that we can code together. I don't like putting anyone on the spot unless you want to be. 
+
+AUDIENCE: For the quiz, do we have to write a program? 
+
+SPEAKER 1: You may be asked to write simple programs by hand. Yup. 
+
+AUDIENCE: The quiz is next week, right? 
+
+SPEAKER 1: The quiz is next Wednesday. That means there's a lovely [? CSE ?] grading party afterwards, which means you'll get your scores back that night-- at what time? Who knows? But it will be that night. 
+
+All right. How do we want to start this? I'll give you a hint-- starts with this. 
+
+AUDIENCE: You have to open a file. 
+
+SPEAKER 1: Yeah. So what do you want to call this? Do you just want to call it "file"? Let's make it easy. So fopen-- what's our output test going to be? Call it "Hello." And what is our mode? What are we doing to this file? 
+
+AUDIENCE: Read. Writing. SPEAKER 1: We're writing to it. Lovely. OK, so we have this file now. What do we need to do? AUDIENCE: Check if it's null. SPEAKER 1: Check if it's null-- exactly. That's what I like to hear. That should be automatic, especially pretty much from this point on. If you start segfaulting, you probably didn't check for null somewhere. Nine times out of ten, that's going to be your error. So if you could just get in the habit, always check if it's null, your life's going to be nice and easy-- or easier. 
+
+So check to see if it's null. So if it's not null, which is what the bang equals means-- not null-- it's valid. What do we want to do? We just want to print to that file, right? So what are we going to use? 
+
+AUDIENCE: Fprintf 
+
+SPEAKER 1: Fprintf-- lovely. And fprintf takes two arguments-- where it's going and what we want printed. So what's the first one? Where is it going? 
+
+AUDIENCE: File. 
+
+SPEAKER 1: It's going to file. And what do we want printed? "Hello, world!" All right. We have one last thing-- another big paradigm here. AUDIENCE: Close. SPEAKER 1: Close. There you go. 
+
+AUDIENCE: Is this happening if the file is null? SPEAKER 1: No, this is if it's not null. AUDIENCE: Oh, if it's not-- OK. For the fopen and then the two arguments that go inside, what does the first argument mean again? 
+
+SPEAKER 1: The argument is just like the name of the file that you want to go to. So after this runs, you would have some file called "hello" that had "Hello, world" within it. That's all. Just the name. 
+
+AUDIENCE: And since it's writing, the file doesn't have to already exist. Is that what you said? 
+
+SPEAKER 1: Right. Exactly. If "Hello" as a file doesn't exist yet, it's going to create a file called Hello" and write to it for you. 
+
+AUDIENCE: When you're telling the program to wrote to the file, why do you write "file" instead of the name of the file and fprintf-- 
+
+SPEAKER 1: Because in this case, we have that large FILE-- all in caps-- star, file. So it's a pointer to the file that you're talking about. This is the way that we just refer to it. So in this case, you can think of file-- aha, we can use this-- file here refers to the opening of "Hello" and letting it write. 
+
+AUDIENCE: Could we put a "Hello" instead [? of just ?] f file? SPEAKER 1: No, because "Hello" needs to be open and writeable. File here is like a designator that says OK, we have this file-- hello-- that we're looking at. It has been opened. And we are going to write to it. If you just use "Hello", that is encapsulated in it. So it's going to freak out. I mean, you could have named it. You could have done file, star, "Hello", equals that. But the whole point is that you need a file star pointer in order to be able to use these functions. AUDIENCE: Could you do file, star, file, "Hello" or do you have to put file star, file by it? SPEAKER 1: You could do file, star, "Hello." You can change this to whatever name you want. It's completely arbitrary what that name is. You can name it anything. Name it flying spaghetti, if you wanted. 
+
+AUDIENCE: What is the "w" in quotes for? 
+
+SPEAKER 1: The "w" is just the mode. So we're writing to this file. Everyone good? Clear? Yes. 
+
+AUDIENCE: So when it writes this file, where do we then find that file? 
+
+SPEAKER 1: It'll be in the same directory that you're currently in. If you're in pset three and you run this, within your pset three folder is going to be this file called "Hello." Cool? Everyone good? I feel like you're all getting it, which is great. OK. So back to my slide show-- I love when things work. OK, pointers-- Are you guys excited? Pointers are great. They take a little bit to wrap your head around. This is my second year teaching pointers. And I think I finally got it. So if you struggle, it's OK. As I said before, drawing pictures helps a lot with things in CS, as much as I think people tend to think oh, we're at a computer. We should just code. No-- drawing pictures will really help you. And I really encourage you to tap into your kindergartner side and bring out crayons or markers and draw. Because it will help you. And if you see me at office hours, I will be carrying around stacks of paper with pens drawing things out. 
+
+So especially with pointers-- draw pictures. And I'm sure we're actually going to be drawing some pictures here too. 
+
+So you guys all got to see Binky, this cool claymation thing. And we think it's really funny when he explodes into a bunch of pieces. It's some comic relief for class. C [INAUDIBLE] this great ability to be able to control memory. And it's one of the things that really makes it such a powerful language. But with great power comes great responsibility. And crazy things can happen if you're not careful. So when you're using pointers, you want to make sure you really understand exactly what you're doing. Hopefully the next little bit of time will help you really understand pointers, how to use them, and how to manipulate them. 
+
+So memory-- I'm sure we've seen this diagram before. So this is just a simple diagram of how things might be stored memory. So you basically have these huge arrays of one byte blocks is what we have here-- slight increments by one each time. This is in hex [INAUDIBLE] so eight-bit blocks. And every block is associated with some hexadecimal address. So if you ever see the 0x, that's just notating that it's a hexadecimal address. You can assume this means some address in memory. We're talking about memory addresses whenever you see hexadecimal. 
+
+We have ints are variables, floats are variables that store. So ints store ints. Floats store floats. So we also have pointers that store memory addresses. That's a sort of mapping. Pointers are exclusively for memory addresses. So that's like your type there. Your appliance is 32-bit, which means that your memory address is four bytes. So any pointer that you have is also going to be four bytes. Or else if it's four bytes, memory is four bytes. Pointers store memory. Therefore, they're four bytes. Cool-- just want to reinforce that. 
+
+You should get this comic now. I don't know how many of you are xkcd fans, but I love xkcd. It's great. 
+
+All right. So creating pointers-- as I said, it's pretty much just like anything else. You have a type. You have a name. Right? That's what we have there. [? Hex ?] star means it's a pointer, and then whatever you want to call it. So the type represents what you can store. All right? In the same way that if we do ints, we know we're storing an int there. With a pointer, it holds a memory address. But what it means is that-- here's where a drawing is going to come in handy. So in this case, we have some value-- let's say four. Four is at address one. OK? 
+
+This first one here means that it's a pointer 2x. Right? It's some pointer x. x may be something, whatever. Whatever x is-- say x is four. It's going to store the memory address here. So int, star, x-- this is some other slot in memory-- who knows what this is. But it's going to store an address here. So this would be like-- in this case, Whatever, is stored at 0x1-- whatever is stored at the address that our pointer holds, has to match up with what we've designated. So at 0x1, in this case, this is x. This can only ever be a int while we're using this. 
+
+Similarly, if we have another 1y, whatever address is stored with a y has to be a char-- same thing with z. In the same way, whenever you try and do intx equals 0.4, it's going to yell at you and be like no, you said you wanted an int. This is supposed to be an int. Stop trying to make it a float. 
+
+So let things be what they want to be. Let things be themselves. So big thing is just whatever type of pointer it is, that's the only thing you can store there. OK? With practice, as with last week, everything seems really kind of abstract. We're going to do some practice. It should make more sense. 
+
+So referencing and dereferencing-- it's really important to get these straight. I still have to refresh every now and then. And I'm like wait, which one do I want? So the ampersand will actually give you the reference or address of. So it returns the address in memory of which variable is stored. So it's going to actually return to you a hexadecimal, whereas dereferencing it is actually going to give you the data that is stored there. OK? So we're going to look at an example really fast, or actually up next. 
+
+OK. So we have to think really carefully about this. So here we have some integer x. I'm going to try and draw this out to the best of my abilities. So we're going to have this slot x. And it's storing five. Its address is 0x4. Cool? All good. 
+
+So now we have this pointer. It was over here. And the ampersand gives us the address of something. So, in this case, it's the address of x. What is the address of x? 04-- and this pointer is at 0x08. Cool? So you can think about this pointer, 04, just points over here. And they're called pointers because as we get more into this, you're going to see pointing to things. And one block pointing to another block will make a lot more sense. So here are two. And then we have some copy, which is what-- 0x0c. And it's going to dereference our pointer. 
+
+So what it's saying is OK, here's our pointer. The value it stores is 0x04, And what it's saying is go to this address and tell me what's in it. So that's effectively what this arrow is doing. You can think of this like your star. So OK, when we do star, it means follow. Go to this address. And that's basically just following this arrow to this memory chunk. And give us what's in it, which is 5. It's why our copy is equal to 5. Does that make sense? Does anyone need me to go through that again, or more slowly? You want me to go through it one more time? OK. We're going to redraw it again. When we start, we all agree we have some chunk of memory that's a variable x that we set equal to 5. We don't control where it is in memory. So this spot is just arbitrarily assigned. Good there? OK. Then we initialize a pointer to an int. That's why it's allowed to point to x because we have an int in here. We have another chunk of memory because this pointer is a variable just like anything else. It's arbitrarily assigned some space in memory. And what it stores is the address of x. Ampersand means address of x. So what is the address of x? 
+
+AUDIENCE: It's zero-- SPEAKER 1: 0x04. So then-- last one. We have some copy-- again just another variable. So let's assign some arbitrary place. And we dereference our pointer. The star means go to the address stored in my pointer. Tell me what's there. So the address stored in our pointer is 0x04. So we go to that address. It's pointing to that address. What's inside this memory block? It's a five. So that's what we assign our copy. Everyone good? Cool. Again-- pictures. 
+
+So tracking the values here-- I'm going to let you guys think about this. We can draw another picture. But I want you to try and reason through this on your own for a minute. 
+
+Since they didn't give us an example address, I'm just going to do ampersand x-- which should help drive it home. Ampersand means address. 
+
+So in the first one, everyone go with the first line. Some x set's five-- some random slot in memory. Int star pointer is equal to the address of x, right? Int star pointer creates this block, calls it pointer, and assigns it to the address of x. I'm terrible at ampersands. 
+
+Now what we're doing is we say OK, dereference our pointer. So we go OK, what's in our pointer? It's ampersand x. Go to ampersand x and reassign it. 
+
+So now, ampersand x is going to be 35. So basically, when you're dereferencing, you go OK. You're going to be drawing pictures like this. You're going to be drawing your arrows over where it is. So go to this slot in memory and either give me that value back, or alter it. In this case, because we're at this value, we're assigning it to be 35. Whereas in the last one, if you notice, we were assigning what was in here to something else. 
+
+So they have this awesome table. It's not that bad. You guys work on it. I'm going to draw it out on the board. We're going to fill it out together, OK? So grab some paper, grab a partner, start working. I'm going to get a bigger piece of chalk. Because it's going to be a lot. OK. PROFESSOR: OK. Let's start with the first row. We'll start there, then you guys can maybe work through some more. OK. a equals b times c so what is a? It's not a trick question, I promise. 
+
+STUDENT: 4 times 5. 
+
+PROFESSOR: 4 times 5. 20. So what's b? STUDENT: 4. 
+
+PROFESSOR: And c? STUDENT: 5. PROFESSOR: 5. And then this is just going to be ampersand a, ampersand b, ampersand c, right? Not bad. It's simple enough. OK. So the next one. A equals a times c, in case anyone was unfamiliar with that. Is everyone familiar with the times equals? OK, all this means-- this is shorthand for a equals a times c. You can also do it with division, with addition, with subtraction. You can do a equals, or a plus equals c means a equals a plus c, a minus equal c would be a equals a minus c. It's just syntactic sugar. 
+
+So, in this case, a is equal to a times c would give us what? Again, not a trick question. 
+
+STUDENT: 100. 
+
+PROFESSOR: 100. Does anything else change? No. Maybe I will finally get better at my ampersands. 
+
+STUDENT: OK, sorry, how did you get 100? PROFESSOR: OK. So a is equal to a times c, so a times c. STUDENT: Oh, you're using a for the previous-- PROFESSOR: Yes. So these are our most recent values. These are what you should be using as we move down, OK. So, b is the only thing changing, right? So let's fill in everything else. B. What is b going to be? To be or not to be. So what is this doing? What is the star pa doing? 
+
+STUDENT: Code to the location of pa. 
+
+STUDENT: No, not quite. So this is a d reference. 
+
+STUDENT: So b is handed value of pa. 
+
+PROFESSOR: Yeah, so pa is the address of a, right? So it's saying go to where a is stored and give it that value. So what is b? STUDENT: 100. PROFESSOR: 100. Perfect. OK, so pc is what's changing. Everything else stays the same. What is pc going to be? Simple assignment. Pc is equal to pa, and what is pa? 
+
+STUDENT: Ampersand a. PROFESSOR: Perfect. Now we're getting interesting. OK, let's break this one down. First, what's b times c, because that's the easy part of this one, right? B times c is-- 
+
+STUDENT: 500. 
+
+PROFESSOR: Yeah, so what is this one doing, if it's star pb, what's changing? 
+
+STUDENT: What's in the-- PROFESSOR: What's in b? STUDENT: What's in the space that pb is pointing to. PROFESSOR: And pb is pointing to-- STUDENT: B. PROFESSOR: B. So the only thing changing is b, right. So b times c, 500. So that's what changes now. Cool. Lovely. You guys are doing great. All right, breaking this one down. C is changing, right? So we can fill in everything else. Let's see. OK. We know that c is going to be the product of two numbers, right? What two numbers, though? 
+
+STUDENT: A and c? 
+
+PROFESSOR: So a is right for the first one. So we're d referencing p of a, right? P of a points to a, so we know that this is going to be 100 times what? Times what does pc point to? Points to a. So 100 times 100 is 10,000. Does that makes sense? Cool. Home stretch, guys, last row. OK. What's changing here? 
+
+STUDENT: A. PROFESSOR: A. Perfect, so everything else can stay the same. OK. And what is a? So it's a times what? This is star pb. So star pb means here's pb, pb points to b. 
+
+STUDENT: 500. 
+
+PROFESSOR: 500. So we have 500 times 100. That's 50,000. Whew! Look at that. 
+
+STUDENT: Why do we have the &c for the last-- PROFESSOR: Sorry. STUDENT: Oh, OK. PROFESSOR: My bad. Lots of writing. Everyone good? Not too bad, right? Just takes a little while to work through. If you break it down, understand what each part is referring to-- as with everything it's, yes-- break it down to the little problems and then recombine, and you can do some awesome stuff. There are the answers, but we did that. Pointer arithmetic. Ah. My hands are all chalky. So adding or subtracting int adjusts the pointer by the size of the type of pointer. Remember how every type has a different size? So like a double or a long long is eight and int is four but char is one. 
+
+So what you want to do is-- one thing to remember is just that how much your pointer value actually changes will depend on the type of pointer it is. Everyone good with this? Can I erase it? We're good? Awesome. 
+
+So if we have some pointer that-- this is going to be-- I'm going to make it an int pointer. It stores this. If you were to say pointer plus one, what it's going to do is it's going to update it by the size of an int because that's the type of pointer it is. 
+
+With C, everything is very strict and regulated. The int pointer is going to update by the amount of space an int would take. An int is four bytes. 
+
+So what would this turn into? You're just adding four onto this. Now your pointer would be-- OK. 
+
+So if it was a char and we did pointer plus one, what would it be now? If it started-- pretending we started-- right now it's 0x08. Let's now say that this was a char pointer, and we added one. What would it change to? How many bytes is a char? 
+
+AUDIENCE: One. 
+
+SPEAKER 1: One. AUDIENCE: So 0x09. SPEAKER 1: So it would be nine. So just something to remember. Just when you add one, it's not adding one unless it's a char. It's adding how many bytes the type that it is, which is why we have this equation up here. So it's int times the size of the type of pointer. 
+
+So we have the example here. y was assigned to that value, 0x4, when we did y plus equals one. What's in it, what's in x, doesn't change. What does change is what's in y. The address stored in y updated by four because there are four bytes in an int and it's an int pointer. 
+
+All right. So now we have another exercise. So the question is what will print. Any ideas? 
+
+AUDIENCE: The number of characters in happy cat? SPEAKER 1: Exactly. So like with your string. Does everyone get that? Do we want to walk through it? 
+
+Yes, OK. So what we have here-- I like this so much more. I don't have to [INAUDIBLE] ridiculously. 
+
+So we have our string here, happy cat. Lovely. We have some counter that we're keeping track of. So we have some char* pointer that just is set equal to str. What this is doing is it's assigning some pointer to the beginning of your string. Because I'm sure, as it was mentioned in lecture, we've given you guys this data type called string. 
+
+But really strings are just an array of-- like char*. It's a pointer to a bunch of characters that are contiguous in memory. So this just sets it equal to any string is identified by where its first character is. So this is just setting some point equal to the beginning of the string. Everyone good there? Cool. 
+
+So this is dereferencing our pointer. So it's actually going to give us some value in here, in our string that we're talking about. And we're saying as long as it's not null terminator. So keep going until you get to the end of the string. Update your pointer by one. So r, it will actually update by one each time because this is a char, the char*. 
+
+So it's going to go through. It's going to update. So the first time this runs, it's going to be here at h. It's going to update. 
+
+It'll be an a. It'll be a p, y, and so on and so forth. We'll update counter. When it reaches the end, it just prints how far it's gotten. Yes. 
+
+AUDIENCE: So It counts the space as one, right? OK. 
+
+SPEAKER 1: Think so. Is that a question-- 
+
+AUDIENCE: [INAUDIBLE]. 
+
+SPEAKER 1: No worries. This I do that. All right, so one thing I understand is that with an array, you can also treat it as a pointer because arrays are just continuous spots of memory. 
+
+So you can treat it the same way. You can manipulate them with pointers, too. So instead of doing, in this case, the analogous thing would be array 0 equals 1. 
+
+But in the same way that a string is determined by the start of where its first character is, an array is determined by where its first element is. Because we know, we're guaranteed, that these are going to be continuous blocks of memory. That's what allows us to do this. We know they're continuous blocks of memory. 
+
+So in this case, by dereferencing just array, that tells us, OK, go to the start of your array, which is here. So you can set it equal to one. And in this case, whatever your array type is, when you update it by one, that's just like updating it to the next index. You can do that because you know what's in your array. So it knows how much to update your pointer by, what address to update it to so that you're at the next slot. 
+
+So this is just a different way of writing array 0 equals 1, array 1 equals 2, array bracket 2 equals 3. It's just another way to think about it. Because they are continuous blocks in memory, you can refer to them either by the array notation-- which I personally find easier-- but maybe you need to manipulate it strictly by memory addresses. And this is the way you would do that. Kind of more of like a cool thing you could do versus maybe not something you're actually going to implement. 
+
+I use it in 61. You guys probably don't need to worry about it too much. But if you're interested, take 61 next year. We're in the home stretch guys. I know, it's long. Dynamic Memory Allocation-- so we know that one of things when we talked during our first section together, we looked at a swap function where it was outside the scope of our main function. And we were passing in these values that were effectively copies. 
+
+And once swap finished executing, it just left a stack. Remember, we have a stack frame for swap. It leaves and those values leave with it. And they were gone. We couldn't do anything with them and we were sad because we can't swap our values. 
+
+But with C, as I mentioned, you have a lot of power over memory. So what you can do is you can allocate things on the heap here that will stay there until you tell them otherwise. 
+
+They're like good children. They stay there. They don't leave. They'll stay there until you're like, OK, you can go away. 
+
+Whereas things on the stack, who-- they're like naughty children. They'll just run away when you want to be there and then they're gone. You can't get them back. 
+
+So the heap is-- we're going to talk about malloc and free, which I'm sure you guys heard about in lecture. And that's basically a way to have very persistent data. So you can keep the data around as long as you want. Mhm. 
+
+AUDIENCE: Can you define heap and stack? Are they like places to put things? 
+
+SPEAKER 1: So they're basically just-- they're the way we refer just to memory. So heap is just places where memory is allocated dynamically, whereas stack refers more to stack frames that are more central to the functions that are actually running. You don't really have control. 
+
+The big difference, you have control over the heap if you want to. You have less control over the stack. The stack depends on the functions that are running, and the order in which they are run, and how things are returned. Whereas with the heap, as we'll see, you can say, OK, I want this value to be around until I tell you otherwise. You are not allowed to get rid of it. You're not allowed to override it. You're going to keep it around for as long as I tell you. You get to be the boss in the heap, whereas the stack-- maybe if you like finagle your way you can be the boss. But not quite. And it's really just memory. It's just different ways of referring to memory. 
+
+Cool. So with that, how to control your memory. It's with malloc, which you're going to get to use. So it's just short for memory allocation. That's all it is. There's a bunch of other cool functions that have alloc at the end, and they stand for different things. 
+
+So when you need storage that needs to outlast your current function so that when your current function runs away, you still have the data that you got from it, you want to use malloc. That'll initialize it on the heap. And like I said and keep saying, you'll keep it there until you tell it otherwise, which is the important thing here. 
+
+So one thing to notice, and that's typically really important, is that this sizeof is super useful to use because depending on the type of machine you're running, it may have varying amounts of memory that it takes. So you always want to use size of so that you're not machine dependent, so that your code will run on any machine. 
+
+And that's just part of writing good code. If it works on one machine, but not any of the others, how useful was your program? So you always want to make sure and use sizeof. 
+
+AUDIENCE: So is that like the size of 10 inches [INAUDIBLE]? 
+
+SPEAKER 1: This is the size of 10 ints. yeah. So size of ints will return how much does one int take. Or size of char, how much does one char take. And then how many blocks of that do you want? 
+
+So in this case, we want something that we can store 10 ints to. And it will work regardless of machine, which is cool. So how many bytes will that actually give you? Quick math. 
+
+AUDIENCE: 40. SPEAKER 1: 40. Exactly. So another big thing. Pointer or malloc can return null. 
+
+So again, always check to see if it returned null before you try and do anything with it. If you try and dereference this pointer now, it's just going to segfault because you went and tried to touch null when you shouldn't have. So always check for null. Again, all you can do. 
+
+It might return null. It'll return null if you're either out of space, or for whatever reason it ran into some memory bug. It sometimes just returns null. So you just have to check for it. That's all this slide is saying. And then what we have here is a call to free. So in the same way that if you open a file you must close a file, if you malloc memory, you must you free that memory. And you guys will get to do really cool stuff. 
+
+And there's a program you can run to see if you're ever leaking memory. But you don't want to leak memory. It's really bad. Just mess up things. 
+
+It's bad to do just like programming wise for design efficiency. But it's also just kind of bad for your computer. So just free things when you malloc them. 
+
+You guys see the symmetries here. Super simple. Just free and then whatever your pointer, whatever the name of your pointer is, and it will take care of freeing it for you. Cool. 
+
+Then we have this. So we're just going to walk through this program. And then you guys are done. 
+
+So [INAUDIBLE] just main. So we have some int* pointer. So we have a pointer that's going to hold ints. And how many ints is it going to hold? Just one. Size of an int. 
+
+We check to see if pointer is null because it is, we want to say don't do anything. It's bad. So we print some error out of memory, most often return 1, as you guys are used to. 
+
+And then we have here, we dereference our pointer. So that means we're going to store something at the location given to us. Int* pointer, or malloc, returns the address of where it set aside this memory for you. So it's basically giving you like-- if you think about a bunch of houses in a neighborhood that you want to put your furniture in, malloc is like OK, you get to go to house three. And it gives you the address of house three. 
+
+So this right now, this pointer stores an address, stores the address of your house. *ptr means, OK, I'm at my house. Cool. I need to get some integer. 
+
+So you're asking for someone to give you furniture now. So you get some int. And it puts it in your pointer where it's pointing to. 
+
+And then it just prints out, you entered wherever. And again, the reference. So this is like you went to this address and you saw what was there. Cool? 
+
+And then of course we free our pointer. Don't forget to free your pointer. Don't forget to check for null. Don't forget to free your pointer. You have two things you remember from this, or that you should remember. Yes. AUDIENCE: [INAUDIBLE] stuff like that, the char*s. How come we never free those? 
+
+SPEAKER 1: Hm? 
+
+AUDIENCE: Are those like strings? You said strings are just like char*s, right? So why don't we free strings? 
+
+SPEAKER 1: You only to free if you're mallocing. AUDIENCE: Oh, if you're mallocing. SPEAKER 1: So malloc and free are two things that you should always have together. f open, f close, two things you should have together. In both those cases, check for null. Yes. 
+
+AUDIENCE: So free is just allowing something else to be stored there after this program has used it? 
+
+SPEAKER 1: It's just saying, OK, I'm done with this. You don't need to keep it around. Otherwise your computer will just like try and keep it there. And then you can't-- it runs into memory issues later. You always want to free it because it tells your computer, OK, I'm done with this spot of memory. You can have it back for me to use later. Cool? Yes. 
+
+AUDIENCE: So we used the %d just because a double that's coming back, or why is-- [INAUDIBLE]. 
+
+AUDIENCE: Can you use %i? 
+
+SPEAKER 1: You can use %i. Any last minute questions? Go ahead. AUDIENCE: I just have a quick question. So the ptr variable, that's-- like, with the int* ptr = malloc, that's just saying it's pointing to a place in memory-- SPEAKER 1: Do you want [INAUDIBLE]? AUDIENCE: --that's the size of-- no, it's OK. But it's just pointing to a place in memory that's just like four bytes. SPEAKER 1: Right. So malloc the size of int says, OK, I'm going to go run off, find four bytes of memory for you. When it finds that four bytes of memory, it gives you back the address of where it starts, and that's what stored in pointer, or ptr. Good. You guys look less confused than most people when I talk about pointer, so I'm feeling pretty good right now. 
+
+All right. As always, you guys should have all gotten your pset2 grades by now. I know there have been some wonky things where it says, formula not valid or something. If you're getting that, all of your grades are valid on my side. So I can send you screenshots of your grades. Just let me know as well if you're missing any grades or something doesn't seem to make sense. Come to me. 
+
+I've been super proud of you guys already, so keep it up. And have a good rest of your week. I'm sure I'll see some of you at office hours. 
