@@ -1,0 +1,303 @@
+ALLISON BUCHHOLTZ-AU: Hey, everyone. Welcome to section. Today is just going to be all quiz review for your quiz on Wednesday. I hope everyone remembers that they have a quiz on Wednesday. And if you didn't, well, now you've been reminded. So Wednesday make sure you show up for class or other accommodations as necessary. You guys are going to be awesome. It's going to be great. And I'm going to do everything I can to help prepare you today for your quiz now. And also in case you don't know, there is a course wide review session today at 7 o'clock in Northwest labs room B103. You can see me again for an encore as I will lead part of that review session also. So if you can't get enough of me now, you can come again tonight. All right, so first things first. Just some quiz tips before we actually dive in to reviews. So as with any exam, practice will definitely help you out. There are exams from the past six or seven years on there, so that's a lot of practice material for you guys to have. And in fact, today is really just going to be going over any topics that you guys have questions on as well as working through practice problems from quiz zero. So I'll throw up quiz zero from last year on here, and we can work through any problems that you guys would like to. 
+
+So practicing. You're going to start doing that today. Code on paper. So yeah, if everyone could actually get out paper, that'll be great, because you're not going to have your computer on the exam and writing out code by hand is often much more difficult than you might expect. You're used to just seeing it and typing it, and you have your compiler to help you out when you have errors, but you don't get that on the exam. So it's really important to actually be able to write out the code, and that muscle memory of doing it by hand will really help you. 
+
+So we're getting a little close. It's Monday. Your exam is on Wednesday. But if you have time, definitely take one of the exams from last year or the year before under the time constraint of an hour and a half. Just knock out an hour and a half of time, and sit yourself down, and just work through the problems as if you were actually taking it, because one of the biggest things that we hear about the quizzes is that they are very long. It is a lot of material. There are a lot of questions, and most people may not finish. I know that I totally did not finish my quizzes when I took the class. 
+
+On that note, as a less comfortable section, understand that this course is meant to cater for people of all levels. The whole reason we have you split less comfortable, somewhere between, and more comfortable is to kind of make it more fair. And if you are less comfortable, it's not necessary per se to get everything. Like if you were getting everything, you would probably be in the more comfortable section. So obviously don't beat yourselves up too hard if you can't finish the exam. Take it from me, I didn't do it. I'm still a concentrator. I'm still helping teach the course. You'll be fine. All right. And lastly, get some sleep. Obviously with any exam we always say this. Cramming the night before and not getting any sleep does not-- maybe if that works for you, go for it. But for the vast majority of people, getting some sleep, letting your brain rest and recover before coming in for the exam will really help you. Also there will almost surely be candy at the exam, so you have to look forward to. You guys are going to do great. It's going to be fine. And now in the next hour and a half I will try and prep you as best as I can. 
+
+So I have slides from basically all sections up to now. I'm not going to go through all of them because that is not feasible in an hour and a half as well as working through practice problems. So instead I have a list of topics. These are all the things that we could quiz you on. If there's anything that really jumps out that you want to go over, that you want me to go over conceptually, I can try and give you an overview there. Or if you want to jump right in to doing practice problems together, we can do that. It's up to you guys. There aren't that many of you. So it's whatever you guys like to do. I want to be the most helpful toward you guys. So I'll let you just look. 
+
+AUDIENCE: One thing is the chart that we keep saying about the stack and the heap. Just the whole idea behind that and what that means. ALLISON BUCHHOLTZ-AU: Yeah, OK. This is all the way at the end, so let me scroll through. 
+
+AUDIENCE: We don't have to do it now, but whatever. 
+
+ALLISON BUCHHOLTZ-AU: Was there anything-- this one. Is this kind of fuzzy for people? AUDIENCE: Yeah, I second that. And can we also do buffer overflow? ALLISON BUCHHOLTZ-AU: Buffer overflow? OK. So buffer overflow is pretty easy just to talk about. It's basically buffers you think about some array memory that you have, right? We typically talk about buffer overflow when you're not checking how much the user is putting in, right? And the idea being with buffer overflow is they are putting in far too much data for the space that you've allotted for them, right? 
+
+So if you say, give me some message, we're assuming that they're going to give us a reasonable length message. Maybe a couple lines, whatnot. So we don't check. Instead they feed us in an entire book that's a message, and it overflows the amount of space that we've allocated for this. And what happens is it might overwrite places that it's not supposed. 
+
+So I know Professor Malan said something about buffer overflow attacks. So that's where the user will input some massive amount of data in the hopes that he overwrites past the end of your buffer and replaces something-- I wonder I we have those slides in here. I don't think we have those slides in here. But basically he overwrites some portion of memory that allows him access to parts of your computer that you wouldn't normally have access to. 
+
+Biggest thing with buffer overflow is just to understand that it happens when you aren't checking how much your user is putting in. When you aren't kind of safeguarding against that. And at its simplest thing, it's just your user inputting a massive amount of data in an attempt to overwrite some security portion of your memory. That's all it is. 
+
+So this here, stack and heap. Basically all this is is just a representation of memory and where things are stored. That's really kind of all you need to know. The biggest things that you need to know are that-- let me see if there's a better-- here. So this is the stack here. 
+
+So stack has to do with all of your functions that you're calling at any given time. And what's important to remember going off of last week with malloc is that you don't really have necessary control over it. It all depends on when certain functions are executing. And when they are executing, they have what are called stack frames that go up here. 
+
+So it all kind of happens without any real input from you. You write your program, and you let it run, and the stack kind of takes care of itself as it needs to. So if in main you're calling cube, that will be passed up here. It'll create a frame. But there's nothing you explicitly do to create that stack frame other than write the function to begin with, OK? 
+
+What is kind of under your control is the heap with malloc. So whenever you malloc something, you are taking memory from the heap. And that is memory that you have, for lack of a better word, explicit control over, because remember with malloc it's basically there until you say otherwise. For those of you who watched section last week, it's there until you tell it to go away. It will be there unless otherwise told not. So the heap is just something you can think of as memory that you have control over. And those are just the two different big things. 
+
+Other than that, you shouldn't have to worry too much about stack and heap questions or typically more just if you have local parameters or a function would it be on the stack or the heap. Obviously in this case it would be the stack. If you're mallocing something, where is that coming from? The heap. If you look at practice quizzes, those are generally the type of questions that they have. 
+
+You don't have to worry too much about it. You get into more explicitly about stack and heap later on or in other CS classes. So just having kind of a general idea of what this is will be good, which I just kind of went over. Any other topics? Yes? 
+
+AUDIENCE: Can you go over pointers again really quickly? ALLISON BUCHHOLTZ-AU: Pointers? Do you want conceptual overview of pointers or do you practice with pointers? AUDIENCE: Kind of like the syntax. ALLISON BUCHHOLTZ-AU: The syntax? Yeah. OK, we're getting there. Yeah, so this is just kind of something when you have a recursive function, every time that recursive function is called, it just adds other stack frame. Pretty much an example of how you don't really have control over the frames on your stack. 
+
+OK, pointers. All right, so creating pointers. Remember, it's just type star. So whatever type of data that you're going to be pointing to. So this would be a pointer to an int. This would be a pointer to a char. This would be a pointer to a float. So it's basically whatever you want it to be pointing to, star is how you declare the pointer, OK? 
+
+But then obviously gets a little tricky when you have pointer or you have star whatever. So the big difference is when you're declaring-- so we have some-- so this takes some int star. So this is some pointer calls x to an int, right? So remember what this does is this calls the system x. And this is going to have some address, right? So let's just say this is our address. Pointers hold addresses. So what this says is that at this location, we are storing an int. 
+
+So another way we can think of this is that this is some int. We haven't really assigned it to anything yet, but it's just an int. So we can do is if we do star x equals 5, this becomes a 5, OK? This says go to whatever x is pointing at, so go to this address and make it equal to 5. So we assign 5 to this address, right? 
+
+And then if you do this, this gives us the address of. This is the address of operator. So what is the address of x? We don't know. We haven't assigned it an address. We could say it's some-- now we gave it an address, so the address is 4. And actually if we go through something like this, kind of what we did. So working through here-- I find it helps if you draw out pointers. If you're on your exam, I highly recommend drawing boxes. 
+
+So this first one, int x equals 5. This just means we have some place in memory that is 5, right? And our table here tells us that it's at address 0x04. And then we create some pointer. So let's break this down one at a time. So this creates some box to an int, right? It's going to hold some address of an it. So this is some pointer. And this chalk is really small. So we have some pointer here. And our table tells us that is address is 0x08. Cool. And we are assigning it to the address of x. 
+
+Remember, pointers hold addresses, OK? So if we want to hold x, we have to use the address operator, which is the ampersand, to get the address of x, which in this case, 0x04. And then if we have some int copy, this just creates some other box that holds an int called copy. And if we assign it to this-- so this is referencing it. So it says go to whatever address pointer holds. Pointer holds this address, so we'd go over here, and we say, OK, what's in it? It's 5. So copy becomes 5. Make sense? 
+
+What if I tried to assign this to just pointer. What does pointer actually equal? It would just be whatever pointer contains, right? And then what if I did this? What would copy be now? 
+
+AUDIENCE: 0x08. ALLISON BUCHHOLTZ-AU: Yep, the address of our pointer. Any part of that that needs to be re-explained? Cool. There is definitely a very fun problem on quiz one that we can over that gives you more practice. The guys from last week can tell you it wasn't that bad. We got through an entire chart, and everyone did great. 
+
+OK, so that's overview of syntax of pointers. Biggest thing is understanding how to create them, do referencing, and address of, OK? Cool. Any other topics before we dive into practice. Also if we're going through the practice problems and there's something you want a refresher on, we can do that too. Do you have something? 
+
+AUDIENCE: Structs and linked lists. ALLISON BUCHHOLTZ-AU: Structs and linked lists, OK. So structs. We actually are going over this tonight too. OK, so structs. Structs are basically just a way for you to hold multiple values of different types. So with an array we are constricted to one data type. Our array either has to just be numbers, or just be chars, or just be floats. 
+
+But maybe you need to contain more than that. Maybe you need to hold-- if you're talking about a student, you're going to have their house, their ID number, their age, where they live, right? And all of those are different sorts of types. So you can't store those all in an array. 
+
+So what you can do is you can create a struct, which you can think of as your own personal data type. So instead of just having ints and instead of just having floats, you can have a type student that has all of these fields in it. So the way we initialize our structs is-- actually since my writing is terrible, we are going to transition to typing. Woo. 
+
+OK, so if we want to create a struct-- I'm just going to it down here. Disregard the in main whatever which we will use later. So the way you want to do it is with typedef struct. And let's just call this student because that's what I was using. OK, so typedef means you're defining a new type, OK? There are nuances into when you do just a struct versus a typedef struct. For all intents and purposes, you guys are just going to assume they're approximately the same and just use typedef struct for now. It'll become way more apparent in your next P set what those differences are, but I don't think you need to worry about that right now. I would much rather you know how to create one, access it, and assign [? value. ?] 
+
+A new type of struct, and we are calling it student. So after we're done creating this, for all intents and purposes, you will have a type called student. And you can think of it just as a type like an int, or a float, or a char. It's just another type, OK? 
+
+So in this one, what do we have? We have maybe a name. So maybe we want a string name. And we have maybe an int that's an ID. And we have another in that's phone number. And we have some-- let's see. What else might we have? We'll have some string at his house. All things that a student has. 
+
+So this creates a struct now. So how might we create a student? If we have some variable that is going to talk about Walker here, so we have-- we're just going to call this walker. He needs a type. What's your type? AUDIENCE: Student. ALLISON BUCHHOLTZ-AU: Student. So this just creates an object you can think of that has all these things. You just created a walker student. So now we need to be able to assign all these, right? So does anyone remember how we access within a struct? AUDIENCE: Period. ALLISON BUCHHOLTZ-AU: Period Exactly. So if we wanted to assign him a name, we could do that. Obviously this would be-- this part here would be within main, so actually let me do this. Declare this above main so that we can use it within main. So now I want it to do ID, and we'll just do some there, and then we'll assign a house. Bam. Cool. 
+
+So now should we ever need to access anything later on-- maybe we-- if we ever need to access anything, let's just do an int copy ID. And I want to copy Walker's ID into this. How might I do it? You need to access within the walker struct to [? go to that ?] [? E ?]. And the same way that we assigned it up here, how might we access it when we want to give that value to something else? AUDIENCE: Walker.id. ALLISON BUCHHOLTZ-AU: Yeah, exactly. So that's pretty much all you need to know for structs. You just need to think of them as another variable. Basically a create your own variable type, OK? You use it to declare variables in any way. Here walker is still a variable. It just has a type student now instead of a type int, or a type string, or a type char. If there was an easy way to talk about structs, it is literally just a create your own data type that allows you to group all these different kind of data together. Does that makes sense? OK. That and accessing with dots. Pretty much all you need. 
+
+OK, where did my PowerPoint go? Here it is. Well this is weird. Aha. OK, cool. Any other things or do we want to head to practice? Practice? OK. Awesome. I'm going to exit this. If at any point during practice questions, I'm happy to revamp and go through things. So I have quiz zero up here. If you guys want to pull it up on your computer, just like take five minutes to browse through. Maybe choose some top questions you want to go over. If you guys can't decide, we'll just slowly start working through them, but I'm sure there are going to be some questions that you are particularly eager to talk about and have me work through with you all. So just go ahead and take five minutes. Scroll through. And this is the quiz from 2013. 
+
+AUDIENCE: Zero? 
+
+ALLISON BUCHHOLTZ-AU: Yeah, quiz zero. We're not doing quiz one stuff. We'll do that in a couple weeks. Also for those of you who came in late, we have candy, so do you guys want candy? 
+
+AUDIENCE: Sure. 
+
+ALLISON BUCHHOLTZ-AU: I'm just going to pass around. Hey, if you guys get here early, you get more candy. That's fine. Ben, do you want candy? You want some of these? There's also Snickers if anyone wants Snickers. I'll leave them here and here. Feel free. Do you want anymore? AUDIENCE: All set. Thank you. 
+
+ALLISON BUCHHOLTZ-AU: And I had a nice little pile there at the beginning. You guys get to take the quiz and I get to have a quiz grading party. It's chaos. 900 exams. It's going to be so much fun. Going to be great. I'm pretty sure that's one of the biggest staff bonding nights of the year. Has anyone done quiz zero from last year yet out of curiosity? 
+
+AUDIENCE: Parts of it. 
+
+ALLISON BUCHHOLTZ-AU: Parts of it, OK. Did you have questions on any of them? AUDIENCE: I already went to office hours. Thank you though. ALLISON BUCHHOLTZ-AU: Well, hopefully it's still kind of helpful. When did you go to office hours for that? AUDIENCE: My TF had them this afternoon. ALLISON BUCHHOLTZ-AU: Oh. Who's your TF? AUDIENCE: Fred [? Wujaya ?]. ALLISON BUCHHOLTZ-AU: There are so many TFs. So many. All right. Anyone have any to start that I can jot down that we want to work on? I assume the pointers one with the table. Go for it. 
+
+AUDIENCE: Maybe the switch one. ALLISON BUCHHOLTZ-AU: So number 12? I assume number 8 and 9 are probably ones people want to go over. 
+
+AUDIENCE: And 10 and 11. 
+
+ALLISON BUCHHOLTZ-AU: And you guys know you get one page of notes, right? 
+
+AUDIENCE: Yeah, so what are we allowed to put on that. 
+
+ALLISON BUCHHOLTZ-AU: You're allowed to put anything you want. And it can be typed. As far as I remember, ours were typed. 
+
+AUDIENCE: You can do back and both sides? 
+
+ALLISON BUCHHOLTZ-AU: Yeah, both sides. So something like the heap and [? back end ?] heap, your running times. Useful. Maybe little things about pointers to remind you. Syntax for things. Having just like a skeleton program can be super useful. I know that I always forgot exactly what I was supposed to write for int main, because I always just copy paste from my previous P set or it's already there, so I never really wrote it, so having that can be super useful. 
+
+OK, so why don't we start with number 8 then? All right. OK. So consider the program below. So obviously when we see pointers, it's probably a good idea to start drawing, right? I want to know where all my big pieces of chalk went. This is kind of annoying. 
+
+So we have here some swap function that's going to take in two pointers. So in this case, they should actually be switching things versus our original swap function that only took in copies. So what it's going to do is-- let's start with main, because that's where 1 is. 
+
+So we have some int x 1. We have some y that's equal to 2. And then we have some swap that's going to take those. And let's see what do we have here. And in our table-- oh boy. How am I going to do this? I'm going to draw my table over here. Barely making it there. Barely making it. 1, 2, 3, 4, 5, 6, 7. And they give us that 1 is 1, and 1 2. Cool. Awesome. So 3. And there's [? a 1. ?] 
+
+All right. And then address of x is 0x123. And y is Ox127. Cool. All right. I want you guys work on this for just like-- work on it with the people around you. I wish I had said that while I was setting up. Work on it. Try and work on it by yourselves for a couple minutes, and then I will work on it with you. Because the only way you're really going to learn is by doing it yourself. No worries. Good luck. 
+
+OK, why don't we slowly start working through this. So everyone gets after line one, x is 1. After line two, x and y are 1 and 2, right? Cool. So line three is where things get interesting of course. 
+
+So what we've done here is we have now swapped. We say that x and y have those points, or they have the address of x and y, right? So in this case, three, what is the value of a? a had been passed in, has been given the value of the address of x, right? 
+
+AUDIENCE: 1? 
+
+ALLISON BUCHHOLTZ-AU: So we add it to the x? What's x's address? 
+
+AUDIENCE: 0x123. 
+
+ALLISON BUCHHOLTZ-AU: Exactly. But what is a actually pointing to? If we were to dereference a, what value would it give us. AUDIENCE: 1. ALLISON BUCHHOLTZ-AU: It would give us 1, because what we're saying is go to this address, tell us what the value is. So what would be b? 
+
+AUDIENCE: 0x127. ALLISON BUCHHOLTZ-AU: Exactly. So it's the address of y. And then what [? dereference? ?] AUDIENCE: 2. ALLISON BUCHHOLTZ-AU: OK, so now four. We said a is equal-- well now we've done int temp is equal to star of a. So what changes? There's only one thing that changes here. What is it? 
+
+AUDIENCE: Temp. ALLISON BUCHHOLTZ-AU: The temp. So we can rewrite all of these. A good strategy for these is just figuring out what changes, because most often there's only one thing that's going to change at any given point, OK? So we've assigned temp. 
+
+Now our next point, five, we have made star a equal to star b. So what changes now? 
+
+AUDIENCE: Star a. 
+
+ALLISON BUCHHOLTZ-AU: Star a, so everything else stays the same. And what does star a equal? 
+
+AUDIENCE: 2. ALLISON BUCHHOLTZ-AU: 2. Lovely. Awesome. OK, and then now we have start b is equal to temp. So the only thing changing is star b. Everything else stays the same. And what is star b equal to now? And you've completed the table. Because now at the end, if we say x and y, we know that at this point-- we know that when we changed star a to 2, what that did is it said OK, at address 0x123 here, change it. Now this was 2. And then at this point, we said OK, go to star b. So go to the address at 0x127 and make it a 1. So now at the very end when we actually return for main, we actually have that x is equal to 2 and y is equal to 1. Everyone good with that? OK, cool. Number 9. You guys work on this. I'm going to set up a board so we can draw through it. It'll be a blast. The big tables can be really scary, I know. But if you just take them one row at a time, they get a lot less scary. All right. 
+
+So you know that this will have gone through main first, right? Initializes x and y and then tries to swap them. So even swap is above, real way it goes is that we're going through main, and then it's calling up to swap, all right? So everyone knows that. 
+
+So which one do you guys want to start with? Is anyone really sure about one of these? Or even partially sure? Why don't we start with x? What do we think x is? 
+
+AUDIENCE: 1. ALLISON BUCHHOLTZ-AU: 1. So then why is 2. And that's because the big distinction here is that we are only passing copies in, right? We're not passing by reference. So even at the end of this program x and y have stayed the same, because they are just copies in the swap function. They don't actually change, right? 
+
+So what about a, b, and temp? 
+
+AUDIENCE: a is b. 
+
+ALLISON BUCHHOLTZ-AU: a is b. So in this case, a was x, which is 1, right? So here, let's walk through it. So at the beginning, a and b are 1 and 2 and undefined. So originally temp gets assigned to a, so temp is 1. a is equal to b, So we get 2, and b is equal to temp. Now we get 1. 
+
+AUDIENCE: In the previous one it swapped ampersand x and ampersand y. What exactly does that mean? ALLISON BUCHHOLTZ-AU: So that means that you're passing by reference. So that means you're actually passing in the addresses of where x and y are stored. AUDIENCE: But you're not swapping the address. ALLISON BUCHHOLTZ-AU: You're not swapping the addresses. You're swapping what's within them. Like what's at that address, and that's why it works. Versus in this program here what you're doing is you're creating copies. So you have x and y that exist as their own variables out here. But then when you pass them into swap, it's as if you're creating this whole other set. So you're never actually touching x and y. 
+
+AUDIENCE: If ampersand x is what is at the address of x, what would star x be? 
+
+ALLISON BUCHHOLTZ-AU: Ampersand x is what's at the address of x, then star-- well, in this case, x is not a pointer. AUDIENCE: Oh, OK. So you only do this because it's not a pointer. ALLISON BUCHHOLTZ-AU: Right. You can only do star of something that's a pointer. Maybe you could do it to things that aren't, but the compile that you do that crazy things would happen. And I'm not exactly sure what would happen. You can always take the address of something, but you can't dereference something that's not a pointer. If that makes sense, that's a good distinction to have. 
+
+So not too bad, right? The tables are hopefully getting slightly less scary. All right. Ah, the fun ones. So now, writing your own code. So I'm going to let you guys work on this for about four minutes, and then we can talk about ways to approach it. Feel free to talk to people around you. Also this is interesting. It's like an all girls section right now. Pretty exciting. Except for Chang. But Chang is not really part of section. Awesome. Perfect. So I will give you a couple hints. In the case where you have more than one character, where you have something else like 123 or 1000 something, you need to be able to loop through and convert each of those. So there's a couple ways you could do that, but you're definitely going to have a for loop somewhere in there to loop through them, which is kind of like the giveaway with even if you call strlen, which is kind of like oh maybe you want to use the length of the string in some way. 
+
+All right. So what do you guys think might be one of the first things we want to do? There's a couple cases in here we need to account for, right? Either we have something that's null. What do we have? Cases. Null. We have the case that it has something other than 09, right? So let's say it has letters. Or we have the case that's valid. Three cases to think of. So which one do you think might be the easiest one to take care of first? AUDIENCE: Null. ALLISON BUCHHOLTZ-AU: The case is null. So what would we do there? AUDIENCE: [INAUDIBLE]. ALLISON BUCHHOLTZ-AU: Yeah. And what do I want to do? 
+
+AUDIENCE: Return 0. 
+
+ALLISON BUCHHOLTZ-AU: Exactly. Awesome. OK. So now case that it has letters and the case that it's valid. We can actually take care of this within one loop, OK? So one way to do it-- what might be a simple way to check if it's valid. We would have to go through each letter and do what? 
+
+AUDIENCE: Check if it's in-- 
+
+ALLISON BUCHHOLTZ-AU: Right, you can check if it's between 0 and 9, right? And then in the case that it's valid, we're going to end up iterating through our string anyways, right? So why don't we try and combine them into one. We're going to iterate through out string, and as we do that, we're going to first do a check to see if that letter or if that character is valid. If it is, we're going to perform the operation that we need to convert it. Otherwise it'll return 0, right? 
+
+So before we do that, we probably want some variable that we can return at the end that's going to be our actual value. So we're going to initialize some value to be 0. And that's just how we start. So I'm going to get rid of this. So how are we going to iterate through this string. AUDIENCE: For loop. ALLISON BUCHHOLTZ-AU: A for loop. So what's our for? 
+
+AUDIENCE: i is 0. ALLISON BUCHHOLTZ-AU: Mm-hm. And what are we iterating until? 
+
+AUDIENCE: str length of s. 
+
+ALLISON BUCHHOLTZ-AU: OK, now remember there's a better way. [INAUDIBLE]. 
+
+AUDIENCE: Yeah, we can do n equals. ALLISON BUCHHOLTZ-AU: Exactly. 
+
+AUDIENCE: i is less than n. ALLISON BUCHHOLTZ-AU: And why would we want to do that? Do you remember the reason? AUDIENCE: We have to recalculate it. ALLISON BUCHHOLTZ-AU: Becasue this way you only have to calculate strlen once. If you do i is less than strlen s, that's means it recalculates the length every time you run the for loop, which isn't a huge cost of energy, but it's better practice to try and do things like that once. Unless maybe you have a crazy string that's changing at every iteration. But if it's staying the same, save it. All right. And then i plus plus. Awesome. We are on our way. AUDIENCE: Really quickly. First, so let's say we just did i less than strlen of s, are they grading us on design at all or just correctness? They're not. We are grading on correctness for quizzes as far as I know. I cannot make a full on guarantee, but for the most part, vast majority is correctness, because you're under a lot of time constraint. Design typically means you have time to think about the elegance of your situation. 
+
+OK, so we're iterating through. So we need to either check to see if this character is valid or if we can perform our normal [? a to i ?] function. We can worry about what that is in a second. So why don't we take-- if anyone can think about a way to check to see if this is valid. We know it's going to be some if condition, right? And remember this is in ASCII, so how might we see if it's not 0,1, 2, 3, 4, 5, 6, 7, 8, or 9. AUDIENCE: If alpha. 
+
+ALLISON BUCHHOLTZ-AU: So if alpha would only let us know if it's a letter. And if they give us a symbol, it's still not quite going to check. So if you pull up your ASCII table, we know that 0 through 9 are in one segment. Tell me the numbers that they correspond to if possible. AUDIENCE: 40. 
+
+ALLISON BUCHHOLTZ-AU: So the range is like 40-- AUDIENCE: Maybe. 48 to 57. I'm not sure. 
+
+ALLISON BUCHHOLTZ-AU: 40 to 57? 
+
+AUDIENCE: 48, I think. ALLISON BUCHHOLTZ-AU: 48 to 57. So we know that those ASCII symbols-- if the ASCII value is not between 48 and 57, it's not valid, right? So could we use that to our advantage possibly? How are we going to get this letter, first off? How are we accessing this this character? 
+
+AUDIENCE: s bracket i. 
+
+ALLISON BUCHHOLTZ-AU: Mm-hm. Because we can think of strings as arrays, remember. So what do we want to say? We want to say if this is-- I'll give you a hint. It's a less than. What to you think it needs to be less than? AUDIENCE: 57? 
+
+ALLISON BUCHHOLTZ-AU: 47, right? But it also represents that as you a 0 in single [? spokes ?], because that's the character 0. You could also put 47. Having the ASCII table, as you see, is just something you should have on your quiz sheet. 
+
+So if this is the case, if it's a less than 0-- not necessarily and. It's only either going to be less than or greater than 9. So can you fill out this last for me? So or s of i is what, Rhea? 
+
+AUDIENCE: Greater than 9. 
+
+ALLISON BUCHHOLTZ-AU: There. Does that make sense to everyone, how we got there? These problems, they're like once you see the solutions, it's like oh, OK. And this is why practice will help you. OK, so we return 0. Lovely. All right. Otherwise what do we want to do? This is the interesting part where it's a little more like math versus CS in my opinion. Does anyone have an idea of how we might do this? So the important thing to realize is the first character we're taking is going to be the highest order digit, right? So if we're looking at converting 123, the first time we iterate is going to be 1, but we need that to be 100 by the end, right? So one thing you can do is that with every subsequent digit you take, you multiply your value by 10, so that by the time you reach the end, everything has been shifted upwards, right? 
+
+So the first time you run it, you have 1 as your value. Second time you run it, you multiply your value by 10. It will update it so that it's now 10, and you add on your next value. And then you multiply that by 10 and add on your next value. And this is why they say this is much more like testing a math algorithm versus CS, but I digress. I don't write the quizzes. 
+
+So one thing we can do is we say value times equals 10. So this is going to shift your digit once every time. And then we just want to add. We want to add in what we just got, right? So how do we actually convert our ASCII character into the number that it represents? 
+
+So we know that 0 is equal to 47, right? So if 0 is 47, what would we have to do to it to actually make it be an int of 0? 
+
+AUDIENCE: It's 48. ALLISON BUCHHOLTZ-AU: 48? Sorry. We would subtract 48, right? Remember ASCII math? We can treat them just like normal numbers. If you treat them like numbers, they become numbers effectively. So if we have s of i, which let's say in this case is equal to 0. So s of i in this case would be the ASCII-- the ASCII int for it would be 47. So we could subtract-- or 48. You could do that, is one way. Does anyone know a better way we could do 48? We just said 0 is-- go into the ASCII you could do quote 0. So does it kind of make sense how this works? 
+
+AUDIENCE: At this point, is the value 0 because even if you multiply it by 10, you're starting out with zero, so should it be switched? 
+
+ALLISON BUCHHOLTZ-AU: So in this case, you want to multiply it before you add, because in this case, yes, it would still be-- my pointer is missing. The value in this case, the first time we run it will be zero. So you're just adding on that first digit. What's important is the next time you iterate, you want to shift it up before you add your next digit on. Does that clarify for you? OK. 
+
+Sometimes you're going to get weird more mathy things. If you had most of this, you're still going to get-- you're going to do pretty well. Partial credit is a very big thing on CS50 quizzes. So write what you know. If you got everything except for here, you're still going to do really well the problem. Because you're showing, OK, I almost know. I know that I need to iterate through. I know what I need to check for. I just don't quite get how to convert it. You're going to be OK. Yes, you're going to lose a couple points, but you're still going to get a good number of points for something like that if you're missing these two lines. I would be like OK, this person knows what they're doing. Math is hard. So I would say you'd be fine. 
+
+OK, so you guys ready to try strlen with pointers now that you guys are pointer masters? So I'll let you guys work on that for a little bit. If anyone needs a refresher. So you want to use pointer arithmetic, and then if s is null, your implementation should return 0. Things like this that make you really happy to just call strlen at the end of the day. I think this one might be a little easier than the last one, which is good. I'll give you guys another minute, and then we'll work through it. And then we get to go to switches. 
+
+OK, ready guys? Maybe a little bit. So I've given you your two options, right? Either check for null and return 0 if it is, or actually compute the length. So who wants to write check for null? Go for it. 
+
+AUDIENCE: If parentheses s equals equals null return 0. ALLISON BUCHHOLTZ-AU: Lovely. I love when half your problem is just checking for null. I know with you guys last week I was like check for null literally every time. OK, so-- 
+
+AUDIENCE: If return 0 is only one line, do we still need the curly bracket? 
+
+ALLISON BUCHHOLTZ-AU: You don't technically need them as long you're consistent. It's good practice just to get in the habit of using curly braces, but technically no. You don't need them for one line. We just tend to recommend it for people starting to program. 
+
+So now what might we want to do here? So now we know that our string is valid. We want to keep compute the length. What's probably the first thing we want to do? 
+
+AUDIENCE: Create an int that's the length. ALLISON BUCHHOLTZ-AU: Exactly. AUDIENCE: And we want to set it to? ALLISON BUCHHOLTZ-AU: 0. Perfect. All right. Now what do want to do? This is really the bulk of it. Go for it. 
+
+AUDIENCE: So you probably do a for loop. And then since when you call s you're getting the address of the first thing, you would start with i equals 0. And then as long as x plus i isn't back slash 0. ALLISON BUCHHOLTZ-AU: The null terminator. AUDIENCE: The null terminator. Then you add one to length. 
+
+ALLISON BUCHHOLTZ-AU: Yeah. OK, so lets turn that into very concrete code. But that is the perfect idea. That's exactly what we're doing. We're going to be iterating through with the pointer. So what we want to do is instead of an int here, because we're not referring to an it. We're referring to the start of a string, that start being some address, right? 
+
+So we want a pointer. So we're going to have some char star, because it corresponds to our s, right? So this is some point we're initializing to the start of the string, OK? So let's just call it i. If it's the start of the string, what's it going to be assigned to? Not 0. We want it to be the start of our string. What represents the start of our string that was given to us? 
+
+AUDIENCE: Just s. 
+
+ALLISON BUCHHOLTZ-AU: s. So this creates some new pointer that represents the start of our string, OK? Another way to think of it is like here's our array. That's our string, s. So let's say this is the first spot, and this is 0x4. 04. This is our s, which holds that address. And we just created another one called i that just refers to the same thing. So they're both just pointing to the start of our string. This is just a graphic representation. 
+
+So now what we want to do is we want to iterate our condition for iterating through our string. Now shopping. Got to shop, guys. Is we want to keep updating until we reach the null terminator, right? So what might that look like? Do we want i, or do we want star i is the question? Is the null terminator an address or something located at an address? Located at an address, right? 
+
+So we need dereference whatever is here, because this is just some address. To actually get to the start we need to dereference this so that we actually get what's in this first place. So if we do star i, what don't we want it to equal? AUDIENCE: Back slash? 
+
+ALLISON BUCHHOLTZ-AU: There. Does that make sense to everyone? We need to go into our string and make sure that it's not the end. And then we can just update like this. Normal updating. So as long as these are met, what do we need to do? 
+
+AUDIENCE: Length plus plus. 
+
+ALLISON BUCHHOLTZ-AU: Mm-hm. And then after the for loop terminates, what do we want to return? AUDIENCE: Length? ALLISON BUCHHOLTZ-AU: Length. There you go. Obviously the meat of this one is understanding this for loop. Does everyone get how that worked? I'm happy to go over it again. 
+
+AUDIENCE: The second part, so the star i there, that's the address of the first-- ALLISON BUCHHOLTZ-AU: It's not the address. It's what's at. AUDIENCE: That's actually in there. ALLISON BUCHHOLTZ-AU: That's what's actually in there. So this is saying-- let me make this better. So this is 0x04, and I'm just going to say I'm going to make this my name. OK. Yes, I know I have quiz review tonight. Lots of quiz review. So let's say this string is my name, Allison. Little messy, but it's there. And s represents the location of where the string starts, so I'm going to make this real-- this is the address of a, where the string starts, right? 
+
+So what we do here is we want to use pointers to iterate through. So we create some pointer, i, that also is equal to the start of the string. And at each point, we want to continue going through the array here until we hit the null terminator. So we always want to check what's at each of these addresses. 
+
+So we dereference i, so that the first time we do it we say, OK, what's at address 0x04? It's an a. OK, we're good. Increment length. Move on to the next one. So i-- remember pointers increase by the size of whatever they're pointing to. So in this case, since it's a char, it'll update by one. So now we're going to look at 5, which means it's going over here. So it says OK, go to 0x05. What's in there? It's an l. And it'll keep doing that until it hits this one. And it says OK, what's in whatever address this is? The null terminator, OK. Exit. And just return length. Because you need what's actually at that address, not the address itself. 
+
+There are very few places where you actually need the address. Most of the time when you're using the and it's when you are first assigning a pointer or when you're passing it into another function. OK, everyone good there? Kind of? OK. 
+
+So it looks like we've got about 12 minutes left, so we'll go on to maybe our last problem, and then there's any concepts that have come up in the meantime we can quickly go over that. 
+
+So switching gears is the last problem here, switch statements. So your job is to rewrite this so that it behaves the same but doesn't use switches. Chalky hands. So any questions about this off the bat? None? OK. Does everyone understand that if the case doesn't have anything after it, it means that it should follow the next step? So case 1 and 2 in this case do the exact same thing. Sometimes a point of confusion. 
+
+All right. Anyone have any ideas? Yeah? 
+
+AUDIENCE: So you can just do if statements. 
+
+ALLISON BUCHHOLTZ-AU: Mm-hm. So what's our first one? 
+
+AUDIENCE: If n equals equals 1, and the 2 lines for or n equals equals 2, then print small. And then can you do else if? Or can you just do an if? 
+
+ALLISON BUCHHOLTZ-AU: You can do else if? 
+
+AUDIENCE: Would it matter if you do if? ALLISON BUCHHOLTZ-AU: So it does. Does anyone-- so, you will get the same output if you use just ifs versus if you use else ifs. Can you guys think of the reason why you might want to use an else if versus a lot of ifs? Has to with efficiency. Yeah? 
+
+AUDIENCE: It would check all the ifs every time. 
+
+ALLISON BUCHHOLTZ-AU: So even if it hit this first one, it would go on check every other one. So you want to use if else ifs in cases where only one of them will ever apply. So mutual exclusion is what we tend to say. If you have a bunch of ifs, it means that maybe more than one of them matters, and maybe more than one of them can be true. And you want both of them to execute if they're true. If you only want one of them to work in these mutually exclusive cases, you want to use else if, because it all has to do with efficiency. Your code is just better designed if it adheres to this practice. So in this case we'll have an else if. And this would be? 
+
+AUDIENCE: n equals equals 3. ALLISON BUCHHOLTZ-AU: Perfect. Print medium. And then in our last case, what do we have? Else or else if? AUDIENCE: Else. 
+
+ALLISON BUCHHOLTZ-AU: Do we want-- You want else if because we have concrete cases. It's not kind of a catch all. If you had a default in a switch-- remember in switches you can have case, and then you have default. If you had a default, that's kind of your else statement there. But if it has only cases, that means you need to check to see if it's each of those. So in this case, it would the 4 or 5. We want a print off. It's large. And there you go. And that would be your program. 
+
+So in this case if we had a default something, we would have an else in whatever it wanted us to do. So that is a good distinction to know, to understand. Does that help with switches for you? Perfect. All right. 
+
+We have about eight minutes left. Do you guys have any other high level concepts? Questions in general? Yes? 
+
+AUDIENCE: I had a question about one of them that was about the random number generator on quiz zero. ALLISON BUCHHOLTZ-AU: Oh, that one. That one is another one where it is more math than-- yes. The solution to that-- even I when I see it, I'm like what is this. 
+
+AUDIENCE: It was number 7. 
+
+ALLISON BUCHHOLTZ-AU: It's strange in my opinion. So basically you want to use drand48, which will give you some number between 0 and 1. And you want to use it so that you somehow get a-- and it's much more of a math problem to me than I think a CS problem. 
+
+The way that you do it-- and sometimes it will just be like that. Again, these are the cases where it's kind of like write what you can and partial credit. So if we want a return, we know that we're going to be using drand48 in some way, right? So why don't we just jot that down. We're using it in some way. The way that they have you guys use it is like this, which I will try and explain. 
+
+So basically what happens here is because it's between 0 and 1, what you're doing is you're multiplying by-- this is very much a math question. Just full disclaimer, this is completely a math question. What you're doing is because of 0 and 1 and you want it to be within this range, you actually figure out how large the range is, and then you basically scale it up, which is what this is doing. 
+
+b minus a gives you that range, the difference between those numbers. You can multiply between 0 and 1, and then adding a just means that your scaling it up so that it's between a and b, which I didn't really like this problem. As I said, this quiz is meant to encompass people who are less comfortable, somewhere in between, and more comfortable. So if they made it so that it was something that everyone at the less comfortable place would get, we would have far too many people scoring perfects, and the more comfortable would be bored. 
+
+So they always have these kind of brain teaser questions that are meant to be a little harder that take some creative thinking. When you see them, don't get too stumped. I would definitely say flip through your quiz first. Tackle the problems that you know you can, because there's no use getting stuck on a problem when there are three or four or five on the page after that you can easily do. 
+
+AUDIENCE: Why exactly do you multiply it by the range? 
+
+ALLISON BUCHHOLTZ-AU: You multiply the range that you know-- it's like how much after a do you want? So you can think of, because it returns a number between 0 and 1, you can think of it as a percentage. So it's basically saying if we have our number line here, a is here, and b is here. You're like how much past a is it? Is all we're doing. So you're just asking for the percentage of this range, which is what it's giving you. And then you basically just scale it up by adding a. It's a math brain teaser. 
+
+If there was any last minute advice, I would say flip through the questions, figure out which ones you know that like, oh I got this. Almost surely they're going to be questions that you won't know or that you're going to have time for, so hit your strengths, OK? You guys are going to great. There are a lot of questions for a reason, so that you have time to kind of have the opportunity to demonstrate what you're really good at. So it's OK if you're not good at everything. Play to your strengths. Yes? 
+
+AUDIENCE: So is this going to return something that's truncated? Yes, it will, because drand returns between 0 and 1. It'll return an int, because it'll truncate when we add a or multiply by it. Cool. Any last minute questions? 
+
+You guys are going to do great. You're Going to be fabulous. And even if not, there will be candy here next week. And I'll love you. I'll love you guys regardless. All right, everyone, good luck. Have a great time. You're going to be fine. And you know what? In two days it's going to be over, whereas I have two midterms on Thursday, so at least you guys will be done. All right, I'll see you guys next week. 
