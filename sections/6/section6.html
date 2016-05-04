@@ -1,0 +1,277 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ua">
+	<head>	
+		<meta http-equiv="refresh" content="3" >
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title>CS50. Семінар 6.</title>
+		<script>
+			var show;
+			function hidetxt(type){
+			 param=document.getElementById(type);
+			 if(param.style.display == "none") {
+			 if(show) show.style.display = "none";
+			 param.style.display = "block";
+			 show = param;
+			 }else param.style.display = "none"
+			}
+		</script>
+	</head>
+	<body>
+
+		<h1>Вступ</h1>
+		<p>У семінарі №6 розглянуто принципи побудови таких структур даних:</p>
+		<p>
+			<ul>
+				<li>Зв'язані списки</li>
+				<li>Хеш-таблиці</li>
+				<li>Префіксні дерева</li>
+				<li>Дерева</li>
+				<li>Бінарні дерева</li>
+				<li>Стек</li>
+				<li>Черга</li>
+			</ul>			
+		</p>
+		<h1>Зв'язаний список</h1>
+		<h2>Визначення</h2>
+		<p>Зв'язаний список - це структура даних, в якій елементи лінійно впорядковані, але порядок визначається не номерами елементів (як в масивах), а вказівниками, що входять у склад елементів списку та вказують на наступний елемент. Список має "голову" (перший елемент) та "хвіст" (останній елемент).</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_01.png"></p></div></p>
+		<h3>Переваги і недоліки порівняно з масивами</h3>
+		<p>На відміну від масивів, вставка та вилучення елементів у зв'язаний список потребують сталого часу (О(1)). Також значною перевагою зв'язних списків є можливість легкого розширення: щоб збільшити розмір списку, треба лише додати ще один елемент.</p>
+		<p>Недоліком зв'язних списків є необхідність проходити весь список, щоб знайти елемент (тобто час доступу до елемента списку - О(n)).</p>
+		<h3>Елемент зв'язаного списку</h3>
+		<p>Елемент зв'язаного списку містить дані та посилання (покажчик) на наступний елемент списку, або NULL, - якщо цей елемент є останнім.</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_02.png"></p></div></p>
+		<p>Нижче наведено код структури, що реалізує елемент зв'язаного списку (і власне список). Дані представлені числовим значенням.</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>typedef</span> <span style='color:#800000; font-weight:bold; '>struct</span> node
+<span style='color:#800080; '>{</span>
+  <span style='color:#800000; font-weight:bold; '>int</span> n<span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>struct</span> node<span style='color:#808030; '>*</span> next<span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span> node<span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<h2>Пошук по списку</h2>
+		<p>Для пошуку елемента у списку, необхідно пройти весь список. Це реалізується за допомогою переходу з поточного елемента на наступний за посиланням.</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_03.png"></p></div></p>
+		<p>У цьому прикладі для того, щоб знайти елемент <i>"9"</i>, необхідно перш за все з голови списку перейти на елемент <i>"2"</i>. Потім за посиланням перейти на елемент <i>"3"</i>. Лише після цього можна за посиланням знайти елемент <i>"9"</i>.</p>
+		<p>Нижче наведено код функції, яка шукає заданий елемент у списку і повертає <i>true</i>, якщо елемент є у списку, або <i>false</i>, якщо елемента немає у списку.</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'>bool search <span style='color:#808030; '>(</span>node<span style='color:#808030; '>*</span> list<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> n<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+  node<span style='color:#808030; '>*</span> ptr <span style='color:#808030; '>=</span> list<span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>while</span> <span style='color:#808030; '>(</span>ptr <span style='color:#808030; '>!</span><span style='color:#808030; '>=</span> <span style='color:#7d0045; '>NULL</span><span style='color:#808030; '>)</span>
+  <span style='color:#800080; '>{</span>
+    <span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>ptr <span style='color:#808030; '>-</span><span style='color:#808030; '>></span> n <span style='color:#808030; '>=</span><span style='color:#808030; '>=</span> n<span style='color:#808030; '>)</span>
+    <span style='color:#800080; '>{</span>
+      <span style='color:#800000; font-weight:bold; '>return</span> true<span style='color:#800080; '>;</span>
+    <span style='color:#800080; '>}</span>
+    ptr <span style='color:#808030; '>=</span> ptr <span style='color:#808030; '>-</span><span style='color:#808030; '>></span> next<span style='color:#800080; '>;</span>
+  <span style='color:#800080; '>}</span>
+  <span style='color:#800000; font-weight:bold; '>return</span> false<span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre>
+</p>
+		<h2>Вставка елмента у список</h2>
+		<p>Є три різні можливі варіанти вставки у список: вставка у початок списку, вставка у кінець списку і вставка у якесь місце всередині списку.</p>
+		<p>Розглянемо вставку в початок списку (оскільки це найбільш часто використовуваний варіант вставки).</p>
+		<ol>
+			<li>
+				<p>Створимо новий елемент. Він поки що не посилається на інші елементи, і на нього ніякий інший елемент не посилається.</p>
+				<p><div align=center><p><img src=".\section6_pictures\06_04.png"></p></div></p>
+			</li>
+			<li>
+				<p>Переназначити покажчик нового елементу так, щоб він вказував на той же елемент, на який вказує <i>head</i>.</p>
+				<p><div align=center><p><img src=".\section6_pictures\06_05.png"></p></div></p>
+			</li>	
+			<li>
+				<p>Переназначити покажчик <i>head</i> на новий елемент.</p>
+				<p><div align=center><p><img src=".\section6_pictures\06_06.png"></p></div></p>
+			</li>		
+		</ol>	
+		<p>Важливо зробити кроки 2 і 3 саме в такому порядку. Якщо спершу встановити <i>head</i> на новий елемент, то ми втратимо частину списку.</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_07.png"></p></div></p>
+		<p>Нижче наведено код функції для вставки нового елементу на початок списку.</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>void</span> insert<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>int</span> n<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+  <span style='color:#696969; '>//створити новий елемент</span>
+  node<span style='color:#808030; '>*</span> new <span style='color:#808030; '>=</span> <span style='color:#603000; '>malloc</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>sizeof</span><span style='color:#808030; '>(</span>node<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+  
+  <span style='color:#696969; '>//перевірка на NULL</span>
+  <span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>new <span style='color:#808030; '>=</span><span style='color:#808030; '>=</span> <span style='color:#7d0045; '>NULL</span><span style='color:#808030; '>)</span>
+  <span style='color:#800080; '>{</span>
+    <span style='color:#603000; '>exit</span><span style='color:#808030; '>(</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+  <span style='color:#800080; '>}</span>
+  
+  <span style='color:#696969; '>//ініціалізувати новий елемент</span>
+  new<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>n <span style='color:#808030; '>=</span> n<span style='color:#800080; '>;</span>
+  new<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>next <span style='color:#808030; '>=</span> <span style='color:#7d0045; '>NULL</span><span style='color:#800080; '>;</span>
+  
+  <span style='color:#696969; '>//вставити новий елемент у голову списку</span>
+  new<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>next <span style='color:#808030; '>=</span> head<span style='color:#800080; '>;</span>
+  head <span style='color:#808030; '>=</span> new<span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre>
+</p>
+		<h1>Двозв'язаний список</h1>
+		<p>Двозв'язний список схожий на звичайний зв'язаний список, але елементи у ньому зберігають посилання не лише на наступний, а й на попередній елемент. Завдяки цій властивості, можна переміщуватись по списку вперед і назад.</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_08.png"></p></div></p>
+		<h2>Елемент двозв'язного списку</h2>
+		<p>Елемент двозв'язного списку містить дані та два поля: <i>prev</i> та <i>next</i>, - покажчики на попередній та наступний елементи списку відповідно.</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_09.png"></p></div></p>
+		<p>Код структури елемента двозв'язного списку мовою С:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>typedef</span> <span style='color:#800000; font-weight:bold; '>struct</span> node
+<span style='color:#800080; '>{</span>
+  <span style='color:#800000; font-weight:bold; '>int</span> n<span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>struct</span> node<span style='color:#808030; '>*</span> next<span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>struct</span> node<span style='color:#808030; '>*</span> prev<span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span> node<span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<h3>Хеш-таблиці</h3>
+		<h2>Поняття хеш-таблиці</h2>
+		<p>Хеш-таблиця - це, масив, у якому місце розташування елемента залежить від значення, яке має сам елемент. Зв'язок між значенням елемента і його позицією у хеш-таблиці задає хеш-функція. Важлива властивість хеш-таблиці: пошук, вставка і видалення елементів з таблиці виконуються за час О(1).</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_10.png"></p></div></p>
+		<p>У прикладі вище, позиція кожного слова в хеш-таблиці залежить від порядкового номеру першої букви цього слова в англійському алфавіті.</p>
+		<h2>Поняття хеш-функції</h2>
+		<p>Загалом, хеш-функцією можна ввжаати таку функцією, що приймає якийсь елемент (який потрібно вставити у хеш-таблицю), а результатом її роботи є позиція заданого елемента у хеш-таблиці.</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_11.png"></p></div></p>
+		<p>Приклади: порядковий номер першої букви слова у алфавіті, остача від ділення на 13, тощо.</p>
+		<p>Нижче наведено код хеш-функції на основі першої літери в рядку:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>int</span> hash_function<span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>char</span><span style='color:#808030; '>*</span> key<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+  <span style='color:#800000; font-weight:bold; '>int</span> hash <span style='color:#808030; '>=</span> <span style='color:#603000; '>toupper</span><span style='color:#808030; '>(</span>key<span style='color:#808030; '>[</span><span style='color:#008c00; '>0</span><span style='color:#808030; '>]</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>-</span> <span style='color:#0000e6; '>'A'</span><span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>return</span> hash <span style='color:#808030; '>%</span> <span style='color:#603000; '>SIZE</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre>
+</p>
+		<h2>Колізії</h2>
+		<p>Ситуація, коли для різних ключів отримується одне й те саме хеш-значення, називається колізією. Наприклад, у зображену раніше таблицю на основі перших символів рядка ми спробуємо додати нове слово - <i>berry</i>.</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_12.png"></p></div></p>
+		<p>Але у комірці, яку повернула хеш-функція, вже є значення. Але ж все одно нове значення потрібно кудись записати, і для цього потрібно визначити, куди саме його буде записано. Це називається розв'язанням колізії.</p>
+		<h3>Лінійне зондування</h3>
+		<p>Один з варіантів розв'язання колізій - лінійне зондування, коли просто відбувається пошук першої пустої комірки після тої, на яку вказала хеш-функція.</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_13.png"></p></div></p>
+		<h3>Метод ланцюжків</h3>
+		<p>При методі ланцюжків, кожна комірка хеш-таблиці - це список значень. При виникненні колізії, нове значення просто додається до списку у ту ж саму комірку таблиці.</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_14.png"></p></div></p>
+		<h1>Префіксне дерево</h1>
+		<p>Префіксне дерево - це структура даних, в якій шлях від кореня дерева до листка (останнього елемента) дерева визначає рядок.</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_15.png"></p></div></p>
+		<p>Таким чином, при проходженні дерева згори донизу формуються слова.</p>
+		<h2>Опис структури префіксного дерева</h2>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>typedef</span> <span style='color:#800000; font-weight:bold; '>struct</span> node 
+<span style='color:#800080; '>{</span>
+  <span style='color:#696969; '>// Маркер кінця слова </span>
+  bool is_word<span style='color:#800080; '>;</span> 
+  <span style='color:#696969; '>// Покажчики на інші елементи </span>
+  <span style='color:#800000; font-weight:bold; '>struct</span> node<span style='color:#808030; '>*</span> children<span style='color:#808030; '>[</span><span style='color:#008c00; '>27</span><span style='color:#808030; '>]</span><span style='color:#800080; '>;</span> 
+<span style='color:#800080; '>}</span> node<span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<h2>Приклад роботи із префіксним деревом</h2>
+		<p>Маємо наступного виду префіксне дерево, у якому є слова <i>bat</i> та <i>zoom</i>:</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_16.png"></p></div></p>
+		<p>Переходячи за послідовними посиланнями згори донизу доти, доки не зустрінемо маркер кінця слова, отримаємо слово <i>bat</i>:</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_17.gif"></p></div></p>
+		<p>Для того щоб вставити слово <i>zoo</i> у масив, необхідно пройти по списку і встановити маркер:</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_18.gif"></p></div></p>
+		<p>А щоб додати у дерево слово <i>bath</i>, треба в останньому елементі слова <i>bat</i> створити посилання, що вказує на букву <i>h</i>:</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_19.gif"></p></div></p>
+		<h1>Дерева</h1>
+		<p>Дерево - це структура даних, де елемент, або вузол, вказує на інші вузли. Приклад дерева:</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_20.png"></p></div></p>
+		<p>Корінь дерева - верхній вузол у дереві (<i>1</i> у прикладі)</p>
+		<p>Батько - вузол, що вказує на вузол, який ви розглядаєте. Наприклад, батько вузла <i>3</i> - вузол <i>1</i>.</p>
+		<p>Нащадок - вузол, на який вказують інші вузли (так, у прикладі вузли <i>2</i> та <i>3</i> є нащадками вузла <i>1</i>).</p>
+		<p>Листки дерева - вузли, що знаходяться знизу, або вузли, що не мають нащадків.</p>
+		<p>Брати і сестри - це вузли, що мають спільного батька (у прикладі, вузли <i>5, 6, 7</i>).</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_21.png"></p></div></p>
+		<h1>Бінарні дерева</h1>
+		<p>Бінарне дерево - це дерево, у якому кожен вузло має не більше двох нащадків.</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_22.png"></p></div></p>
+		<h2>Елемент бінарного дерева</h2>
+		<p>Бінарне дерево, як і однозв'язний або двозв'язний список, оголошуються за допомогою свого елемента. У бінарному дереві, кожен елемент має дані (ціле число у прикладі), і посилання на лівого та правого нащадків:</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_23.png"></p></div></p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>typedef</span> <span style='color:#800000; font-weight:bold; '>struct</span> node
+<span style='color:#800080; '>{</span>
+  <span style='color:#800000; font-weight:bold; '>int</span> n<span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>struct</span> node<span style='color:#808030; '>*</span> left<span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>struct</span> node<span style='color:#808030; '>*</span> right<span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span> node<span style='color:#800080; '>;</span>
+</pre>	
+</p>
+		<h2>Бінарне дерево пошуку</h2>
+		<p>У бінарному дереві пошуку все, що справа від батьківського вузла - більше за нього, а все, що зліва - менше.</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_24.png"></p></div></p>
+		<p>Таким чином, пошук елемента в бінарному дереві пошуку дуже схожий на пошук елемента в масиві за алгоритмом бінарного пошуку. Єдина різниця - при пошуку в бінарному дереві, замість лівої або правої половини масиву ми щоразу розглядаємо ліве або праве піддерево.</p>
+		<p>Нижче наведено код функції пошуку елемента у бінарному дереві пошуку.</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'>bool search<span style='color:#808030; '>(</span>node<span style='color:#808030; '>*</span> root<span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>int</span> val<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+  <span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>root <span style='color:#808030; '>=</span><span style='color:#808030; '>=</span> <span style='color:#7d0045; '>NULL</span><span style='color:#808030; '>)</span>
+    <span style='color:#800000; font-weight:bold; '>return</span> false<span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>root<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>n <span style='color:#808030; '>=</span><span style='color:#808030; '>=</span> val<span style='color:#808030; '>)</span>
+    <span style='color:#800000; font-weight:bold; '>return</span> true<span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>val <span style='color:#808030; '>&lt;</span> root<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>n<span style='color:#808030; '>)</span>
+    <span style='color:#800000; font-weight:bold; '>return</span> search<span style='color:#808030; '>(</span>root<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>left<span style='color:#808030; '>,</span> val<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>val <span style='color:#808030; '>></span> root<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>n<span style='color:#808030; '>)</span>
+    <span style='color:#800000; font-weight:bold; '>return</span> search<span style='color:#808030; '>(</span>root<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>right<span style='color:#808030; '>,</span> val<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre>
+</p>
+		<h1>Стек</h1>
+		<p>Стек - це структура даних, яка працює за принципом "останнім прийшов - першим пішов". Можна уявити собі стіс розносів у їдальні - той рознос, що поклали у стіс останнім, новий клієнт їдальні забере в першу чергу.</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_25.png"></p></div></p>
+		<p>LIFO - це абревіатура, яка означає "last in - first out", тобто "останнім прийшов - першим пішов".</p>
+		<p>Над стеком можна здійснювати дві операції - push (занесення даних) і pop (вилучення даних).</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_26.png"></p></div></p>
+		<p>Приклад реалізації стеку мовою С наведено нижче. У цьому прикладі, стек - це просто масив рядків, що має певну ємність (CAPACITY), і поточний розмір (size):</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>typedef</span> <span style='color:#800000; font-weight:bold; '>struct</span><span style='color:#800080; '>{</span>
+  <span style='color:#800000; font-weight:bold; '>char</span><span style='color:#808030; '>*</span> strings<span style='color:#808030; '>[</span>CAPACITY<span style='color:#808030; '>]</span><span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>int</span> size<span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span> stack<span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<p>Щоб реалізувати операцію push, необхідно зробити перевірку, чи не перевищує поточний розмір ємінсть стеку, після чого - вставити елемент на позицію size і збільшити size на одиницю.</p>
+		<p>Для реалізації операції pop, необхідно перевірити, чи не пустий стек, зменшити поточний розмір на одиницю і повернути елемент.</p>
+		<h1>Черга</h1>
+		<p>Черга - це структура даних, що працює за прицнипом "першим прийшов - першим пішов" (last in - first out, FIFO).</p>
+		<p><div align=center><p><img src=".\section6_pictures\06_27.png"></p></div></p>
+		<p>Для черги визначено дві операції - додавання елемента в кінець черги (enqueue) та вилучення елемента з початку черги (dequeue).</p>
+		<p>У прикладі оголошено чергу, що фактично являє собою масив рядків:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>typedef</span> <span style='color:#800000; font-weight:bold; '>struct</span><span style='color:#800080; '>{</span>
+  <span style='color:#800000; font-weight:bold; '>int</span> head<span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>char</span><span style='color:#808030; '>*</span> strings<span style='color:#808030; '>[</span>CAPACITY<span style='color:#808030; '>]</span>
+  <span style='color:#800000; font-weight:bold; '>int</span> size<span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span> queue<span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<p>Щоб реалізувати операцію <i>enqueue</i>, необхідно впевнитись, що чергу не переповнено, додати елемент в кінець черги і збільшити поточний розмір на одиницю.</p>
+		<p>Щоб реалізувати операцію <i>dequeue</i>, треба впевнитись, що черга не пуста, збільшити <i>head</i> на одиницю, зменшити поточний розмір і повернути перший елемент черги.</p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+	</body>
+</html>

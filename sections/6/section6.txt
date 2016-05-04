@@ -1,0 +1,379 @@
+[MUSIC PLAYING] SPEAKER 1: All right. Everyone welcome back to section. I hope you all are successfully recovered from your quiz from last week. I know it's a little bit crazy at times. As I was saying before, if you're within the standard deviation, don't really worry about it, especially for a less comfortable section. That's about where you should be. If you did great, then awesome. Kudos to you. And if you feel like you need a little bit more help, please feel free to reach out to any of the TFs. We are all here to help. 
+
+That's why we teach. That's why I'm here every Monday for you guys and at office hours on Thursdays. So please feel free to let me know if you're worried about anything or if there's anything on the quiz that you'd really like to address. 
+
+So the agenda for today is all about data structures. Some of these are just going to be just to get you familiarized with these. You may not ever implement them in this class. Some of them you will, like for your speller pset. 
+
+You'll have your choice between hash tables and tries. So we'll definitely be going over those. It's going to be definitely more of kind of a high level section today, though, because there are a lot of them, and if we went into the implementation details on all of these, we wouldn't even get through linked lists and maybe a little bit of hash tables. 
+
+So bear with me. We're not going to be doing as much coding this time. If you have any questions about it or you want to see it implemented or try it for yourself, I definitely recommend going to study.cs50.net, which has examples of all of these. It'll have my PowerPoints with the notes that we tend to use as well as some programming exercises, especially for things like linked lists and binary trees stacks and cues. So little more high level, which might be nice for you guys. 
+
+So with that, we'll get started. And also, yes-- quizzes. I think most of you who are in my section have your quizzes, but anyone comes in or some reason you don't, they're right here in the front. 
+
+So linked lists. I know this kind of goes to back before your quiz. That was the week before that we learned about this. But in this case, we'll just go a little bit more in depth. 
+
+So why might we choose a linked list over an array? What distinguishes them? Yes? 
+
+AUDIENCE: You can expand a linked list versus an array's fixed size. SPEAKER 1: Right. An array has fixed size whereas a linked list has a variable size. So if we don't know how much we want to store, a linked list gives us a great way to do that because we can just add on another node and add on another node and add on another node. But what might be a trade-off? Does anyone remember the trade-off between arrays and linked lists? Mmhmm? 
+
+AUDIENCE: You have to go through all the way through the linked list find an element in a list. In an array, you can just find an element. 
+
+SPEAKER 1: Right. So with arrays-- 
+
+AUDIENCE: [INAUDIBLE]. 
+
+SPEAKER 1: With arrays, we have what's called random access. Means that if we want what is ever the fifth point of a list or the fifth point of our array, we can just grab it. If it's a linked list, we have to iterate through, right? So accessing an element in an array is constant time, whereas with a linked list it would most likely be linear time because maybe our element is all the way at the end. We have to search through everything. So with all these data structures we're going to be spending a little more time on, what are the pluses and negatives. When might we want to use one over the other? And that's kind of the bigger thing to take away. 
+
+So we have here the definition of a node. It's like one element in our linked list, right? So we're all familiar with our typedef structs, which we went over in review last time. It was basically just creating another data type that we could use. 
+
+And in this case, it's some node that will hold some integer in. And then what's the second part here? Anyone? 
+
+AUDIENCE: [INAUDIBLE]. 
+
+SPEAKER 1: Yeah. It's a pointer to the next node. So this should actually be up here. This is a pointer of type node to the next thing. And that's what they encompasses our node. Cool. 
+
+All right, so with search, as we were just saying before hand, if you're going to search through, you have to actually iterate through your linked list. So if we're looking for the number 9, we would start at our head and that points us at the beginning of our linked list, right? And we say, OK, does this node contain the number 9? No? 
+
+All right, go to the next one. Follow it. Does it contain the number 9? No. Follow the next one. 
+
+So we have to actually iterate through our linked list. We can't just go directly to where 9 is. And if you guys actually want to see some pseudo-code up there. We have some search function here that takes in-- what does it take in? What do you think? So easy one. What is this? AUDIENCE: [INAUDIBLE]. SPEAKER 1: The number we're looking for. Right? And what would this correspond to? It's a pointer to? 
+
+AUDIENCE: A node. 
+
+SPEAKER 1: A node to the list that we're looking at, right? So we have some nodes are pointer here. This is a point that's going to actually iterate through our list. We set it equal to list because that's just setting it equal to the start of our linked list. 
+
+And while it's not NULL, while we still have things in our list, check to see if that node has the number we're looking for. Return true. Otherwise, update it, right? 
+
+If it is NULL, we exit our while loop and return false because that means we haven't found it. Does everyone get how that works? OK. 
+
+So with insertion, you have three different ways. You can prepend, you can append and you can insert into assorted. In this case, we're going to do a prepend. Does anyone know how those three cases might differ? 
+
+So prepend means that you put it at the front of your list. So that would mean that no matter what your node is, no matter what the value is, you're going to put it right here in front, OK? It's going to be the first element in your list. 
+
+If you append it, it's going to go to the back of your list. And insert into assorted means you're going to put actually into the place where it keeps your linked list sorted. Again, how you use those and when you use them will vary depending on your case. If it doesn't need to be sorted, prepend tends to be what most people use because you don't have to go through the entire list to find the end to add it on, right? You can just stick it right in. 
+
+So we will go through an insertion 1 right now. So one thing that I'm going to highly recommend on this pset is to draw things out, as always. It's very important that you update your pointers in the correct order because if you update them slightly out of order, you're going to end up losing parts of your list. 
+
+So for example, in this case, we're telling the head to just point to 1. If we just do that without saving this 1, we have no idea what 1 should point to now because we've lost what the head pointed to. So one thing to remember when you're doing a prepend is to save what the head points to first, then reassign it, and then update what your new node should point to. In this case, this is one way to do it. 
+
+So if we had done it this way where we just reassigned head, we lose basically our entire list, right? One way to do it is to have 1 point to next, and then have head point to 1. Or you can do kind of like the temporary storage, which I talked about. 
+
+But reassigning your pointers in the correct order is going to be very, very important for this pset. Otherwise, you're going to have a hash table or a try that's just going to be only part of the words that you want and then you're-- mmhmm? AUDIENCE: What was the temporary storage thing you were talking about? SPEAKER 1: The temporary storage. So basically another way you could do this is store the head of something, like store it the temporary variable. Assign it to 1 and then update 1 to point to whatever head used to point to. This way is obviously more elegant because you don't need a temporary value, but just offering another way to do it. And we actually do have some code for this. So for linked list, we actually have some code. So insert here, this is prepending. So this enters it at the head. 
+
+So first thing, you need to create your new node, of course, and check for NULL. Always good. And then you need to assign the values. Whenever you create a new node, you don't know what it's pointing to next, so you want to initialize it to NULL. If it does end up pointing to something else, it gets reassigned and it's fine. If it's the first thing in the list, it needs to point to NULL because that's the end of the list. 
+
+So then to insert it, we see here we are assigning the next value of our node to be whatever head is, which is what we had here. That's what we just did. And then we're assigning head to point to our new node, because remember, new is some pointer to a node, and that's exactly what head is. That is exactly why we have this arrow accessor. Cool? Mmhmm? 
+
+AUDIENCE: Do we have to initialize new next to NULL first, or can we just initialize it to head? 
+
+SPEAKER 1: New next needs to be NULL to start because you don't know where it's going to be. Also, this is kind of just like a paradigm. You set it equal to NULL just to make sure that all your bases are covered before you do any reassignment so that you're always guaranteed that it will be pointing to a specific value versus like a garbage value. Because, yeah, we assign new next automatically, but it's more just like a good practice to initialize it in that way and then reassign. 
+
+OK, so doubly linked lists now. What do we think? What's different with doubly linked lists? 
+
+So in our linked lists, we can only move in one direction, right? We only have next. We can only go forward. 
+
+With a doubly linked list, we can also move backwards. So we have not only the number that we want to store, we have where it points to next and where we just came from. So this allows for some better traversal. 
+
+So doubly linked nodes, very similar, right? Only difference is now we have a next and a previous. It's the only difference. 
+
+So if we were to prepend or append-- we don't have any code for this up here-- but if you were to try and insert it, the important thing is you need to make sure you're assigning both your previous and your next pointer correctly. So in this case, you would not only initialize next, you initialize previous. If we're at the head of the list, we would not only make head equal new, but our new previous should point to the head, right? 
+
+That's the only difference. And if you want more practice with these with linked lists, with inserting, with deleting, with insert into an assorted list, please check out study.cs50.net. There's a bunch of great exercises. I highly recommend them. I wish we had time to go through them but there's a lot of data structures to get through. 
+
+OK, so hash tables. This is probably the most useful bit for your pset here because you're going to be implementing one of these, or a try. I really like hash tables. They're pretty cool. 
+
+So basically what happens is a hash table is when we really need speedy insertion, deletion, and lookup. Those are the things that we're prioritizing in a hash table. They can get pretty big, but as we'll see with tries, there are things that are much bigger. 
+
+But basically, all a hash table is a hash function that tells you which bucket to put each of your data, each of your elements in. A simple way to think of a hash table is that it's just buckets of things, right? So when you are sorting things by like the first letter of their name, that's kind of like a hash table. 
+
+So if I were to group you guys is into groups of whoever's name starts with A over here, or whoever's birthday is in January, February, March, whatever, that is effectively creating a hash table. It's just creating buckets that you sort your elements into so that you can find them easier. So this way when I need to find one of you, I don't have to search through each of your names. I can be like, oh, I know that Danielle's birthday is in-- AUDIENCE: --April. SPEAKER 1: April. So I look in my April bucket, and with any luck, she'll be the only one in there and my time was constant in that sense, whereas if I have to look through a whole bunch of people, it's going to take much longer. So hash tables are really just buckets. Easy way to think of them. 
+
+So a very important thing about a hash table is a hash function. So the things I just talked about, like your first letter of your first name or your birthday month, these are ideas that really correlate to a hash function. It's just a way of deciding which bucket you're element goes into, OK? So for this pset, you can look up pretty much any hash function you want. 
+
+Doesn't have to be your own. There are some really cool ones out there that do all sorts of crazy math. And if you want to make your spellchecker super fast, I would definitely look into one of those. 
+
+But there are also the simple ones, like compute the sum of the words, like each letter has a number. Compute the sum. That determines the bucket. They also have the easy ones that are just like all of the A's here, all of the B's here. Any one of those. 
+
+Basically, it just tells you which array index your element should go into. Just deciding the bucket-- it's all a hash function is. So here we have an example which is just the first letter of the string that I was just talking about. 
+
+So you have some hash that's just the first letter of your string minus A, which will give you some number between 0 and 25. And what you want to do is make sure that this represents the size of your hash table-- how many buckets there are. With many of these hash functions, they're going to be returning values that might be far above the number of buckets that you actually have in your hash table, so you need to make sure and mod by those. Otherwise, it's going to say, oh, it should be in bucket 5,000 but you only have 30 buckets in your hash table. And of course, we all know that's going to result in some crazy errors. So make sure to mod by the size of your hash table. Cool. So collisions. Is everyone good so far? Mmhmm? 
+
+AUDIENCE: Why would it return such a massive value? 
+
+SPEAKER 1: Depending on the algorithm that your hash function uses. Some of them will do crazy multiplication. And it's all about getting a even distribution, so they do some really crazy things sometimes. That's all. Anything else? OK. 
+
+So collisions. Basically, as I said earlier, in the best case scenario, any bucket I look into is going to have one thing, so I don't have to look at all, right? I either know it's there or it's not, and that's what we really want. But if we have tens of thousands of data points and less than that number of buckets, we're going to have collisions where eventually something is going to have to end up in a bucket that already has an element. 
+
+So the question is, what do we do in that case? What do we do? We already have something there? Do we just throw it out? 
+
+No. We have to keep both of them. So the way that we typically do that is what? What is the data structure we just talked about? AUDIENCE: Linked list. SPEAKER 1: A linked list. So now, instead of each of these buckets just having one element, it's going to contain a linked list of the elements that were hashed into it. OK, does everyone kind of get that idea? Because we couldn't have an array because we don't know how many things are going to be in there. A linked list allows us to have just the exact number that are hashed into that bucket, right? 
+
+So linear probing is basically this idea-- it's one way to deal with a collision. What you can do is if, in this case, berry was hashed into 1 and we already have something there, you just keep going down until you find an empty slot. That's one way to handle it. The other way to handle it is with what we just called-- the linked list is called chaining. 
+
+So this idea works if your hash table you think is much larger than your data set or if you want to try and minimize chaining until it's absolutely necessary. So one thing is linear probing obviously means that your hash function isn't quite as useful because you're going to end up using your hash function, getting to a point, you linear probe down to some place that is available. But now, of course, anything else that ends up there, you're going to have to search even further down. 
+
+And there's a lot more search expense that goes into inputting an element in your hash table now, right? And now when you go and try and find berry again, you're going to hash it, and it's going to say, oh, look in bucket 1, and it's not going to be in bucket 1, so you're going to have to traverse through the rest of these. So it's sometimes useful, but in most cases, we're going to say that chaining is what you want to do. 
+
+So we talked about this earlier. I got a little ahead of myself. But chaining is basically that each bucket in your hash table is just a linked list. 
+
+So another way, or more technical way, to think of a hash table is that it's just an array of linked lists, which when you're writing your dictionary and you're trying to load it, thinking of it as an array of linked lists will make it much easier for you to initialize. 
+
+AUDIENCE: So hash table has a predetermined size, like a [INAUDIBLE] of buckets? 
+
+SPEAKER 1: Right. So it has a set number of buckets that you determine-- which you guys should feel free to play with. It can be pretty cool to see what happens as you change your number of buckets. But yeah, it has a set number of buckets. What allows you to fit as many elements as you need is this separate chaining where you have linked lists in each bucket. That means your hash table will be exactly the size that you need it to be, right? That's the whole point of linked lists. Cool. 
+
+So everyone OK there? All right. Ah. What just happened? Really now. Guess somebody's killing me. 
+
+OK we're going to go into tries, which are a little crazy. I like hash tables. I think they're really cool. Tries are cool, too. 
+
+So does anyone remember what a try is? You should have gone over it briefly in lecture? Do you remember kind of how it works? AUDIENCE: I'm just nodding that we did go over it. SPEAKER 1: We do go over it. OK, we're really going to go over it now is what we're saying. 
+
+AUDIENCE: That's for a retrieval tree. 
+
+SPEAKER 1: Yeah. It's a retrieval tree. Awesome. So one thing to notice here is that we are looking at individual characters here, right? 
+
+So before with our hash function, we were looking at the words as a whole, and now we're looking more at the characters, right? So we have Maxwell over here and Mendel. So basically a try-- a way to think about this is that every level here is an array of letters. So this is your root node here, right? This has all the characters of the alphabet for the start of every word. 
+
+And what you want to do is say, OK, we have some M word. We're going to look for Maxwell, so we go to M. And M points to a whole other a array where every word, as long as there is a word that has A as the second letter, as long as there's a word that has B as the second letter, it will have a pointer going to some next array. 
+
+There's probably not a word that MP something, so at the P position in this array, it would just be NULL. It would say, OK, there is no word that has M followed by a P, OK? So if we think about it, each one of these smaller things is actually one of these large arrays from A through Z. So what might be one of the things that is kind of a drawback of a try? 
+
+AUDIENCE: A lot of memory. 
+
+SPEAKER 1: It's a ton of memory, right? Each one of these blocks here represents 26 spaces, 26 element array. So tries get incredibly space heavy. 
+
+But they are very fast. So incredibly fast but really space inefficient. Kind of have to figure out which one you want. These are really cool for your pset, but they do take up a lot of memory, so you trade off. Yeah? 
+
+AUDIENCE: Would it be possible to set up a try and then once you have all the data in it that you need-- I don't know if that would make sense. I was getting rid of all the NULL characters, but then you wouldn't be able to index them-- 
+
+SPEAKER 1: You still need them. 
+
+AUDIENCE: -- the same way each time. SPEAKER 1: Yeah. You need the NULL characters to let you know if there's not a word there. Ben did you have something you want? OK. All right, so we're going to go a little bit more into the technical detail behind a try and work through an example. 
+
+OK, so this is the same thing. Whereas in a linked list, our main kind of-- what's the word I want?-- like building block was a node. In a try, we also have a node, but it's defined differently. 
+
+So we have some bool that represents whether a word actually exists at this location, and then we have some array here-- or rather, this is a pointer to an array of 27 characters. And this is for, in this case, this 27-- I'm sure all of you are like, wait, there are 26 letters in the alphabet. Why do we have 27? 
+
+So depending on the way you implement this, this is from a pset that allowed for apostrophes. So that's why the extra one. You'll also have in some cases the null terminator is included as one of the characters that it's allowed to be, and that's how they check to see if it's the end of the word. If you're interested, check out Kevin's video on study.cs50, as well as Wikipedia has some good resources there. 
+
+But we're going to go through just kind of how you might work through a try if you're given one. So we have a super simple one here that has the words "bat" and "zoom" in them. And as we see up here, this little space here represents our bool that says, yes, this is a word. And then this has our arrays of characters, right? 
+
+So we are going to go through finding "bat" in this try. So begin at the top, right? And we know that b corresponds to the second index, the second element in this array, because a and b. So approximately the second one. 
+
+And it says, OK, cool, follow that into the next array, because if we remember, it's not that each of these actually contains the element. Each one of these arrays contains a pointer, right? It's an important distinction to make. 
+
+I know this is going to be-- tries are really hard to get on the first time, so even if this is the second or third time and it's still kind of seeming difficult, I promise if you go watch the short again tomorrow, it'll probably make a lot more sense. It takes a lot to digest. I still sometimes am like, wait, what is a try? How do I use this? 
+
+So we have b in this case, which is our second index. If we had, say, c or d or any other letter, we need to map that back to the index of our array that that corresponds to. So we would take like rchar and we just subtract off a to map it into 0 to 25. Everybody good how we map our characters? OK. 
+
+So we go to the second one and we see that, yes, it is not to NULL. We can move on to this next array. So we go on to this next array here. 
+
+And we say, OK, now we need to see if a is here. Is A null or does it actually move forward? So a actually moves forward in this array. And we say, OK, t is our last letter. So we go to the t at the index. And then we move forward because there's another one. And this one says basically that, yes, it says that there is a word here-- that if you follow this path, you have arrived at a word, which we know is "bat." Yes? 
+
+AUDIENCE: Is it standard to have that as index 0 and then have a sort at 1 or to have at the end? 
+
+SPEAKER 1: No. So if we look back at our declaration here, it's a bool, so it's its own element in your node. So it's not part of the array. Cool. So when we finish our word and we're at this array, what we want to do is do a check for is this a word. And in this case, it would return yes. 
+
+So on that note, we know that "zoo"-- we know as humans that "zoo" is a word, right? But are try here would say, no, it's not. And it would say that because we haven't designated it as a word here. Even though we can traverse through to this array, this try would say that, no, zoo isn't in your dictionary because we haven't designated it as such. 
+
+So one way to do that-- oh, sorry, this one. So in this case, "zoo" is not a word, but it is in our try. But in this one, say we want it introduce the word "bath," what happens is we follow through-- b, a, t. We're in this array, and we go to search for h. 
+
+In this case, when we look at the pointer at h, it's pointing to NULL, OK? So unless it's explicitly pointing to another array, you assume that all the pointers in this array are pointing to null. So in this case, h is pointing to null so we can't do anything, so it would also return false, "bath" is not in here. So now we're actually going to go through how would we actually say that "zoo" is in our try. How do we insert "zoo" into our try? So in the same way that we started with our linked list, we start at the root. When in doubt, start at the root of these things. 
+
+And we'll say, OK, z. z exists in this, and it does. So you're moving on to your next array, OK? And then on the next one, we say, OK, does o exist? It does. This again. 
+
+And so on our next one, we've said, OK, "zoo" already exists here. All we need to do is set this equal to true, that there is a word there. If you had followed everything up to before that point, it's a word, so just set it equal to such. Yes? 
+
+AUDIENCE: So then does that mean that "ba" is a word also? 
+
+SPEAKER 1: No. So in this case, "ba" we would get here, we would say is it a word, and it would still be no. OK? Mmhmm? 
+
+AUDIENCE: So once you is it a word and you say yes, then it will contain to go to m? 
+
+SPEAKER 1: So this has to do with-- you're loading this in. You say "zoo" is a word. When you go to check-- like, say you want to say, does "zoo" exist in this dictionary? You're only going to search for "zoo," and then check to see if it's a word. You're never going to move through to m because that's not what you're looking for. 
+
+So if we actually wanted to add "bath" into this try, we would do the same thing as we did with "zoo," except we would see that when we try and get to h, it doesn't exist. So you can think of this as trying to add a new node into a linked list, so we would need to add another one of these arrays, like so. And then what we do is we just set the h element of this array pointing to this. 
+
+And then what would we want to do here? Add it equal to true because it's a word. Cool. I know. Tries are not the most exciting. Trust me, I know. 
+
+So one thing to realize with tries, I said, they're very efficient. So we've seen they take up a ton of space. They're kind of confusing. So why would we ever use these? We use these because they're incredibly efficient. 
+
+So if you're ever looking up a word, you are only bounded by the length of the word. So if you're looking for a word that is of length five, you're only ever going to have to make at most five comparisons, OK? So it makes it basically a constant. Like insertion and lookup are basically constant time. 
+
+So if you can ever get something in constant time, that's as good as it gets. You can't get better than constant time for these things. So that is one of the huge pluses of tries. 
+
+But it is a lot of space. So you kind of have to decide what's more important to you. And on today's computers, the space that a try may take up maybe doesn't affect you that much, but maybe you're dealing with something that has far, far more things, and a try just isn't reasonable. Yes? 
+
+AUDIENCE: Wait, so you have 26 letters in every single one? 
+
+SPEAKER 1: Mmhmm. Yeah, you have 26. You have some is word marker and then you have 26 pointers in every one. And they're point-- 
+
+AUDIENCE: And every 26, do they each have 26? 
+
+SPEAKER 1: Yes. And that's why, as you can see, it expands quite rapidly. All right. So we're going to get into trees, which I feel like is easier and will probably be a nice little reprieve from tries there. So hopefully most of you have seen a tree before. Not like the pretty ones outside, which I don't know if anyone went outdoors recently. I went apple picking this weekend, and oh my gosh, it was beautiful. I didn't know leaves could look that pretty. 
+
+So this is just a tree, right? It's just some node, and it points to a bunch of other nodes. As you see here, this is kind of a recurring theme. Nodes pointing to nodes is kind of the essence of many data structures. It just depends on how we have them point to each other and how we traverse through them and how we insert things that determines their different characteristics. 
+
+So just some terminology, which I've used before. So root is whatever is at the very top. it's where we always start. You can think of it as the head also. But for trees, we tend to refer to it as the root. 
+
+Anything at the bottom here-- at the very, very bottom-- are considered leaves. So it goes along with the whole tree thing, right? Leaves are at the edges of your tree. 
+
+And then we also have a couple of terms to talk about nodes in relation to each other. So we have parent, children, and siblings. So in this case, 3 is the parent of 5, 6, and 7. So the parent is whatever is one step above whatever you're referring to, so just like a family tree. Hopefully, this is all a little bit more intuitive than the tries. 
+
+Siblings are any that have the same parent, right? They're on the same level here. And then, as I was saying, children are just whatever is one step below the node in question, OK? Cool. So a binary tree. Can anyone hazard a guess on one of the characteristics of the binary tree? 
+
+AUDIENCE: Max two leaves. 
+
+SPEAKER 1: Right. So max of two leaves. So in this one before, we had this one that had three, but in a binary tree, you have a max of two children per parent, right? There's another interesting characteristic. Does anyone know that? Binary tree. 
+
+So a binary tree will have everything on the-- this one isn't sorted-- but in a sorted binary tree, everything on the right is greater than the parent, and everything on the left is less than the parent. And that has been a quiz question before, so good to know. So the way we define this, again, we have another node. This looks very similar to what? Doubly 
+
+AUDIENCE: Linked lists 
+
+SPEAKER 1: A double linked list, right? So if we replace this with previous and next, this would be a doubly linked list. But in this case, we actually have left and right and that's it. Otherwise, it's exactly the same. We still have the element you're looking for, and you just have two pointers going to whatever's next. Yeah, so binary search tree. If we notice, everything on the right here is greater than-- or everything immediately to the right here is greater than, everything here is less than. 
+
+So if we were to search through, it should look very close to binary search here, right? Except instead of looking at half the array, we are just looking at either the left side or the right side of the tree. So it gets a little simpler, I think. 
+
+So if your root is NULL, obviously it's just false. And if it's there, obviously it's true. If it's less than, we search the left. If it's greater than, we search the right. It's exactly like binary search, just a different data structure that we're using. Instead of an array, it's just a binary tree. 
+
+OK, stacks. And also, it looks like we might have a little bit of time. If we do, I'm happy to go over any of this again. OK, so stacks. Does anyone remember what stacks-- any characteristics of a stack? 
+
+OK, so most of us, I think, eat in the dining halls-- as much as we may not like to. But obviously, you can think of a stack literally just as a stack of trays or a stack of things. And what's important to realize is that it's something-- the characteristic that we call it by-- is LIFO. Does anyone know what that stands for? Mmhmm? 
+
+AUDIENCE: Last in, first out. 
+
+SPEAKER 1: Right, last in, first out. So if we know, if we're stacking things up, the easiest thing to grab off-- and maybe the only thing we can grab off if our stack is big enough-- is that top element. So whatever was put on last-- as we see here, whatever was pushed on most recently-- is going to be the first thing that we pop off, OK? 
+
+So what we have here is another typedef struct. This is really just like a crash course in data structure, so there's a lot thrown at you guys. I know. So yet another struct. Yay for structures. 
+
+And in this case, it's some pointer to an array that has some capacity. So this represents our stack here, like our actual array that's holding our elements. And then here we have some size. 
+
+And typically, you want to keep track of how big your stack is because what it's going to allow you to do is if you know the size, it allows you to say, OK, am I at capacity? Can I add anything more? And it also tells you where the top of your stack is so you know what you can actually take off. And that's actually going to be a little more clear here. 
+
+So for push, one thing, if you were ever to implement push, as I was just saying, your stack has a limited size, right? Our array had some capacity. It's an array. It's a fixed size, so we need to make sure that we're not putting more into our array than we actually have space for. 
+
+So when you're creating a push function, first thing you do is say, OK, do I have space in my stack? Because if I don't, sorry, I can't store your element. If I do, then you want to store it at the top of the stack, right? 
+
+And this is why we have to keep track of our size. If we don't keep track of our size, we don't know where to put it. We don't know how many things are in our array already. Like obviously there are ways that maybe you could do it. You could initialize everything to NULL and then check for the latest NULL, but a much easier thing is just to say, OK, keep track of size. Like I know I have four elements in my array, so the next thing that we put on, we're going to store at index 4. And then, of course, this means that you've successfully pushed something onto your stack, you want to increase the size so that you know where you are so that you can push more things on. 
+
+So if we are trying to pop something off the stack, what might be the first thing that we want to check for? You're trying to take something off your stack. Are you sure there's something in your stack? No. So what might we want to check? 
+
+AUDIENCE: [INAUDIBLE]. SPEAKER 1: Check for the size? Size. So we want to check to see if our size is greater than 0, OK? And if it is, then we want to decrease our size by 0 and return that. Why? 
+
+In the first one we were pushing, we pushed it onto size and then updated size. In this case, we're decrementing size and then taking it off, plucking it from our array. Why might we do that? So if I have one thing on my stack, what would be my size at that point? 1. 
+
+And where is element 1 stored? At what index? AUDIENCE: 0. SPEAKER 1: 0. So in this case, we always need to make sure-- instead of returning size minus 1, because we know that our element is going to be stored at 1 less whatever our size is, this just takes care of it. It's a slightly more elegant way. And we just decrement our size and then return size. Mmhmm? 
+
+AUDIENCE: I guess just in general, why would this data structure be beneficial? 
+
+SPEAKER 1: It depends on your context. So for some of the theory, if you're working with-- OK, let me see if there is a beneficial one that is beneficial to more than outside of CS. With stacks, any time you need to keep track of something that is the most recently added is when you're going to want to use a stack. 
+
+And I can't think of a good example of that right now. But whenever the most recent thing is most important to you, that's when a stack is going to be useful. I'm trying to think if there's a good one for this. If I think of a good example in the next 20 minutes, I will definitely tell you. 
+
+But overall, if there's anything, like I said most, where most recent is most important, that's where a stack comes into play. Whereas queues are kind of the opposite. And all the little dogs. Isn't this great, right? I feel like I should just have a bunny video right in the middle of section for you guys because this is an intense section. 
+
+So a queue. Basically a queue is like a line. You guys I'm sure use this everyday, just like in our dining halls. So we have to go in and get our trays, I'm sure you have to wait in line to swipe or get your food. 
+
+So the difference here is that this is FIFO. So if LIFO was last in, first out, FIFO is first in, first out. So this is where whatever you put on first is your most important. So if you were waiting in a line-- can you imagine if you went to go get the new iPhone and it was a stack where the last person in line got it first, people would kill each other. 
+
+So FIFO, we're all very familiar with in the real world here, and it all has to do with actually kind of recreating this whole line and queuing structure. So whereas with the stack, we have push and pop. With a queue, we have enqueue and dequeue. So enqueue basically means put it onto the back, and dequeue means take off from the front. So our data structure is a little bit more complicated. We have a second thing to keep track of. 
+
+So without the head, this is exactly a stack, right? This is the same structure as a stack. The only thing different now is we have this head, which what do you think is going to keep track of? 
+
+AUDIENCE: The first one. 
+
+SPEAKER 1: Right, the first thing that we put in. The head of our queue. Whoever's first in line. All right, so if we do enqueue. Again, with any of these data structures, since we're dealing with an array, we need to check if we have space. 
+
+This is kind of like me telling you guys, if you open a file, you need to check for null. With any of these stacks and queues, you need to see if there's space because we're dealing with a fixed size array, as we see here-- 0, 1 all up to 5. So what we do in that case is check to see if we still have space. Is our size less than capacity? 
+
+If so, we need to store it at the tail and we update our size. So what might the tail be in this case? It's not explicitly written out. How would we store it? What would the tail be? 
+
+So let's walk through this example. So this is an array of size 6, right? And we have right now, our size is 5. And when we put it in, it's going to go into the fifth index, right? So store at tail. 
+
+Another way to write tail would just be our array at index of size, right? This is size 5. Next thing is going to go into 5. Cool? OK. It gets slightly more complicated when we start messing with the head. Yes? 
+
+AUDIENCE: Does that mean that we would have declared an array that was five elements long and then we're adding onto it? 
+
+SPEAKER 1: No. So in this case, this is a stack. This would be declared as an array of size 6. And in this case, we just have one space left. 
+
+OK, so one thing is in this case, if our head is at 0, then we just can add it at size. But it gets a little trickier because actually, they don't have a slide for this, so I'm going to draw one because it's not quite that simple once you start getting rid of things. So whereas with a stack you only ever have to worry about what the size is when you're adding something on, with a queue you also need to make sure that your head is accounted for, because a cool thing about queues is that if you're not at capacity, you can actually make it wrap around. 
+
+OK, so one thing-- oh, this is terrible chalk. One thing to consider is the case. We'll just do five. OK, so we're going to say the head is here. This is 0, 1, 2, 3, 4. 
+
+The head's there, and please have things in them. And we want to add something in, right? So the thing that we need to know is that the head is always going to move this way and then loop back around, OK? 
+
+So this queue has space, right? It has space in the very beginning, kind of the opposite of this. So what we need to do is we need to calculate the tail. If you know that your head hasn't moved, tail is just your array at the index of the size. 
+
+But in reality, if you're using a queue, your head is probably being updated. So what you need to do is actually calculate the tail. So what we do is this formula here, which I'm going to let you guys think about, and then we'll talk about it. So this is capacity. 
+
+So this will actually give you a way to do it. Because in this case, what? Our head is at 1, our size is 4. If we mod that by 5, we get 0, which is where we should input it. 
+
+So then in the next case, if we were to do this, we say, OK, let's dequeue something. We dequeue this. We take out this element, right? 
+
+And now our head is pointing here, and we want to add in another thing. This is basically the back of our line, right? Queues can wrap around the array. That's one of the main differences. Stacks, you can't do this. 
+
+With queues, you can because all that matters is that you know what was most recently added. Since everything is going to be added in this leftward direction, in this case, and then wrap around, you can continue putting in new elements at the front of the array because it's not really the front of the array anymore. You can think of the beginning of the array as where your head actually is. 
+
+So this formula is how you calculate your tail. Does that makes sense? OK. OK, dequeue, and then you guys have 10 minutes to ask me any clarifying questions you want, because I know it's crazy. 
+
+All right, so in the same way-- I don't know if you guys noticed, but CS is all about patterns. Things are pretty much the same, just with tiny tweaks. So same thing here. We need to check to see if we actually have something in our queue, right? Say, OK, is our size greater than 0? Cool. 
+
+If we do, then we move our head, which is what I just demonstrated here. We update our head to be one more. And then we decrement our size and return the element. 
+
+There is much more concrete code on study.cs50.net, and I highly recommend going through it if you have time, even if it's just a pseudo-code. And if you guys want to talk through that with me one on one, please let me know. I'd be happy to. Data structures, if you take CS 124, you'll know that data structures get very fun and this is just beginning. 
+
+So I know it's hard. It's OK. We struggle. I still do. So don't worry too much about it. 
+
+But that is basically your crash course in data structures. I know it's a lot. Is there anything that we would like to go over again? Anything we want to talk through? Yes? 
+
+AUDIENCE: For that example, so the new tail is at 0 over that? SPEAKER 1: Yes. AUDIENCE: OK. So then going through, you'd have 1 plus 4 or-- 
+
+SPEAKER 1: So you were saying, when we want to go do this again? AUDIENCE: Yeah. So if you were figuring out-- where are you calculating the tail from in that? 
+
+SPEAKER 1: So the tail was in-- I changed this. So in this example here, this was the array we're looking at, OK? So we have things in 1, 2, 3, and 4. So we have our head is equal to 1 at this point, and our size is equal to 4 at this point, right? 
+
+You all agree that's the case? So we do the head plus the size, which gives us 5, and then we mod by 5. We get 0, which tells us that 0 is where is our tail, where we have space. 
+
+AUDIENCE: What's a cap? 
+
+SPEAKER 1: The capacity. Sorry. So that is the size of your array. Yes? 
+
+AUDIENCE: [INAUDIBLE] before we return the element? 
+
+SPEAKER 1: So we move the head or return the moment? So if we move one, decrement the size? Hold on. I definitely forgot another. Never mind. There is not another formula. Yeah, you would want to return the head and then move it back. 
+
+AUDIENCE: OK, because At this point, the head was at 0, and then you want to return index 0 and then make head 1? 
+
+SPEAKER 1: Right. I think there's another formula kind of like this. I don't have it on the top my head as I don't want to give you the wrong one. But I think it's perfectly valid to say, OK, store this element-- whatever head's element is-- decrement your size, move your head over, and return whatever that element is. That's perfectly valid. OK. I feel like this is not like the most-- you're not going to walk out of here like, yes, I know tries. I got it all. That's OK. I promise. But data structures are something that it takes a lot of time to get used to. Probably one of the hardest things, I think, in the course. 
+
+So it definitely takes repetition and looking at-- I didn't really know linked lists until I did far too much with them, in the same way that I didn't really understand pointers until I've had to teach it for two years and do my own psets with it. It takes a lot of reiteration and time. And eventually, it will kind of click. 
+
+But in the meantime, if you have kind of a high level understanding of what these do, their pros and cons-- which is what we really tend to emphasize, especially in the intro course. Like, why would we use a try over an array? Like, what are the positives and negatives of each of those? 
+
+And understanding the trade-offs between each of these structures is what's much more important right now. There may be one crazy question or two that's going to ask you to implement push or implement pop or enqueue and dequeue. But for the most part, having that higher level understanding and more of an intuitive grasp is more important than actually being able to implement it. 
+
+It'd be really awesome if all of you could go out and go implement a try, but we understand it's not necessarily the most reasonable thing right now. But you can in your pset, if you want to, and then you'll get practice, and then maybe you'll really understand it. Yes? 
+
+AUDIENCE: OK, so which ones are we meant to use in the pset? Do I need to use one of them? SPEAKER 1: Yes. So you have your choice. I guess in this case, we can talk about the pset a little bit because I ran through these. So in your pset, you have your choice of tries or hash tables. Some people will try and use bloom filters, but those technically are not correct. Because of their probabilistic nature, they give false positives sometimes. They're cool look into, though. Highly recommend looking at them at least. But you have your choice between a hash table and a try. And that's going to be where you load in your dictionary. 
+
+And you'll need to choose your hash function, you'll need to choose how many buckets you have, and it will vary. Like if you have more buckets, maybe it'll run faster. But maybe you're wasting a lot of space that way, though. You have to figure it out. Mmhmm? 
+
+AUDIENCE: You said before that we can use other hash functions, that we don't have to create a hash function? 
+
+SPEAKER 1: Yes, right. So literally for your hash function, like google "hash function" and look for some cool ones. You are not expected to build your own hash functions. People spend their theses on these things. 
+
+So don't worry about building your own. Find one online to start with. Some of them you have to manipulate a little bit to make sure return types match up and whatnot, so in the beginning, I would recommend using something really easy that maybe just hashes on the first letter. And then once you have that working, incorporating a cooler hash function. Mmhmm? 
+
+AUDIENCE: Would a try be or efficient but just harder to, like-- 
+
+SPEAKER 1: So a try, I think, is intuitively hard to implement but is very fast. However, takes up more space. Again, you can optimize both of those in different ways and there are ways to-- AUDIENCE: How are we graded on this? Does it matter-- 
+
+SPEAKER 1: So you're graded normal way. You're going to be graded on design. Whichever way you do, you want to make sure it's as elegant as it can be and as efficient as it can be. But if you choose a try or hash table, as long as it works, we're happy with that. And if you use something that hashes on the first letter, that's fine, like maybe like design-wise. We're also reaching the point in this semester-- I don't know if you guys noticed-- if you're pset grades decline a little bit because of design and whatnot, that's perfectly fine. It's getting to a point where your programs are getting more complicated. There are more places you can improve on. 
+
+So it's perfectly normal. It's not that you're doing worse on your pset. It's just we're being harder on you now. So everyone's feeling it. I just graded all your psets. I know everyone is feeling it. 
+
+So don't be worried about that. And if you have any questions about prior psets or ways you can improve, I try and comment the specific places, but sometimes it's late and I get tired. Are there any other things about data structures? I'm sure you guys don't really want to talk about them anymore, but if there are, I'm happy to go over them, as well as anything from lecture this past week or last week. 
+
+I know last week was all review, so we may have skipped over some review from lecture. Any other questions I can answer? OK, all right. Well, you guys get out 15 minutes early. 
+
+I hope this was semi-helpful at least, and I will see you guys next week, or Thursday office hours. Are there requests for snacks for next week, it's the thing? Because I forgot candy today. And I brought candy last week, but it was Columbus Day, so there were like six people who had four bags of candy to themselves. I can bring Starbursts again if you like. Starbursts? OK, sounds good. Have a great day, guys. 
