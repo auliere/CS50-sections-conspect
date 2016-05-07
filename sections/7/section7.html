@@ -1,0 +1,284 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ua">
+	<head>	
+		<meta http-equiv="refresh" content="3" >
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title>CS50. Семінар 7.</title>
+		<script>
+			var show;
+			function hidetxt(type){
+			 param=document.getElementById(type);
+			 if(param.style.display == "none") {
+			 if(show) show.style.display = "none";
+			 param.style.display = "block";
+			 show = param;
+			 }else param.style.display = "none"
+			}
+		</script>
+	</head>
+	<body>
+
+		<h1>Вступ</h1>
+		<p>У семінарі №7 ми дізнаємось, як змінювати права на доступ до файлів у системі Linux, повторимо основи функціонування протоколів TCP та IP і створимо просту веб-сторінку із використанням HTML та CSS.</p>
+		<h1>Дозволи у Linux</h1>
+		<p>У системі Linux є потужна підтримка прав доступу до файлів. Система дозволяє обмежити можливості читання, запису або виконання файлів, використовуючи систему дозволів (permissions).</p>
+		<h2>Види дозволів</h2>
+		<p>Як уже було зазачено, на кожен файл може бути наданий дозвіл на читання (r), запис (w) або виконання (x) файлу. Дозволи розділяють на три групи: для поточного користувача (або власника файлу) (u), для групи користувачів (g) та для всіх інших коритстувачів (o). Схематично дозволи позначають як на малюнку нижче:</p>
+		<p><div align=center><p><img src=".\section7_pictures\07_01.png"></p></div></p>		
+		<p>Є ще один варіант позначення дозволів - за допомогою трьох чисел від 0 до 7, де перше число - дозвіл для користувача, друге - дозвіл для групи, третє - дозвіл для всіх. Числа від 0 до 7 означають наступне:</p>		
+		<p>0 - немає доступу до файлу;<br>
+		<p>1 - дозвіл на виконання (--x);<br>
+		<p>2 - дозвіл на запис (-w-);<br>
+		<p>3 - дозвіл на виконання і запис (-wx);<br>
+		<p>4 - дозвіл на читання (r--);<br>
+		<p>5 - дозвіл на читання та виконання (r-x);<br>
+		<p>6 - дозвіл на запис та читання (rw-);<br>
+		<p>7 - повний доступ до файлу (rwx);<br>
+		<p>Таким чином, повний доступ до файлу для всіх користувачів виглядатиме так: 777.</p>
+		<h2>Перегляд прав на доступ до файлів</h2>
+		<p>Команда <pre style='color:#000000;background:#ffffff;'>ls -l
+</pre> виводить список файлів у директорії та вказує для кожного файла права доступу. Приклад роботи команди:</p>
+		<p><div align=center><p><img src=".\section7_pictures\07_02.png"></p></div></p>
+		<h2>Зміна прав доступу на файл. Команда <i>chmod</i></h2>
+		<p>За допомогою команди <i>chmod</i> можна змінювати права доступу на файл. Є два варіанти використання команди chmod -  із числовими кодами дозволів або із буквенними означеннями груп та дозволів для них.</p>
+		<p>
+		<dl>
+			<dt><pre style='color:#000000;background:#ffffff;'>chmod код файл</pre></dt>
+			<dd>Встановити права доступу, використовуючи трьохцифровий код. Наприклад, виклик <pre style='color:#000000;background:#ffffff;'>chmod 777 file
+</pre> призведе до встановлення всіх дозволів на файл із іменем <i>file</i> для всіх користувачів.</dd>
+			<dt><pre style='color:#000000;background:#ffffff;'>chmod [група][оператор][права] файл</pre></dt>
+			<dd>
+				<dl>
+					<dt>група: значення u, g, o або a (всі користувачі)</dt>
+					<dt>оператор: + (додати права), - (забрати права) або = (встановити права)</dt>
+					<dt>права: літери r, w, x та їх комбінації.</dt>
+				</dl>
+				Щоб встановити такі самі права доступу, як у попередньому прикладі, необхідно виконати команду:
+				<pre style='color:#000000;background:#ffffff;'>chmod a=rwx file</pre>
+			</dd>
+			<dt><pre style='color:#000000;background:#ffffff;'>chmod 555 або chmod a+rx</pre></dt>
+			<dd>Дає всім права на читання та запуск.</dd>
+			<dt><pre style='color:#000000;background:#ffffff;'>chmod 711 directory</pre></dt>
+			<dd>Типові права доступу для директорій.</dd>
+			<dt><pre style='color:#000000;background:#ffffff;'>chmod 644 file.txt</pre></dt>
+			<dd>Рекомендовано використовувати для не-PHP файлів.</dd>
+			<dt><pre style='color:#000000;background:#ffffff;'>chmod 600 file.php</pre></dt>
+			<dd>Рекомендований режим для файлів PHP.</dd>
+		</dl>
+		</p>
+		<h1>Протокол TCP/IP</h1>
+		<p>TCP/IP - це набір стандартів, правил, що визначають, як дані передаються по мережі. Важливою частиною стандарту є адреси та порти.</p>
+		<h2>IP-адреса</h2>
+		<p>Кожен комп'ютер в мережі Інтернет, або в локальній мережі, має власну унікальну адресу - чотири числа, від 0 до 255, розділених точкою (наприклад, 192.168.0.1). Ця адреса визначає пристрій адресата даних.</p>
+		<h2>Порт</h2>
+		<p>Порт - це ідентифікатор, за допомогою якого пристрої визначають, який тип даних міститься у відправлених або прийнятих пакетах. Порт вказується через двокрапку після адреси пристрою (наприклад, 192.168.0.1:80).</p>
+		<p>Найбільш часто використовувані порти:
+			<ul>
+				<li>21: FTP, File Transer Protocol</li>
+				<li>25: SMTP: Електронна пошта</li>
+				<li>53: DNS: Domain Name System (переклад ip-адреси в адресу у словесному вигляді)</li>
+				<li>80: HTTP - веб-сторінки</li>
+				<li>443: HTTPS: захищена веб-сторінка.</li>
+			</ul>
+		</p>
+		<h2>HTTP: Hyper Text Transfer Protocol</h2>
+		<p>Абревіатора HTTP з англійської мови розшифорвується як "Протокол передачі гіпертексту". Це набір правил, що описує, як треба передавати та інтерпретувати сторінки в інтернеті.</p>
+		<h3>Гіпертекст</h3>
+		<p>Гіпертекст - це, дослівно, "надтекст" - мова розмітки і форматування тексту, що широко використовується в мережі Інтернет. Гіпертекст дозволяє створити сторінку із текстом, на якій є більше інформації ніж у звичайному тексті: посилання на інші сторінки, зображення, відео- та аудіозаписи. Будь-яка веб-сторінка форматується за допомогою гіпертексту. Інтернет-браузери, такі як Інтернет-Експолрер або Гугл Хром - це додатки, які вміють відтворювати на екрані гіпертекст, перетворюючи його відформатовану, гарну веб-сторінку.</p>
+		<p>Приклади того, що можна створити застосовучи гіпертекст:</p>
+		<p><div align=center><p><img src=".\section7_pictures\07_03.png"></p></div></p>
+		<p><div align=center><p><img src=".\section7_pictures\07_04.png"></p></div></p>
+		<p>Як виглядає код, написаний за допомогою гіпертесту (формує посилання на інтернет-сторінку):</p>
+		<p><div align=center><p><img src=".\section7_pictures\07_05.png"></p></div></p>
+		<h3>Протокол передачі</h3>
+		<p>Протокол передачі гіпертексту - стандарт, який визначає, як гіпертекстові документи слід передавати з сервера на клієнт (тобто у веб-браузер). Протол працює за допомогою механізму запитів та відповідей.</p>
+		<h4>Типовий HTTP-запит</h4>
+		<p><div align=center><p><img src=".\section7_pictures\07_06.png"></p></div></p>
+		<p>Запит складається з полів. У полях вказується наступна інформація:</p>
+		<p><div align=center><p><img src=".\section7_pictures\07_07.png"></p></div></p>
+		<h4>Типова HTTP-відповідь</h4>
+		<p><div align=center><p><img src=".\section7_pictures\07_08.png"></p></div></p>
+		<p>Інформація у відповіді:</p>
+		<p><div align=center><p><img src=".\section7_pictures\07_09.png"></p></div></p>
+		<h1>HTML та CSS</h1>
+		<p>HTML та CSS (гіпертекстова мова розмітки та каскадні таблиці стилів відповідно) - це основні стандарти та мови розмітки, що використовуються в Інтернет.</p>
+		<h2>Мова гіпертекстової розмітки HTML</h2>
+		<p>Мова HTML (HyperText Markup Language) - це мова, що використовується для текстової розмітки сайтів. Розмітка робиться за допомогою тегів, кожен з яких задає різні атрибути для відображення тексту. На практиці треба завжди виконувати наступне: закривати всі теги, перевіряти сторінки за допомогою валідатора (допоможе знайти помилки), розділяти розмітку та стилі (зберігати в окремих файлах).</p>
+		<h2>Каскадні таблиці стилів CSS</h2>		
+		<p>За допомогою каскадних таблиць стилів можна задавати вигляд різних тегів. В CSS, замість тегів використовуються так звані селектори.</p>
+		<p>Селектори можна застосувати за певного унікального блоку, що має ідентифікатор (#id) або до групи блоків, яка називається класом (.class)</p>
+		<h2>Практичний приклад</h2>
+		<p>Створіть два файли, web.html та style.css. У першому файлі, запишіть заготовку нашої веб-сторінки:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>title</span><span style='color:#a65700; '>></span>Example webpage<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>title</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>basefont</span><span style='color:#274796; '> </span><span style='color:#074726; '>size</span><span style='color:#808030; '>=</span><span style='color:#008c00; '>4</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span>
+<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+</pre>
+</p>
+		<p>Це створить пусту сторінку із заголовком Example Webpage:</p>
+		<p><div align=center><p><img src=".\section7_pictures\07_10.png"></p></div></p>
+		<p>В коді все, що знаходиться між трикутними дужками, це теги. Кожен тег має своє значення. Наприклад, тег <i>html</i> - це базовий тег, він вказує на початок та кінець веб-сторінки. Тег <i>head</i> вказує на параметри сторінки. Тег <i>title</i> визначає заголовок, тобто те що записується вгорі сторінки коли вона завантажується. Зверніть увагу, що до кожного тегу є парний закриваючий тег - так браузер розуміє, де потрібно припинити дію тегу.</p>
+		<p>Змінимо код, замінивши заголовок на Section Webpage:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>title</span><span style='color:#a65700; '>></span>Section Webpage<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>title</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>basefont</span><span style='color:#274796; '> </span><span style='color:#074726; '>size</span><span style='color:#808030; '>=</span><span style='color:#008c00; '>4</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span>
+<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+</pre>
+</p>
+		<p><div align=center><p><img src=".\section7_pictures\07_11.png"></p></div></p>
+		<p>Вміст веб-сторінки (її тіло) знаходиться всередині тегу <i>body</i>. Додамо цей тег.</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>title</span><span style='color:#a65700; '>></span>Section Webpage<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>title</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>basefont</span><span style='color:#274796; '> </span><span style='color:#074726; '>size</span><span style='color:#808030; '>=</span><span style='color:#008c00; '>4</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>body</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>body</span><span style='color:#a65700; '>></span>
+<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+</pre>
+</p>
+		<p>Оскільки тіло сторінки поки що пусте, то її вигляд не змінився. Всередину тегу <i>body</i> можна додати простий текст, або вставити будь-які інші HTML-теги. Додамо до сторінки заголовки найвищого (<i>h1</i>) та найнижчого (<i>h6</i>) рівнів за допомогою відповідних тегів:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>title</span><span style='color:#a65700; '>></span>Section Webpage<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>title</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>basefont</span><span style='color:#274796; '> </span><span style='color:#074726; '>size</span><span style='color:#808030; '>=</span><span style='color:#008c00; '>4</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>body</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>h1</span><span style='color:#a65700; '>></span> Welcome! <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>h1</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>h6</span><span style='color:#a65700; '>></span> This is fun! <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>h6</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>body</span><span style='color:#a65700; '>></span>
+<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+</pre>
+</p>
+		<p><div align=center><p><img src=".\section7_pictures\07_12.png"></p></div></p>
+		<p>Розмістимо на сторінці зображення кролика і абзац із надписом. Знайдіть у Google зображення кролика або будь-яке інше зображення, і скопіюйте посилання на нього:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'>http://s3<span style='color:#008c00; '>.</span>amazonaws<span style='color:#008c00; '>.</span>com/assets<span style='color:#008c00; '>.</span>prod<span style='color:#008c00; '>.</span>vetstreet<span style='color:#008c00; '>.</span>com/<span style='color:#008c00; '>04</span>/<span style='color:#008c00; '>71</span>/ec29a3d143ccb82ba28402c1cff6/bunny-in-a-field-thinkstock-<span style='color:#008c00; '>178046407.</span>jpg
+</pre>
+</p>
+		<p>Тепер за допомогою тегу <i>p</i> можна вставити абзац із надписом, а за допомогою тегу <i>img</i> можна вставити зображення на сторінку.</p>
+		<p>За допомогою параметрів тегу <i>p</i> текст можна вирівняти, наприклад, по правому краю екрана. Додамо декілька абзаців, що демонструють ці можливості:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>title</span><span style='color:#a65700; '>></span>Section Webpage<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>title</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>basefont</span><span style='color:#274796; '> </span><span style='color:#074726; '>size</span><span style='color:#808030; '>=</span><span style='color:#008c00; '>4</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>body</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>h1</span><span style='color:#a65700; '>></span> Welcome! <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>h1</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>h6</span><span style='color:#a65700; '>></span> This is fun! <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>h6</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#a65700; '>></span>Подивіться, який милий кролик: <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>img</span><span style='color:#274796; '> </span><span style='color:#074726; '>src</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"http://s3.amazonaws.com/assets.prod.vetstreet.com/04/71/ec29a3d143ccb82ba28402c1cff6/bunny-in-a-field-thinkstock-178046407.jpg"</span><span style='color:#a65700; '>></span><span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#a65700; '>></span>Ще один абзац<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#274796; '> </span><span style='color:#074726; '>align</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"right"</span><span style='color:#a65700; '>></span>Абзац, вирівняний вправо<span style='color:#008c00; '>.</span><span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>body</span><span style='color:#a65700; '>></span>
+<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+</pre>
+</p>
+		<p><div align=center><p><img src=".\section7_pictures\07_13.png"></p></div></p>
+		<p>Застосуємо тег <i>ul</i>, щоб створити список. Наступний код створює список з декількома елементами (додайте його до нашої веб-сторінки):</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>ul</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>li</span><span style='color:#a65700; '>></span>Carrots<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>li</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>li</span><span style='color:#a65700; '>></span>Jacob<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>li</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>li</span><span style='color:#a65700; '>></span>Lettuce<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>li</span><span style='color:#a65700; '>></span>
+<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>ul</span><span style='color:#a65700; '>></span>
+</pre>
+</p>
+		<p><div align=center><p><img src=".\section7_pictures\07_14.png"></p></div></p>
+		<p>Додамо до веб-сторінки стилі, щоб зробити її гарнішою. Відкрийте файл style.css, і напишіть там наступний код:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#696969; '>/* Селектор для тега body - встановлює колір тла*/</span>
+<span style='color:#800000; font-weight:bold; '>body</span> <span style='color:#800080; '>{</span>
+	<span style='color:#bb7977; font-weight:bold; '>background-color</span><span style='color:#808030; '>:</span> <span style='color:#797997; '>lightblue</span><span style='color:#800080; '>;</span>	
+<span style='color:#800080; '>}</span>
+
+<span style='color:#696969; '>/* Селектор для іменованого блока, встановлює колір */</span>
+<span style='color:#808030; '>#</span>pretty_color <span style='color:#800080; '>{</span>
+	<span style='color:#bb7977; font-weight:bold; '>color</span><span style='color:#808030; '>:</span> <span style='color:#797997; '>purple</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+
+<span style='color:#696969; '>/* Селектор для класу - встановлює шрифт */</span>
+<span style='color:#808030; '>.</span>pretty_font <span style='color:#800080; '>{</span>
+  <span style='color:#bb7977; font-weight:bold; '>font-family</span><span style='color:#808030; '>:</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>Brush Script MT</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> <span style='color:#074726; '>cursive</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre>
+</pre>
+</p>
+		<p>Після створення, CSS-файл необхідно підключити до вихідного коду HTML-сторінки. Для цього треба додати наступний рядок в секцію <i>head</i> нашого HTML-файлу:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>link</span><span style='color:#274796; '> </span><span style='color:#074726; '>rel</span><span style='color:#274796; '> </span><span style='color:#808030; '>=</span><span style='color:#274796; '> </span><span style='color:#0000e6; '>"stylesheet"</span><span style='color:#274796; '> </span><span style='color:#074726; '>type</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"text/css"</span><span style='color:#274796; '> </span><span style='color:#074726; '>href</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"style.css"</span><span style='color:#a65700; '>></span></pre>
+</p>
+		<p>Включення файлу таблиці стилів змінить вигляд HTML-сторінки:</p>
+		<p><div align=center><p><img src=".\section7_pictures\07_15.png"></p></div></p>
+		<p>Встановіть в одному з абзаців (всередині тега <i>p</i>) атрибут id="pretty_color":</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>title</span><span style='color:#a65700; '>></span>Section Webpage<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>title</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>basefont</span><span style='color:#274796; '> </span><span style='color:#074726; '>size</span><span style='color:#808030; '>=</span><span style='color:#008c00; '>4</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>link</span><span style='color:#274796; '> </span><span style='color:#074726; '>rel</span><span style='color:#274796; '> </span><span style='color:#808030; '>=</span><span style='color:#274796; '> </span><span style='color:#0000e6; '>"stylesheet"</span><span style='color:#274796; '> </span><span style='color:#074726; '>type</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"text/css"</span><span style='color:#274796; '> </span><span style='color:#074726; '>href</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"style.css"</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>body</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>h1</span><span style='color:#a65700; '>></span> Welcome! <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>h1</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>h6</span><span style='color:#a65700; '>></span> This is fun! <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>h6</span><span style='color:#a65700; '>></span>
+    <span style='color:#696969; '>&lt;!--Змінюємо колір абзацу --></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#274796; '> </span><span style='color:#074726; '>id</span><span style='color:#274796; '> </span><span style='color:#808030; '>=</span><span style='color:#274796; '> </span><span style='color:#0000e6; '>"pretty_color"</span><span style='color:#a65700; '>></span>Подивіться, який милий кролик: <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>img</span><span style='color:#274796; '> </span><span style='color:#074726; '>src</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"http://s3.amazonaws.com/assets.prod.vetstreet.com/04/71/ec29a3d143ccb82ba28402c1cff6/bunny-in-a-field-thinkstock-178046407.jpg"</span><span style='color:#a65700; '>></span><span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#a65700; '>></span>Ще один абзац<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#274796; '> </span><span style='color:#074726; '>align</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"right"</span><span style='color:#a65700; '>></span>Абзац, вирівняний вправо<span style='color:#008c00; '>.</span><span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>ul</span><span style='color:#a65700; '>></span>
+      <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>li</span><span style='color:#a65700; '>></span>Carrots<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>li</span><span style='color:#a65700; '>></span>
+      <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>li</span><span style='color:#a65700; '>></span>Jacob<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>li</span><span style='color:#a65700; '>></span>
+      <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>li</span><span style='color:#a65700; '>></span>Lettuce<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>li</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>ul</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>body</span><span style='color:#a65700; '>></span>
+<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+</pre>
+</p>
+		<p>Колір тексту в одному з абзаців зміниться на фіолетовий (як вказано у файлі style.css):</p>
+		<p><div align=center><p><img src=".\section7_pictures\07_16.png"></p></div></p>
+		<p>В іншому абзаці встановіть атрибут class = "pretty_font":</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>title</span><span style='color:#a65700; '>></span>Section Webpage<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>title</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>basefont</span><span style='color:#274796; '> </span><span style='color:#074726; '>size</span><span style='color:#808030; '>=</span><span style='color:#008c00; '>4</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>link</span><span style='color:#274796; '> </span><span style='color:#074726; '>rel</span><span style='color:#274796; '> </span><span style='color:#808030; '>=</span><span style='color:#274796; '> </span><span style='color:#0000e6; '>"stylesheet"</span><span style='color:#274796; '> </span><span style='color:#074726; '>type</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"text/css"</span><span style='color:#274796; '> </span><span style='color:#074726; '>href</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"style.css"</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>body</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>h1</span><span style='color:#a65700; '>></span> Welcome! <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>h1</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>h6</span><span style='color:#a65700; '>></span> This is fun! <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>h6</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#274796; '> </span><span style='color:#074726; '>id</span><span style='color:#274796; '> </span><span style='color:#808030; '>=</span><span style='color:#274796; '> </span><span style='color:#0000e6; '>"pretty_color"</span><span style='color:#a65700; '>></span>Подивіться, який милий кролик: <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>img</span><span style='color:#274796; '> </span><span style='color:#074726; '>src</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"http://s3.amazonaws.com/assets.prod.vetstreet.com/04/71/ec29a3d143ccb82ba28402c1cff6/bunny-in-a-field-thinkstock-178046407.jpg"</span><span style='color:#a65700; '>></span><span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#a65700; '>></span>
+    <span style='color:#696969; '>&lt;!--Змінюємо шрифт абзацу --></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#274796; '> </span><span style='color:#074726; '>class</span><span style='color:#274796; '> </span><span style='color:#808030; '>=</span><span style='color:#274796; '> </span><span style='color:#0000e6; '>"pretty_font"</span><span style='color:#a65700; '>></span>Another paragraph<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#274796; '> </span><span style='color:#074726; '>align</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"right"</span><span style='color:#a65700; '>></span>Абзац, вирівняний вправо<span style='color:#008c00; '>.</span><span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>ul</span><span style='color:#a65700; '>></span>
+      <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>li</span><span style='color:#a65700; '>></span>Carrots<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>li</span><span style='color:#a65700; '>></span>
+      <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>li</span><span style='color:#a65700; '>></span>Jacob<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>li</span><span style='color:#a65700; '>></span>
+      <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>li</span><span style='color:#a65700; '>></span>Lettuce<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>li</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>ul</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>body</span><span style='color:#a65700; '>></span>
+<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+</pre>
+</p>
+		<p><div align=center><p><img src=".\section7_pictures\07_17.png"></p></div></p>
+		<p>Додавши наступний текст у файл style.css, можна змінити колір усіх абзаців:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>p</span> <span style='color:#800080; '>{</span>
+  <span style='color:#bb7977; font-weight:bold; '>color</span><span style='color:#808030; '>:</span> <span style='color:#797997; '>white</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre>
+</p>
+		<p><div align=center><p><img src=".\section7_pictures\07_18.png"></p></div></p>
+		<p>Більше інформації про HTML та CSS можна знайти на сайті <a href="http://www.w3schools.com/">WWW Consortium</a>. Там є детальна документація про різні теги, їх властивості тощо.</p>
+	</body>
+</html>

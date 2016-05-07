@@ -1,0 +1,443 @@
+[MUSIC PLAYING] ALLISON BUCHHOLTZ-AU: All right, everyone. Welcome back to section. So our agenda for today is going over much more web dev stuff. I don't know how many of you have seen your psets since it was released earlier this morning. I would as how many people have read the spec, but seeing as how you've had all of, like, seven hours to look at it and it's a Monday and you've probably had class, I'm going to assume that most of you have not. If you have, extra kudos. You're basically helping implement a simple web server in C, which is a brand new pset, so you guys get to be the Guinea pigs. It's going to be a fun, wild week, but I think it'll be a lot of fun and it'll be a really good experience actually. So to prepare you for that, in section today, we're going to go chmod, TCP/IP, and then a little bit of HTML and CSS. 
+
+At the end, we'll actually code up a simple web page together to help you guys kind of get more familiarized with that. And then if you haven't picked up your quizzes, they're in front, but I'm pretty sure everyone here has their quiz. And also on that note, solutions aren't up yet, but as soon as we finish-- like, the last few people taking their quizzes-- they will be up. If you have any questions in the meantime, feel free to email me personally. I will respond with your individual questions, as I always do. 
+
+So on that note, chmod. So basically all you need to know about chmod is that it's used to change file permissions, right? So it's just some systems call it a change permissions, as it says here. And if you ever want to see what permissions a file has, instead of just doing ls, you could do ls -l. l stands for long. 
+
+So you'll do long lists of everything, and it will give you much more detailed information about each of your files. And you'll see something-- I'm going to skip ahead for a second-- but you'll see something similar to that top line there for each file. And we'll go through what that means. 
+
+So basically, to change your file permissions, you just want to use chmod. You can think of it as any other UNIX call like ls or cd or whatnot. It's just kind of another like call. 
+
+So we do chmod and then we'll have three digits typically. There are a couple ways to do it, one of which we'll go over. But typically, you'll have three digits ranging from 0 to 7 each time. 
+
+So one thing is that there are three different permissions that we can give each file. And it's readable, which is represented by r, which will make sense in a little bit; w, which is writable; and executable, which is x. I know that the e one, executable, maybe not the most sense, but we represent it with x. 
+
+And then what happens is each of these also have the number representation. So we have 1, 2, and 4. And basically what happens is each of these three numbers here corresponds to a different set of users that those permissions pertain to. 
+
+So you can think of that first number corresponds to the actual user or the owner of the file, the second number will correspond to the group, and the last one refers to the world, OK? So what happens is remember those numbers-- r is 4, w is 2, x is 1, right? This-- if you sum these up, that gives you that first number that we might input in our chmod. 
+
+So in this case, what would this number be? It'd be 4 plus 2 plus 1, which is a 7, right? And in this case, these don't have anything, so this right here would translate to chmod 700, OK? And what that does is it grants all of these permissions to your user. 
+
+So this means our user can do whatever they want. They can read this file. They can execute this file. They can write to this file. But group and the world, no permissions whatsoever, OK? 
+
+So another way to write that, we can do chmod of three digits, each of which corresponds to whatever the sum or that specific group is, specific subset. Or we can do actually another thing. Hold on. We can do something with these here. 
+
+How many of you saw an example where it was like to chmod a plus x? Did you see that in lecture, I think? So a stands for all. It means give it to all users, which I forgot to put here. 
+
+But a plus x, if we notice here, if we do to chmod-- what group we're talking about plus the permissions we want to give them. So this can be a plus or a minus. Plus adds permission. Minus takes away permission. Pretty intuitive, I think. 
+
+So a plus x means chmod. So change the permissions of all people if this is an a-- add permissions. And x-- that means what permission are we granting everyone. Read, write, or execute? 
+
+AUDIENCE: Execute. 
+
+ALLISON BUCHHOLTZ-AU: Execute. So we are giving all users permission to execute this file, OK? So what if we wanted to do that with the numeric form? So remember with numeric, we want three numbers. 
+
+AUDIENCE: 4. ALLISON BUCHHOLTZ-AU: What was that? AUDIENCE: 4. ALLISON BUCHHOLTZ-AU: Not 4. AUDIENCE: 0, 0, 4. ALLISON BUCHHOLTZ-AU: Well, we want to give it to all users, right? So we're going to have a number in each slot. That's going to be the same number in each slot because we just want to give everyone executable permissions. So executable is 1, but on the right track. 
+
+So if we did chmod 111 that would be the equivalent of chmod a plus x. Does that make sense to everyone? We're going to go through a couple of examples. 
+
+So the big takeaway here is a's not on here, but a just means give it to all users. u is if you just want to give or take away a specific permission from the user or the owner. g is for the group, so that middle digit. And then others you can think of as the world, that last digit. 
+
+So with that, we'll go to an example, because I feel like examples always make these things easier to understand. So rwx-- we went through this-- could also be represent as 700. That's the example we looked at more of the picture. So chmod 444 on some file would give what permissions? You were really close. AUDIENCE: Readable to all. ALLISON BUCHHOLTZ-AU: Readable. So readable to everyone, right? And then what's another way to do that? If we want to do chmod with either r's or w's, plus and minuses, what would that call look like? It would be chmod what? 
+
+AUDIENCE: a plus r. 
+
+ALLISON BUCHHOLTZ-AU: a plus r on the 5. OK, so this is the same as this, just two different translations of the same thing. So with that, we have these. So I want you guys to try and write these kind of in their opposite way. 
+
+So with chmod 555, what would it be like? Would it be a plus or u plus or whatnot? For u plus x, give me the three numbers. And then tell me about what permissions we're actually granting and to who? 
+
+So I'll give you guys two minutes to work on that. Feel free to talk with each other. For those of you who came in a little late, there is candy and shirts. We have three shirts left, and we have Kit Kats and Starbursts. So feel free to come grab some in this little interlude. 
+
+Also, the last one is tricky. It's two chmods for the last one. Actually, let me close that door while you guys are working on that. Candy's always necessary on a Monday afternoon. 
+
+OK, so chmod 555. What's another way we could write that? Any ideas? Yes. 
+
+AUDIENCE: a plus rx. 
+
+ALLISON BUCHHOLTZ-AU: r plus rx. Do you want to explain why it'd be rx? 
+
+AUDIENCE: Because you have 5, so that's 4 plus 1, so that's read plus executable, and it's for all. ALLISON BUCHHOLTZ-AU: Right. So just to reiterate, 5 here we know as the sum of 4 and 1, because each number in our trio is the sum of the permissions for that subset, right? Either the user, the group, or the world. So in this case, we know that 5 has to be formed by 4 and 1. 
+
+And 4 and 1 correspond to readable and executable. We are giving it to everyone, so we can do chmod a plus rx. And obviously, we just went through the questions there, so now this file is executable and readable to everyone. 
+
+So what about the second one? What might the number for that one be? Any ideas? Go ahead. 
+
+AUDIENCE: 100 [INAUDIBLE]. 
+
+ALLISON BUCHHOLTZ-AU: 100. Exactly. So do you want to explain why 100? AUDIENCE: Because it's for the user, so it's in first position. And then x executable is 1. ALLISON BUCHHOLTZ-AU: Exactly. So we are granting executable permissions to just the user. So in this case, it would be 100. And I have all the answers up on the next slide in case you're writing lots of things down. 
+
+OK, so this next one is actually done with two chmods, you could do it. So does anyone have any idea how you might get chmod 640 rewritten in the other way? You can change the user first and then you can change the group is my hint. 
+
+So if we were just changing the user, which is this first one here, what might our call be? So user is u, right? So chmod u plus what? Mmhmm? 
+
+AUDIENCE: rw. ALLISON BUCHHOLTZ-AU: rw. Right, for read and write, because read is 4, w is 2, those sum together as 6. So we get chmod u plus rw, and we get our first 6 there. 
+
+So then to get the 4, we now want to change our group settings. So we're going to do chmod g plus what? What's a 4? 
+
+AUDIENCE: r. ALLISON BUCHHOLTZ-AU: r. Precisely. So we're giving the owner read and write permissions and we're giving the group read permissions, which we have all up here. Mmhmm? 
+
+AUDIENCE: If you can write something, does it imply you can execute it? 
+
+ALLISON BUCHHOLTZ-AU: You can write to something-- I don't believe that it implies you can execute it. Cool. So that's all that we just went through. So on this next one, it's just kind of common cases that you want to keep in mind for your problem set. These are typically the permissions that we like you to use. 
+
+So for 711, that gives us, of course, user all permissions, which tends to make sense. And then it's executable by the group in the world, which makes sense if you have some directory, you want to be able to traverse into it. People need access. 
+
+For any non-PHP file, you're going to use 644, which would do what? What does that imply, or what permissions does that give? So the owner can what? AUDIENCE: Read and write. ALLISON BUCHHOLTZ-AU: Read and write. And then group and others can just read, right? And then chmod 600 for any PHP files that you use, your owner, again, can read and write to it but everyone else is just kind of blocked off. 
+
+So this will actually be more useful when you get to your problem set next week where you're actually building a website. So if you ever run into any strange problems where it's not loading properly, maybe you need to add an executable permission, or maybe you need a read or write permission. Little things that tend to trip people up, but that's kind of like the go-to when you start next week's pset. And I would give you more hints on this week's pset, but I have yet to look at it since it was released this morning. But you email me, I will have looked at it by the time I respond tomorrow. 
+
+So now, is everyone good with chmod? Any lingering questions? Pretty straightforward. Just kind of keeping track of what read, write, and execute numbers are is probably the hardest part. 
+
+So with TCP/IP, all these protocols, kind of like with your data structures last week, it's much more important to kind of get a higher level intuition of them. This is not CS143 where we're going to ask you to implement a network, so you'll be fine if you don't understand the nitty gritty of all the protocols. What's important to understand is kind of like what they represent and why they're important. 
+
+So TCP/IP, of course, it is the Transmission Control Protocol or Internet Protocol, which is basically just a set of laws basically or standards that tell data how it should be handled, how it should be packetized, transmitted, and received. So it basically, just as it says here, increases the chances that data gets where you want it to get to. 
+
+I'm sure if you guys went to lecture or watched it online, he has-- I don't know if he did it this year, but I know last year, he had a demo where he had a picture of Rob and he split it up into four and put it in envelopes and tried to get it across Sanders. And you can kind of think of it that way. It's just a set of rules that tell data how to get someplace and lets you know if you are missing data, in the same way that if you are taking multiple pages of notes and you label them with page 104, page 204, and you go back to study later and you are missing something-- you can't find page 304-- you know something's wrong, so you can look through your notes again or ask someone to resend you the lecture notes from that day. The same way with data on the internet. If I'm asking for something from some server and it needs to send it in multiple packets, probably going to number it in some way, let me know how many I should have received, and tell me, oh, this is one of 10 or this is one of 10,000. That way when I go to reassemble all the pieces together, I know if something's missing and I can ask for that again. Does that make sense? Just a set of rules. At its basis, set of rules, OK? 
+
+So we also talked a little bit about ports. This is really just a standard that lets you know what type of data is being transmitted in these packets. If we go with our envelope example, we don't know that it's a picture of Rob in there unless we write it on the outside of our envelope. So ports are basically the same thing. It's just a way to figure out what type of data is being transmitted. 
+
+So we have all of the most common ones here. So 21-- these are also kind of like good things to know. It's kind of an easy quiz question. Be like, what does port 80 do? Or, what does port 443 do? So good things to know. 
+
+So we have here, 21 is file transfer protocol, so just the rules that govern file transfer. 25, something that we all use far too much, is email. 53 is the domain name system, which is basically just kind of a lookup for the IP address of a domain name. 
+
+So I'm pretty sure it was mentioned in lecture, if you go to something like google.com, it has an IP address that's associated with it. It's not actually google.com. And so 53 is the port that actually takes care of kind of translating it into that IP address for you. And then 80 and 443 are very common. You either have your web page or you have your secure web page, which a lot of web pages are transferring over to now. 
+
+So that's kind of high level overview of transfer protocol. I don't see much more in depth. It's kind of cool stuff if you're interested. There's plenty of resources. Wikipedia actually is a pretty good page. So I was looking at it just a little while ago, so I would highly recommend looking at it if you're interested or take 143 in two years because I think it's every other year. 
+
+So on the end of this, we're talking about web pages and HTTP, which is actually our next topic for today before we go into HTML and CSS and you can actually code up a web page. It'll be fun. We'll have pictures of bunnies and it'll be great. 
+
+So HTTP, as you can see here, is one of the lovely acronyms for this week, which is Hypertext Transfer protocol. So again, it's just another set of rules that governs hypertext transfer, in this case. So best way to learn about this is just kind of to break it down into these individual words because there are a lot of words on the screen there. 
+
+So we're going to start with hypertext. So "hyper," you can think of "above," like super-type thing. So it's really just text taken to the next level, so it's like super text, like the next text. So it's basically just text that gives us more information than normal text does, OK? 
+
+So in this case here, this is hypertext. This tells us that we have some link that we're going to, which is cs50.net, which is now cs50.harvard.edu. These slides are a little old. And it's going to display it as this, as a hyperlink, and then a really cool website. 
+
+So it's text, which is a little bit of really cool things in there. So you can link things and you can insert images and you can style things. And the most familiar thing that you guys probably have with hypertext is HyperText Markup Language, HTML, which of course is all of the web that we see around us, granted with some CSS style thrown in. 
+
+But if anyone was really big with MySpace, I'm sure you all used HTML all the time to create those perfect profiles, right? I feel like that might be an outdated reference now, but whatever. Just a little-- you guys aren't that much younger. Some of you are older than me. MySpace was still a thing when I was young. I'm not that old. 
+
+Anyways, HTML just a form of hypertext. So hypertext is just text with added features. So transfer protocol is probably the more iffy thing to explain. Obviously, transfer-- just transfer of data. So either between the client, like your web brother, and a server. So basically just the way the internet works. 
+
+So the exact request of how these work, we're actually going to look at an example request and response. But how we request information from a server and how the server responds to us is what this transfer protocol governs. So the request and the response have to follow these specific set of rules. It's standardized so that no matter where you're using the internet, it always works the same, OK? 
+
+Again, protocol, set of rules. It's just a normal interaction in the same way that Professor Malan talks about if someone extends their hand, you know that it's common courtesy to reach yours out and shake their hand. That's a protocol, right? 
+
+So I give some standardized request, which is I want to shake your hand, and you give some standardized response, which is either no thanks or you could try and shake my hand or maybe you're going to try and fist bump me. And we don't have a protocol for that. It breaks down. But if everyone follows the same protocol, of course, it goes much more seamlessly. People get to know each other. Everyone's happy. 
+
+So in the world of the web, everyone follows the same rules-- slightly better than social standards. But with that, we'll look at an example request here. So there's this little key here on bottom that tells you the different colors, what they're supposed to mean. 
+
+So white is just like your method request and protocol version-- so method request, version. And then this is some field name and the value of that field, which we will go into very, very shortly. So this is an example request. This is like me extending out, wanting to introduce myself. 
+
+This is what the client or what your web browser would be sending to your server. So this is a get request, so it's asking for something from the server. And it's, of course, HTTP and it's version 1.1. 
+
+So the rest of this here is what we call the header, and its extra information that gives us a better idea of what we're actually asking for, or information that we want to give the server that might be pertinent. So User-Agent gives some more description on-- for example, here, curl/7.24.0 is actually going to tell the server that we're using Google Chrome as our browser. So if you ever hear about people who talk about making an app responsive to multiple browsers, this is something that they would use because if you don't know what browser the request is coming from, you can't tailor the data to that. So in this case, user is just giving this kind of identifying information about what browser your user is currently using, OK? 
+
+So then we also have host, which is where we're actually wanting to go to. In this case, we want to go to apple.com, buy some cool new iPads or something, maybe cute lights at our dorm rooms. And name value at the end is just a filler, just a general thing for you guys to see. It doesn't actually correspond to anything here. 
+
+So you can have as much or as little as you want in each case. Most of the time, these are optional. It just depends on what you need from the browser, from your user in order to properly give the request. Or it depends on what your user actually wants to give up to the server. So you may have many, many of these header field names or you might just have a couple. As with so many things I've said in this section, it really depends on the context of how you're using this. 
+
+So does that makes sense to everyone? This is just an example of a request, headers, whatnot. OK, so with that, we have some response. 
+
+Again, we have our status code, protocol version, and then field name and field value as always. So our protocol version and our status code is 200. OK, which means that, yes, everything went well. Here's what you want. 
+
+The server type, the content type-- it tells us, OK, you're going to get some text HTML. Here is the length of it and here's what you should do with the connection. OK, so again, depending on the data you're asking for, depending on what the server wants to return to you, you may have more of these field names, you might have less. Totally context dependent. 
+
+And as far as this status code here, of course, 200 is not the only one you could have, right? We have lots of status codes. Does anyone remember any of the others that we mentioned in lecture? A lot of them start with 4. 
+
+AUDIENCE: 404. 
+
+ALLISON BUCHHOLTZ-AU: 404, which is? 
+
+AUDIENCE: File not found? 
+
+ALLISON BUCHHOLTZ-AU: File not found. Exactly. So what about 403? AUDIENCE: Forbidden. ALLISON BUCHHOLTZ-AU: Forbidden. So what do you think that means with chmods? 
+
+AUDIENCE: It means that you don't have permission to read it. 
+
+ALLISON BUCHHOLTZ-AU: Exactly. In some way, you don't have permission to access it, right? So 404, 403. There's a really funny one that we always introduce every year that I should have put up here, like 413, which is I'm a teapot. You can google this. It's funny like, that is code 413 and it's I'm a teapot. Which I don't know why you would ever need that on the internet, but I digress. AUDIENCE: Maybe you're a tea pot. ALLISON BUCHHOLTZ-AU: Maybe the server is a tea pot. Who knows? All right, so we're about to transition into real coding. I feel like you guys are going to get out of here pretty quickly. 
+
+AUDIENCE: Why does it say "server: twice? 
+
+ALLISON BUCHHOLTZ-AU: Hm? Server twice? That is a good question. I am not sure. I will find out and I will email you all. 
+
+OK, any other questions besides that? Good? Cool. 
+
+HTML and CSS, and now we get to all the fun parts. So as I mentioned before, HTML is probably one of the things you guys are most familiar with. So we have HyperText Markup Language. 
+
+The best way to learn this-- I don't have any prepared slides or anything for you guys with HTML. It's really about learning the syntax. And if you were in the MySpace day, you would have this down. 
+
+So really, the biggest thing is just to practice and experiment. One of the great resources I would highly recommend using is W3Schools. So just W, 3, and then Schools. They have a lot of resources on HTML, on CSS, and they actually have a split screen sort of thing where they'll give you example code. You can fiddle with it, change it, and press Update, and it'll show you what it actually does to the web page. 
+
+So I would highly recommend using that. It's pretty cool. You won't get seg faults here when things go wrong. If you manage to get a seg fault with HTML, do let me know because I'm going to be real intrigued. But it's really cool because you can change things, you can see them updated live. And I think you'll get a much more intuitive grasp of HTML if you actually just spend some time experimenting with it. So that's why I said, practice and experiment. 
+
+Google, from here on out, will probably be one of your best resources and friends. Or Bing-- I'm working at Microsoft, so maybe I should say Bing. But pretty much anything is just going to be syntax, so understanding what the tags are, understanding-- at least with CSS-- how to change certain attributes. It'll be super useful. 
+
+So even though we don't have any prepared things, we do have kind of some best practices that we want you guys to try and abide by-- or rather, you should abide by until further notice. So close all your tags. Hopefully everyone has-- you know what, if this doesn't make sense right now, I promise it will make sense when we're coding up the page. But close all your tags. So if you ever have some header that's bracket, H1, bracket, make sure that whenever you're done with that, you close that header. Validate your page with W3 Validator. If you don't close your tags, you can get unexpected behavior. It'll say that your page is invalid if you run it through this validator. So when in doubt-- and especially on this week's and next week's pset-- in the same way that we ask you to use check 50 and style 50, you could think of this as one of your checks, OK? 
+
+So if it does not pass the W3 Validator. That is something we will dock you on. Or I'm telling you right now, I will dock you on. So make sure it validates. It's not hard. You just paste in your code and it'll either say good job or you're missing something in the same way that style 50 tells you where you're messing up. 
+
+And then one last thing is you want to separate your markup, which is all that HTML or your text, and your styling. So we'll do an example of that right after this. So HTML and CSS should be separate. And we're going to be talking about MVC, which is Model View Controller, next week. You guys should probably learn about that in lecture tomorrow if you had already learned it today. 
+
+And it's just kind of a paradigm that we tend to use when creating web pages to separate things out. You can think of it in the same way that we tend to separate functions in C where we hash to find things. It's just a way to make your life easier. It separates out attributes or code that you would be using over and over again, but in this way, it kind of keeps it nice and neat. And if you want to change one thing, you change it once and it's changed everywhere else. So it's more for your ease and flexibility. 
+
+So with CSS, it's very similar to HTML, but instead of tags that I mentioned just now, we use what's called selectors. And they basically just kind of associate a certain tag in HTML with different attributes. And when I say attributes, I mean things like font color, font style, the color of the background, the color of your text. Those sorts of things. Like if it's centered, if it's off to the right, if it's inverted-- all of these cool things. Any stylistic things that you do to your text, this is what I mean with attributes. 
+
+And then two main things to know is that selectors-- two of the main factors-- are ID, which is unique. You can only use that for one thing. Otherwise, it's going to yell at you. And when we define it in a CSS file, it will be hash ID and then what attributes we want. I promise we're going to go through an example. It'll make a lot more sense. 
+
+Class can refer to multiple blocks. So you can have your first and third paragraph have the same sort of attributes if you associate them with the same class. And when we define them in CSS, we do a dot class, with class being whatever you want it to be named. 
+
+So I know this is right now very abstract. That's why we're going to code. I know you guys love that, and you all are going to help me because this is your web page. This is our section's web page, guys. So are there any questions before I turn off the PowerPoint, or anything you want me to scroll back to before we start coding? 
+
+AUDIENCE: When you say match tags, do you mean selectors or tags? ALLISON BUCHHOLTZ-AU: You can think of them as the same thing. It's just different words. I mean, like selectors. But selectors also map to tags. So you can think of them as effectively the same thing. I promise it's going to make more sense when we code. Anything from the PowerPoint or any questions right now before we actually create our section's page? Everyone ready? Cool. 
+
+So I have one started. Let me increase the font for you guys. OK, so right now, we just have a bare bones web page right here. 
+
+We have some HTML. We have some header, which we see here as example web page. Some title, some font. These are tags, OK? So when I mean close your tags, we see here this bracket head is your opening tag, and this bracket /head is closing it, OK? 
+
+So you could think of this as your braces in your if conditions or your for loops. If you have one at the beginning, you want one at the end. It will still work most of the time if you don't have a closed tag, but best practice is close your tags. 
+
+So in this case, let's change this. We're going to have section seven. "Section Webpage." So I'm just going to change this. 
+
+And if we go over here and we reload-- gotta save and reload-- we notice that up here it changed, right? Cool. So this changes the title. This is whatever's on your tab. 
+
+So this is kind of looking kind of boring. I don't know about guys. I think we want something else here. 
+
+So what we can do is the header is just there. Let's do some sort of body. So we have some body here. I always do open and close my tags to start, in the same way that I do braces. Ah. Wait, what? 
+
+AUDIENCE: [INAUDIBLE]. ALLISON BUCHHOLTZ-AU: Ah. You guys got me. Good job. Gold star. 
+
+OK, so we have some body here. And now let's start adding some text. So you have a couple different options for adding text. We have things like headers. We have just normal text. So let's just start with a header. Actually, if you guys want to pull up W3 School's HTML, you can kind of look around and if there's anything particularly that you want to try out with this web page, we can do that. So in this case, let's just do some h1. So h1 is like the highest header. It will give you something that is very large and bold. 
+
+And in this case, what do we want for the first text on our web page? Anything. You guys are going to create this. I'm just going to type. AUDIENCE: Welcome. 
+
+ALLISON BUCHHOLTZ-AU: Welcome. OK, so if we save it and we reload, we have a great big welcome. So just so you can see the differences, let's do something on H6. What do we want right here? Right? 
+
+OK, so just so you can see the difference. Yeah, Sublime. So if you notice, h1, very, very large. h6, like bold, but much smaller, and you have everything in between. So you could have h2, h3, h4. And these are just headers, so if you're trying to create a web page that has different sections, maybe you want to use headers in there somewhere. 
+
+Cool. So we'll add some more things in our body. I see that it would be kind of cool if we had a picture. I feel like everyone could use maybe a cute bunny picture right about now, so we're going to find a bunny picture first. 
+
+I don't know if you guys have any preferences on which one we want. Do you have any preferences? This one here? Down. OK. That one it is. Good choices. 
+
+OK, so we're going to view our image. Look at that. Look at that adorable thing. How could you be sad on a Monday with this? 
+
+So we're just going to copy the image URL. And what we want to do is, let's just say we have some p for paragraph. We're going to say "Look look at the cute bunny. d'awwww." I love my bunnies. I have a bunny at home. I miss my bunny. So what we're going to do-- I don't know if you guys want to google this-- but with HTML, how might you include an image? Literally, if you google "include image HTML," why don't you guys tell me what this tag should be? 
+
+AUDIENCE: img source-- 
+
+ALLISON BUCHHOLTZ-AU: img source-- AUDIENCE: --equals-- ALLISON BUCHHOLTZ-AU: --equals-- AUDIENCE: --quote-- yeah. ALLISON BUCHHOLTZ-AU: Perfect. Lovely. See, MySpace generation, right? AUDIENCE: Neopets. ALLISON BUCHHOLTZ-AU: Neopets. Oh, OK. Wow. It's been crazy. OK. 
+
+So make sure I get this right. Cool. So this should be here. And then if we reload, we have our bunny on the page Isn't this adorable? 
+
+This is so cute. You chose a great, great photo. I'm digging it. 
+
+OK, so we have this adorable bunny now. We were able to add an image, just like that. So basically if there's any image you want to add to your web page, you can add it just like this. Another thing would be if you have the image stored in the same folder as this file, you can just write whatever the name of that image is instead of having a web link. 
+
+It would still be in quotes. It would just be like if we had named this-- if this picture had been saved in the folder with this HTML file that I'm editing and it was called bunny.jpg. We could also do that and it would show up. However, I don't have this saved in the file and I want to keep the bunny, so we're going to keep the link. 
+
+AUDIENCE: What is rabbit.org? 
+
+ALLISON BUCHHOLTZ-AU: rabbit.org. It's an appropriate-- look, you can adopt it. Adoption. bunny.jpg. I want to adopt this bunny. Oh, god, it's so cute. 
+
+OK, so we've added headers. We've added a picture. Obviously, we added some text here, right? If we wanted to add other texts, we'd go like this. So this is another paragraph. 
+
+And we say "this is another paragraph." Also, I'm a horrible speller, so I may misspell things. Just FYI. 
+
+So we have another paragraph here, right? So maybe you want to do something a little more interesting than just have all your text, like right aligned. Maybe you want to center your text, OK? 
+
+So if someone wants to use those handy computers in front of you and tell me how you're going to center this text, 
+
+AUDIENCE: p align. 
+
+ALLISON BUCHHOLTZ-AU: So p align equals "center." He's killing it, guys. Y'all need to step up. And we have "This is centered." And now we have something centered. 
+
+In the same way, if you want it left aligned, you could do align equals left, align equals right. Totally up to you. If I did right here, then this should-- now it's right aligned. 
+
+AUDIENCE: Allison? By image source, why isn't there close of the img source? ALLISON BUCHHOLTZ-AU: Sorry. This one should be there Now you're good. Now we're good. AUDIENCE: Don't you have to close it there, or not? ALLISON BUCHHOLTZ-AU: Well, so img source, this one is just-- with image, it's just seen as one element, whereas if you notice for the rest of these, we have some tag then information that it pertains to and then a closing tag. But with image, everything's just sort of self-contained. Cool. So you guys know how to create a header, you know how to input text, you know how to put an image in now, you can align things. 
+
+Another thing that you might want to be able to do is to create a list in CS-- we're kind of going into next week's pset. The stuff that we typically teach this week goes really well with next week's pset, so we're kind of mixing, overlapping things here. But it'll be useful for next week. 
+
+So if we wanted to create some list, how might we do that? You can't answer this time. Someone else has to. It's not hard, guys, promise. Google "unordered list HTML." What was that? 
+
+AUDIENCE: [INAUDIBLE]. ALLISON BUCHHOLTZ-AU: Right. So do we want ordered or unordered? Let's do an unordered. So we have some ul, which stands for Unordered List. And what do we have for each element? Does it needs its own tag? Can we just start writing things? 
+
+AUDIENCE: li. 
+
+ALLISON BUCHHOLTZ-AU: li. So what is our list going to be? What do we want here? We just do names. Just do Jacob. 
+
+AUDIENCE: Rabbit foods. 
+
+ALLISON BUCHHOLTZ-AU: Rabbit foods. OK I like this. Rabbit foods. 
+
+OK, so we have carrots. I like this rabbit theme. I'm digging it a lot. AUDIENCE: Actually, I thought that Jacob would be a legit. ALLISON BUCHHOLTZ-AU: Jacob? Jacob is rabbit food. If you saw Jacob's photo from office hours, you might have thought he got attacked by a killer rabbit. 
+
+AUDIENCE: I have a rabbit now. I have a killer rabbit now. 
+
+ALLISON BUCHHOLTZ-AU: Are you kidding me? 
+
+AUDIENCE: I'll bring it next section. I have it. 
+
+ALLISON BUCHHOLTZ-AU: This is ridiculous. Anyway. 
+
+AUDIENCE: [INAUDIBLE] 
+
+AUDIENCE: Yeah, my proctor has a rabbit as well. 
+
+ALLISON BUCHHOLTZ-AU: I want a rabbit. OK, whoever brings a real rabbit to the next section, total brownie points. AUDIENCE: [INAUDIBLE] AUDIENCE: Oh, it's not real. It's a stuffed rabbit. 
+
+ALLISON BUCHHOLTZ-AU: Oh yeah, we can close these. Looks rad. AUDIENCE: Does it actually matter? ALLISON BUCHHOLTZ-AU: It doesn't. With most of these things, you don't close the tag, 99% of the time nothing bad's going to happen, but it's good style, too. So Jacob. And we have lettuce. AUDIENCE: For links, it's really important. ALLISON BUCHHOLTZ-AU: Hm? AUDIENCE: For hyperlinks. ALLISON BUCHHOLTZ-AU: For hyperlinks. Yes, hyperlinks need it. OK, so let's see here. And we have the close of our list. And we look at that. We have all-- Jacob, right there. Rabbit food. Reminds me of Bunnicula. 
+
+AUDIENCE: [INAUDIBLE] ALLISON BUCHHOLTZ-AU: I'm bringing back all the old school references today, aren't I? Just all the old school references. Should have brought like Gogurts or something for snacks. 
+
+AUDIENCE: Or Gushers. ALLISON BUCHHOLTZ-AU: Oh. OK. I'll see if I can track down Gushers for next week. I think I can do that. I think we might have some in the office. 
+
+OK, so we've covered a lot of different things you can do with HTML, right? And as you can probably see, it's nothing-- hopefully, not too intim-- if it is, I don't mean to belittle anyone. If you're having trouble, please come talk to me. 
+
+But most of it is just looking at the syntax, right? If you want an unordered list, if you want some sort of list, if you want to align something or format something, it's all about just kind of looking up the syntax for HTML, right? And one thing that's pretty cool actually is if you go to-- let's see, what's a nice website that we like? Anyone have any favorite websites that are OK to bring up online? You know what, let's just do CS50. That's nice and safe, right? 
+
+OK, so CS50 here. Oh look, there's a section right now. If you like the way it looks. 
+
+AUDIENCE: [INAUDIBLE]. ALLISON BUCHHOLTZ-AU: We are not going to do meta section, guys. It's not happening. It would be cool, but we're not going to do it. 
+
+So what do you could do if you like the way this works is you can always right click on any web page that you like and you can do View Page Source. It will bring up all the HTML. And this is actually a really good way to style your own web page. Go to a web page that you really like and look at the HTML and figure out how they did it. 
+
+And literally, as long as you cite things, as long as you're not just stealing from people, it's OK. Especially for CS50 [? finance ?], we are kind of expecting you to get inspiration from other website. So feel free. Look through websites that you think are really pretty and figure out how they use HTML and CSS to do these things. 
+
+So as you see here, there's obviously like links and we have a class here. We have a link here. We have a list. We probably have some pictures in here somewhere. 
+
+We've got some cool style here. This is the next thing we're going to do. So style, whenever you see these style brackets, it's CSS basically. Ben, did you have a question? 
+
+AUDIENCE: What is div? 
+
+ALLISON BUCHHOLTZ-AU: div is just a-- what is div? AUDIENCE: Division. ALLISON BUCHHOLTZ-AU: Division. Yeah, it's just like separating different elements. OK, so here is what we're going to go into next. So this may not be the best style because, if you notice we have HTML and style in the same page, and we actually want to separate those, OK? And actually, let me open up my right one because this is supposed to be the PDF, so we have style.css. 
+
+So what we can do here is these are cool things like some fade and we could try and do that, but I feel like I would mess that up on the fly, so I encourage you guys to go try that on your own, but I'm not going to do it right now. So if you guys, remember, if you ever hit problem set, something swoops in from the side. It has to do with the fade and the transition and whatnot. 
+
+AUDIENCE: And that's all CSS and HTML? 
+
+ALLISON BUCHHOLTZ-AU: All CSS and HTML. Yeah. So you can do a lot of really cool things with CSS and HTML. So with our awesome bunny web page here, we are going to do a little bit of CSS styling with it. 
+
+So if you ever have a style sheet, which we have here, you can just call style.css. You can call it whatever you want. What's important is that we're going to reference it in our web.html here. 
+
+So what we're going to do is we-- so I don't mess this up-- we are going to link these two files together. So in the same way-- I'm going to draw an analogy to C here. In the same way that if you have some library-- and we have cs50.h-- our compiler links it. This is just an explicit link on our part. So in the same way that we do hash include some file, what I'm about to write is just the HTML/CSS equivalent of that. 
+
+We are just saying, OK, this web page is going to use this stylesheet, OK? So we have link rel equal to stylesheet. And then we have type, css. And then href equals. 
+
+OK. So all this did here is you can think of this as the same thing as a hash include. Obviously it looks a little more complicated, but in all cases, it's effectively the same thing. So this is just some linking of a style sheet, it's of type text/css, and the name of it is style.css. 
+
+What's important to know is that the web page that I'm working right now-- web.html and style.css-- are in the same folder. Because in different folders, you need to give the actual root to it or the path to it. But in this case, we're keeping it super simple and it's going to be here. So if we do that, I have some things already queued up here. 
+
+So we have some body, which is going to have our background color, which right now is light blue. We can change it if we want, but if I remember this correctly, it should just change it to light blue. And now we have a light blue background. And we had here-- can anyone remember which one is hash ID or class? 
+
+AUDIENCE: ID. 
+
+ALLISON BUCHHOLTZ-AU: ID. Cool. So what we want to do is which of these fonts or which-- do we want "Look at the cute bunny" to be purple? I think we want that to be purple. I'm pretty down with that being purple. 
+
+So what you do is you do ID equals-- in this case I said, what, pretty color here. We reload. All of a sudden, it's purple. OK, so with ID, remember it needs to be unique, so I should never be using this ID anywhere else. But with class, as we have here with a pretty font, I should be able to use that anywhere I want to. 
+
+So let's do this one here. So we can say class equals pretty font. And if we look now, we have this cool pretty font here. So maybe I want to do both. OK, I actually don't know if this is going to work but I want to try it. And this is how you learn CSS and HTML. You're like, you know what, I want to try this. I'm not sure if it's going to work. Let's see if it works. 
+
+And look at that. Now it's in purple and it's a pretty font. OK, so you have all these different things you can do. Do you have a question? 
+
+AUDIENCE: Yeah. Well, just like the colors you're using are words. Is there a way to do colors with the hexadecimal RGB? ALLISON BUCHHOLTZ-AU: You can also do it with hexidecimal, I believe. Yeah. But it's kind of nice if you don't want to look them up. You can just be like, purple or blue. AUDIENCE: Let's hope they know what that means. ALLISON BUCHHOLTZ-AU: Right. So let's make this read or chartreuse. Why would you ever choose chartreuse? It's an interesting color. 
+
+OK, so obviously we can see we can change things however we want. If you wanted to create-- let's say we wanted to create another class. What might you guys want to change? If you pull up W3Schools' CSS documentation, I leave the floor to you guys. We can try and do something cool with this in the last couple of minutes. Because I've kind of given you a crash course on a lot of cool things that you can do. But in the end, as I said, if you just experiment, you'll learn a lot. 
+
+AUDIENCE: Did you look up that font? 
+
+ALLISON BUCHHOLTZ-AU: Yeah, I looked up that font. So like literally, I went to-- what did I do? I did CSS font list, and then I did font stack, and then I was like, look, here are all the cool fonts you can do. And there was this one, so I copied it to my clipboard. And then I was like, OK, cool, there we go. All done. 
+
+AUDIENCE: So you do have to make sure that CSS knows what that font is. 
+
+ALLISON BUCHHOLTZ-AU: Yes. 
+
+AUDIENCE: What's it say at the end? Cursive? 
+
+ALLISON BUCHHOLTZ-AU: Cursive. Yeah. 
+
+AUDIENCE: Background image. 
+
+ALLISON BUCHHOLTZ-AU: Background image. OK. So you want to tell me how to do this. I leave this to you. I'm just typing up here now. The wheel is in your hands. 
+
+AUDIENCE: OK 
+
+ALLISON BUCHHOLTZ-AU: OK. What am I doing? 
+
+AUDIENCE: Doing-- I know what comes after the curly brace. ALLISON BUCHHOLTZ-AU: OK. So probably in body, I would assume, because we're doing with the background image. 
+
+AUDIENCE: Yeah, let's do that. 
+
+ALLISON BUCHHOLTZ-AU: OK. AUDIENCE: OK, so background colon, and then we need a URL address of that image. Maybe pseudo-code that for now, perhaps. 
+
+ALLISON BUCHHOLTZ-AU: What would you like me to-- AUDIENCE: I'm thinking like a GIF. ALLISON BUCHHOLTZ-AU: A GIF? That's going to be interesting. OK, what am I googling here? 
+
+AUDIENCE: No, that's your choice. 
+
+ALLISON BUCHHOLTZ-AU: Why don't we-- if it's a bunny, I feel like we should have a nice grassy lawn or something. 
+
+AUDIENCE: Meadow. A meadow. 
+
+ALLISON BUCHHOLTZ-AU: A meadow? OK. AUDIENCE: Or Rachel Maddow. ALLISON BUCHHOLTZ-AU: This one looks pretty. Oh, that's tiny, though. We need a good size image. Let's see. Oh, look. That's a pretty meadow. You know what, I like this one. Let's copy this one. 
+
+AUDIENCE: OK, so I think it's the URL, open parentheses. 
+
+ALLISON BUCHHOLTZ-AU: OK, URL. 
+
+AUDIENCE: Then the address. 
+
+ALLISON BUCHHOLTZ-AU: OK. Is that all we need? 
+
+AUDIENCE: Close parentheses semicolon, and then space, background hyphen attachment colon fixed, and curly brace. 
+
+ALLISON BUCHHOLTZ-AU: OK. Let's see if that works. It's going to be pretty cool if it does. I'm real excited right here. It didn't work. I wonder why. AUDIENCE: Maybe the URL has to be in quotations. ALLISON BUCHHOLTZ-AU: Maybe. And this is how we learn, guys. 
+
+AUDIENCE: Can we have background color and background image? 
+
+AUDIENCE: No. One supersedes the other. 
+
+ALLISON BUCHHOLTZ-AU: I dunno. Let's see. Let's check it out and see. 
+
+AUDIENCE: Oh, maybe, yeah. [INTERPOSING VOICES] 
+
+ALLISON BUCHHOLTZ-AU: OK, this is obviously-- I [INAUDIBLE] here. So OK. AUDIENCE: Background attachment. ALLISON BUCHHOLTZ-AU: Ah. 
+
+AUDIENCE: OK, I don't know. ALLISON BUCHHOLTZ-AU: It looks like it should work. Are you sure it's colon after the URL? 
+
+AUDIENCE: No, it's semicolon. ALLISON BUCHHOLTZ-AU: It's semicolon. AUDIENCE: Did I say colon? ALLISON BUCHHOLTZ-AU: You said a colon. AUDIENCE: Oh no. ALLISON BUCHHOLTZ-AU: There you go. AUDIENCE: Oh, wait, now we can't read the text. ALLISON BUCHHOLTZ-AU: Now you can't read the text, but we have the background image. Mmhmm? 
+
+AUDIENCE: Does HTML support dynamic content? Like, could you resize that picture depending on the window size, or is that a CSS-- 
+
+ALLISON BUCHHOLTZ-AU: So CSS has to do that. So if you guys are interested in learning advanced CSS, I am co-teaching a seminar on CSS on the 7th. And I promise it will be much more in depth and do much more cool things in this section. And my co-teacher is like total front end web dev master. So it'll be pretty cool if you want to learn about all the cool things that CSS can do. 
+
+But what we have here with his background attachment fixed-- so it's some fixed size-- but you can actually dynamically-- if you ever see web pages, as most good web pages will do, when you adjust the size of your browser, it adjusts the background or how much is showing or reformats things, right? So that's what we call relative positioning. 
+
+And CSS can actually grab how big your browser width is or how tall it is, and you can position things according to the relative sizes versus absolute sizes. And that's obviously more advanced CSS, but that is something you can do. If you want to learn more, come to my seminar. 
+
+So that is something you can do. And CSS can actually do-- CSS and JavaScript, which we'll get into next week-- can allow you to dynamically change pages without having to reload them all the time. And you get to do some pretty cool stuff. 
+
+So is there another thing that you guys might want to do or anything you want to explore? We have 10 minutes left. We can also leave early, but if you want to do some more web stuff, we can, but I'm not going to force you to. But we can also just eat candy. AUDIENCE: Highlight the text white so you can read it. ALLISON BUCHHOLTZ-AU: OK. So in this case, we want some p. AUDIENCE: Should we do it in the body so it applies to the whole page? ALLISON BUCHHOLTZ-AU: Yes, we can actually. That's a good idea. So we have-- do you know what we should be? I don't know if we can do text color. I was going to try and create another class here. 
+
+AUDIENCE: How do you get so that it has the suggestions? ALLISON BUCHHOLTZ-AU: So if you guys are interested, this is another text editor called Sublime. You should be able to install it on your appliance. Sometimes it gets a little tricky. If you want help with that, I'm super happy to help you with it, because gedit is great and it's awesome because you can compile it on the bottom, but I really like Sublime because it's pretty and it does do things like auto-complete. 
+
+So you can definitely feel free to let me know if you want to do that. If you just google "Sublime text," it typically has instructions on how to install on various operating systems. It is really cool, I think, in my opinion. So p. I think I can just do text-- or we can just do color is "white." There. 
+
+So what I did here is that I didn't change all the text. But p here is just a tag that we have, right? This paragraph tag. So I just created a CSS element that said, OK, anything with this tag p, make the color white. 
+
+So if you noticed, it made this white and this white. It didn't make our list white because it's not associated with that. You could go through and you could say-- 
+
+AUDIENCE: Do background color. 
+
+ALLISON BUCHHOLTZ-AU: Background color? 
+
+AUDIENCE: Background to pipe in color where you put the p tag. 
+
+ALLISON BUCHHOLTZ-AU: OK. You want it white? AUDIENCE: Mmhmm. ALLISON BUCHHOLTZ-AU: OK. There you go. AUDIENCE: That's weird. ALLISON BUCHHOLTZ-AU: Pretty cool, right? So if you just mess around, you're going to learn a lot. And it can be pretty cool. I think it's definitely more gratifying than sometimes because you don't have to wait for your program to compile. You can just hit Refresh and you're like, oh, look, it worked, or oh, I'm probably missing something. And that's something that's really cool about this next part of the class, is it's definitely, I think, easier to check as you go along the way versus having to write these long programs and wishing and praying that it works at the end. 
+
+So with that, I think you guys all seem good. If you have any questions, as always, come talk to me, come let me know. I will be right outside for the next 15 minutes if you want to chat about anything and everything. 
+
+So I hope you guys-- good luck with this pset. The deadline is Friday at noon because it was released late. So I will probably be seeing a lot of you guys on Thursday, but hopefully not. Maybe you'll have it done by then. I'd be super proud. 
+
+But if not, I will see you Thursday. You can also use a late date, which extends it to Saturday at noon. But I don't-- huh? 
+
+AUDIENCE: Halloween. 
+
+ALLISON BUCHHOLTZ-AU: It's Halloween, a, and b, I don't think there will be office hours on Friday. So really do try and get it done by Friday so that we can all celebrate Hallow weekend. All right, I'll see you guys next week. 

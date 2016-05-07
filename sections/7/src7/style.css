@@ -1,0 +1,22 @@
+/* element selector */
+body {
+  background-color: lightblue;
+}
+
+p {
+  text-align: center;
+}
+/* id selector */
+#purple {
+  color: purple;
+}
+
+/* class selector*/
+.pretty_font {
+  font-family: "Brush Script MT", cursive;
+}
+
+/* class withi tag selector */
+p.red {
+  color: red;
+}
