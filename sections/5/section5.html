@@ -3,7 +3,7 @@
 
 <html lang="ua">
 	<head>	
-		<!-- <meta http-equiv="refresh" content="3" > -->
+		<meta http-equiv="refresh" content="3" >
 		<meta http-equiv="content-type" content="text/html; charset=utf-8">
 		<title>CS50. Семінар 5.</title>
 		<script>
@@ -21,6 +21,89 @@
 	<body>
 
 		<h1>Вступ</h1>
+		<p>Семінар №5 - це повторення матеріалу, пройденого раніше, і відповіді на питання студентів курсу.</p>
+		<h1>Питання 1. Стек та купа</h1>
+    <p>Розкажіть, будь ласка, ще раз про стек, купу та принцип їх роботи.</p>
+    <h2>Відповідь</h2>
+		<p>На малюнку нижче показано загальну модель організації пам'яті комп'ютера.</p>
+		<p><div align=center><p><img src=".\section5_pictures\05_01.png"></p></div></p>
+		<p>Стек - це область пам'яті, над якою ви не маєте ніякого контролю. У нього записуються змінні та інофрмація, що створюється у результаті виклику будь-яких функцій. Коли функція закінчує роботу, то вся інформація про її виклик та її змінні видаляються з стеку автоматично.</p>
+		<p>Купа - це та область пам'яті, над якою ви, як програмісти, маєте безпосередній контроль. Пам'ять тут виділяється у результаті виклику функції <i>malloc</i>.</p>
+    <p>Глибші знання про стек та купу вам поки що не знадобляться. Ви їх отримаєте пізніше, у поглиблених курсах.</p>
+		<h1>Питання 2. Переповнення буфера</h1>
+		<p>Що таке "переповнення буфера" (<i>buffer overflow</i>)?</p>
+		<h2>Відповідь</h2>
+		<p>Отже, що таке буфери? Буфер - це масив певної довжини, розташований у пам'яті. Переповнення буферу виникає, якщо ми намагаємось записати в нього більше даних, аніж передбачено розміром буфера. За допомогою переповнення буфера зловмисник може записати небезпечний код у пам'ять вашого комп'ютера.</p>
+		<h1>Питання 3. Покажчики</h1>
+		<p>Чи могли б ви ще раз повторити про покажчики? Про базовий синтаксис.</p>
+		<h2>Відповідь</h2>
+		<p>Щоб створити покажчик, необхідно вказати тип даних, на який посилатиметься покажчик, записати зірочку та ім'я покажчика. Наприклад, так:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>int</span><span style='color:#808030; '>*</span> a<span style='color:#800080; '>;</span>     <span style='color:#696969; '>//Покажчик на int</span>
+<span style='color:#800000; font-weight:bold; '>char</span><span style='color:#808030; '>*</span> b<span style='color:#800080; '>;</span>    <span style='color:#696969; '>//Покажчик на char</span>
+<span style='color:#800000; font-weight:bold; '>float</span><span style='color:#808030; '>*</span> c<span style='color:#800080; '>;</span>   <span style='color:#696969; '>//Покажчик на float</span>
+</pre>
+</p>
+		<p>Для того, щоб отримати значення, на яке вказує покажчик, необхідно застосувати оператор розіменування:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#808030; '>*</span><span style='color:#808030; '>&lt;</span>ім'я змінної<span style='color:#808030; '>></span>
+</pre>
+</p>
+		<p>Щоб отримати покажчик на якусь змінну, треба використати оператор взяття адреси:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#808030; '>&amp;</span><span style='color:#808030; '>&lt;</span>ім'я змінної<span style='color:#808030; '>></span>
+</pre>
+</p>
+		<h1>Питання 4. Структури та списки</h1>
+		<p>Хотілося б освіжити в пам'яті зання про структури (<i>stucts</i>) та зв'язані списки.</p>
+		<h2>Відповідь</h2>
+		<p>Отже, структури (<i>stucts</i>) - це просто засіб, щоб в одному місці зберігати дані кількох різних типів. У масивах можна зберігати лише цілі числа, або лише символи, - загалом, дані лише одного типу.</p>
+		<p>Структури - це ваш особистий тип даних, в який входять елементи різних типів даних. Приклад оголошення структури, в якій зберігаються дані про студента:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>typedef</span> <span style='color:#800000; font-weight:bold; '>struct</span>
+<span style='color:#800080; '>{</span>
+  string name<span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>int</span> id<span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>int</span> phone_number<span style='color:#800080; '>;</span>
+  string house<span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+student<span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<p>Тепер у нас є тип із іменем <i>student</i>. Ми можемо створювати змінні цього типу, і використовувати поля цього типу як показано нижче:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'>student walker<span style='color:#800080; '>;</span> <span style='color:#696969; '>//Створення нової змінної</span>
+
+<span style='color:#696969; '>//Заповнення полів нової змінної</span>
+walker<span style='color:#808030; '>.</span>name <span style='color:#808030; '>=</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>Walker</span><span style='color:#800000; '>"</span><span style='color:#800080; '>;</span>
+walker<span style='color:#808030; '>.</span>id <span style='color:#808030; '>=</span> <span style='color:#008c00; '>123456</span><span style='color:#800080; '>;</span>
+walker<span style='color:#808030; '>.</span>phone_number <span style='color:#808030; '>=</span> <span style='color:#008c00; '>38012312366</span><span style='color:#800080; '>;</span>
+walker<span style='color:#808030; '>.</span>house <span style='color:#808030; '>=</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>Jackson</span><span style='color:#800000; '>"</span>
+</pre>
+</p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
 		<p></p>
 		<p></p>
 		<p></p>
