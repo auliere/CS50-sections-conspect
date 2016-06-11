@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ua">
+	<head>	
+		<!-- <meta http-equiv="refresh" content="3" > -->
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title>CS50. Семінар 8.</title>
+		<script>
+			var show;
+			function hidetxt(type){
+			 param=document.getElementById(type);
+			 if(param.style.display == "none") {
+			 if(show) show.style.display = "none";
+			 param.style.display = "block";
+			 show = param;
+			 }else param.style.display = "none"
+			}
+		</script>
+	</head>
+	<body>
+
+		<h1>Вступ</h1>
+		<p>У семінарі №8 ми розглянемо основи PHP, SQL та поговоримо про шаблон MVC (Model View Controller)</p>
+    <h1>PHP</h1>
+		<h2>Що таке PHP?</h2>
+		<p>PHP (розшифровується як PHP Hypertext Preprocessor - гіпертекстовий препроцессор PHP) - це мова програмування, що використовується на сервері. Завдяки можливості комбінувати код PHP та HTML, можна створювати динамічні веб-сторінки, що показують кожного разу різну інформацію в залежності від, наприклад, налаштувань користувача.</p>
+		<h2>Швидкий огляд мови PHP</h2>
+		<h3>Змінні. Оголошення змінних</h3>
+		<p>На відміну від С, PHP - мова з динамічною типізацією. Це означає, що вам не треба вказувати тип змінної при її оголошенні - він визначається автоматично.</p>
+		<p>Синтаксис оголошення змінної:</p>
+		<p>$змінна = значення;</p>
+    <p>Наприклад:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#797997; background:#ffffff; '>$var</span><span style='color:#000000; background:#fffff; '> </span><span style='color:#808030; background:#fffff; '>=</span><span style='color:#000000; background:#ffffff; '> </span><span style='color:#008c00; background:#ffffff; '>3</span><span style='color:#800080; background:#ffffff; '>;</span><span style='color:#000000; background:#ffffff; '></span>
+</pre>
+</p>
+		<p>Зверніть увагу, що імена усіх змінних в PHP починаються зі знаку <i>$</i></p>
+		<h3>Масиви</h3>
+		<p>Масиви у PHP можуть бути асоціативними - тобто індексом може бути не лише число, а й якийсь об'єкт (наприклад, рядок). Синтаксис оголошення масиву:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#797997; background:#ffffe8; '>$array_name</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>[</span><span style='color:#aa0000; background:#ffffe8; '>key1 </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#808030; background:#ffffe8; '>></span><span style='color:#000000; background:#ffffe8; '> value1</span><span style='color:#808030; background:#ffffe8; '>,</span><span style='color:#aa0000; background:#ffffe8; '> key2 </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#808030; background:#ffffe8; '>></span><span style='color:#000000; background:#ffffe8; '> value2</span><span style='color:#808030; background:#ffffe8; '>]</span><span style='color:#000000; background:#ffffe8; '></span>
+</pre>
+</p>
+		<p>Тоді, щоб звернутись до елементу масиву, необхідно застосувати таку конструкцію:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#797997; background:#ffffe8; '>$array_name</span><span style='color:#808030; background:#ffffe8; '>[</span><span style='color:#000000; background:#ffffe8; '>key1</span><span style='color:#808030; background:#ffffe8; '>]</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></pre>
+</p>
+		<p>При оголошенні масиву, ключі можна не вказувати, і тоді індексами в масиві будуть числа, так само як і в C:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'>
+<span style='color:#797997; background:#ffffe8; '>$array_2</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>[</span><span style='color:#008c00; background:#ffffe8; '>10</span><span style='color:#808030; background:#ffffe8; '>,</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#008c00; background:#ffffe8; '>20</span><span style='color:#808030; background:#ffffe8; '>,</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#008c00; background:#ffffe8; '>30</span><span style='color:#808030; background:#ffffe8; '>]</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#797997; background:#ffffe8; '>$array_2</span><span style='color:#808030; background:#ffffe8; '>[</span><span style='color:#008c00; background:#ffffe8; '>1</span><span style='color:#808030; background:#ffffe8; '>]</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#008c00; background:#ffffe8; '>20</span><span style='color:#800080; background:#ffffe8; '>;</span></pre>
+</p>
+		<p>Приклад роботи з асоціативним масивом (команда echo виводить текст у командний рядок):</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#5f5035; background:#ffffe8; '>&lt;?php</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#797997; background:#ffffe8; '>$array</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>[</span><span style='color:#0000e6; background:#ffffe8; '>"Allison"</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#808030; background:#ffffe8; '>></span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"Buchholtz-Au"</span><span style='color:#808030; background:#ffffe8; '>,</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"Ema"</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#808030; background:#ffffe8; '>></span><span style='color:#0000e6; background:#ffffe8; '>"Horvath"</span><span style='color:#808030; background:#ffffe8; '>]</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#800000; background:#ffffe8; font-weight:bold; '>echo</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"</span><span style='color:#797997; background:#ffffe8; '>{</span><span style='color:#797997; background:#ffffe8; '>$array</span><span style='color:#808030; background:#ffffe8; '>[</span><span style='color:#0000e6; background:#ffffe8; '>'Ema'</span><span style='color:#808030; background:#ffffe8; '>]</span><span style='color:#797997; background:#ffffe8; '>}</span><span style='color:#0f69ff; background:#ffffe8; '>\n</span><span style='color:#0000e6; background:#ffffe8; '>"</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#5f5035; background:#ffffe8; '>?></span>
+</pre>
+</p>
+		<p>Результат:</p>
+		<p><div align=center><p><img src=".\section8_pictures\08_01.png"></p></div></p>
+		<p>Приклад роботи із масивом:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#5f5035; background:#ffffe8; '>&lt;?php</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#797997; background:#ffffe8; '>$array2</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>[</span><span style='color:#008c00; background:#ffffe8; '>3</span><span style='color:#808030; background:#ffffe8; '>,</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#008c00; background:#ffffe8; '>5</span><span style='color:#808030; background:#ffffe8; '>,</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#008c00; background:#ffffe8; '>6</span><span style='color:#808030; background:#ffffe8; '>]</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#800000; background:#ffffe8; font-weight:bold; '>echo</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"</span><span style='color:#797997; background:#ffffe8; '>{</span><span style='color:#797997; background:#ffffe8; '>$array2</span><span style='color:#808030; background:#ffffe8; '>[</span><span style='color:#008c00; background:#ffffe8; '>0</span><span style='color:#808030; background:#ffffe8; '>]</span><span style='color:#797997; background:#ffffe8; '>}</span><span style='color:#0f69ff; background:#ffffe8; '>\n</span><span style='color:#0000e6; background:#ffffe8; '>"</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#5f5035; background:#ffffe8; '>?></span>
+</pre>
+</p>
+		<p>Результат:</p>
+		<p><div align=center><p><img src=".\section8_pictures\08_02.png"></p></div></p>
+		<h2>Оператори порівняння</h2>
+		<p>Так як мова PHP має динамічну типізацію, у ній існує два оператори порівняння: <i>==</i> та <i>===</i>. Оператор <i>==</i> спершу здійснює приведення типів (перетворює порівнювані змінні до одного типу даних), а потім порівнює їх значення. Оператор <i>===</i> перевіряє чи обидва порівнювані елементи мають однаковий тип та значення.</p>
+		<h2>Цикл foreach</h2>
+		<p>Цикл foreach - це зручний спосіб проходження по масиву. Замість створення спеціальних тимчасових змінних для проходження по масиву, достатно просто написати:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; background:#ffffe8; font-weight:bold; '>foreach</span><span style='color:#000000; background:#ffffe8; '>	</span><span style='color:#808030; background:#ffffe8; '>(</span><span style='color:#797997; background:#ffffe8; '>$array</span><span style='color:#000000; background:#ffffe8; '>	</span><span style='color:#800000; background:#ffffe8; font-weight:bold; '>as</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#797997; background:#ffffe8; '>$value</span><span style='color:#808030; background:#ffffe8; '>)</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#800080; background:#ffffe8; '>{</span><span style='color:#000000; background:#ffffe8; '>	</span>
+<span style='color:#000000; background:#ffffe8; '>&#xa0;&#xa0;</span><span style='color:#696969; background:#ffffe8; '>//виконати ці інструкції</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#800080; background:#ffffe8; '>}</span><span style='color:#000000; background:#ffffe8; '></span>
+</pre>
+</p>
+		<p>Якщо необхідно пройтися по асоціативному масиву, де є ключі:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; background:#ffffe8; font-weight:bold; '>foreach</span><span style='color:#000000; background:#ffffe8; '>	</span><span style='color:#808030; background:#ffffe8; '>(</span><span style='color:#797997; background:#ffffe8; '>$array</span><span style='color:#000000; background:#ffffe8; '>	</span><span style='color:#800000; background:#ffffe8; font-weight:bold; '>as</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#797997; background:#ffffe8; '>$key</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#808030; background:#ffffe8; '>></span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#797997; background:#ffffe8; '>$value</span><span style='color:#808030; background:#ffffe8; '>)</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#800080; background:#ffffe8; '>{</span><span style='color:#000000; background:#ffffe8; '>	</span>
+<span style='color:#000000; background:#ffffe8; '>&#xa0;&#xa0;</span><span style='color:#696969; background:#ffffe8; '>//виконати ці інструкції</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#800080; background:#ffffe8; '>}</span>
+</pre>
+</p>
+		<h3>Приклади:</h3>
+<p>
+<p>У цьому прикладі відбувається ітерація по всіх елементах масиву, і кожен елемент масиву (і його ключ) виводяться на екран:</p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#5f5035; background:#ffffe8; '>&lt;?php</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#797997; background:#ffffe8; '>$arr</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#800000; background:#ffffe8; font-weight:bold; '>array</span><span style='color:#808030; background:#ffffe8; '>(</span><span style='color:#0000e6; background:#ffffe8; '>"one"</span><span style='color:#808030; background:#ffffe8; '>,</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"two"</span><span style='color:#808030; background:#ffffe8; '>,</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"three"</span><span style='color:#808030; background:#ffffe8; '>)</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#800000; background:#ffffe8; font-weight:bold; '>foreach</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>(</span><span style='color:#797997; background:#ffffe8; '>$arr</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#800000; background:#ffffe8; font-weight:bold; '>as</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#797997; background:#ffffe8; '>$key</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#808030; background:#ffffe8; '>></span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#797997; background:#ffffe8; '>$counter</span><span style='color:#808030; background:#ffffe8; '>)</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#800080; background:#ffffe8; '>{</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#000000; background:#ffffe8; '>&#xa0;&#xa0;</span><span style='color:#800000; background:#ffffe8; font-weight:bold; '>echo</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"Value:</span><span style='color:#797997; background:#ffffe8; '>$key</span><span style='color:#0000e6; background:#ffffe8; '> => </span><span style='color:#797997; background:#ffffe8; '>$counter</span><span style='color:#0f69ff; background:#ffffe8; '>\n</span><span style='color:#0000e6; background:#ffffe8; '>"</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#800080; background:#ffffe8; '>}</span><span style='color:#000000; background:#ffffe8; '></span><span style='color:#5f5035; background:#ffffe8; '>?></span>
+</pre>
+</p>
+		<p><div align=center><p><img src=".\section8_pictures\08_03.png"></p></div></p>
+		<p>У наступному прикладі відбувається те ж, що й у попередньому, але ми використовуємо асоціативний масив. Зверніть увагу, що елементи масиву необов'язково повинні мати однаковий тип:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#5f5035; background:#ffffe8; '>&lt;?php</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#797997; background:#ffffe8; '>$arr</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#800000; background:#ffffe8; font-weight:bold; '>array</span><span style='color:#808030; background:#ffffe8; '>(</span><span style='color:#0000e6; background:#ffffe8; '>"a"</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#808030; background:#ffffe8; '>></span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#008c00; background:#ffffe8; '>1</span><span style='color:#808030; background:#ffffe8; '>,</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"b"</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#808030; background:#ffffe8; '>></span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"two"</span><span style='color:#808030; background:#ffffe8; '>,</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"c"</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#808030; background:#ffffe8; '>></span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"three"</span><span style='color:#808030; background:#ffffe8; '>)</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#800000; background:#ffffe8; font-weight:bold; '>foreach</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>(</span><span style='color:#797997; background:#ffffe8; '>$arr</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#800000; background:#ffffe8; font-weight:bold; '>as</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#797997; background:#ffffe8; '>$key</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#808030; background:#ffffe8; '>></span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#797997; background:#ffffe8; '>$value</span><span style='color:#808030; background:#ffffe8; '>)</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#800080; background:#ffffe8; '>{</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#800000; background:#ffffe8; font-weight:bold; '>echo</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"Key: </span><span style='color:#797997; background:#ffffe8; '>$key</span><span style='color:#0000e6; background:#ffffe8; '>; Value: </span><span style='color:#797997; background:#ffffe8; '>$value</span><span style='color:#0f69ff; background:#ffffe8; '>\n</span><span style='color:#0000e6; background:#ffffe8; '>"</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#800080; background:#ffffe8; '>}</span><span style='color:#000000; background:#ffffe8; '></span><span style='color:#5f5035; background:#ffffe8; '>?></span>
+</pre>
+</p>
+		<p><div align=center><p><img src=".\section8_pictures\08_04.png"></p></div></p>
+		<h1>Динамічна типізація</h1>
+		<p>Ми вже говорили про динамічну типізацію. Щоб краще зрозуміти, що це таке, продемонструємо декілька прикладів.</p>
+		<h2>Приклад 1</h2>
+		<p>У цьому прикладі у нас є змінна <i>$a</i>, якій присвоєно деяке значення. Ми виводимо на екран значення і тип цієї змінної.</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#5f5035; background:#ffffe8; '>&lt;?php</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#797997; background:#ffffe8; '>$a</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#008c00; background:#ffffe8; '>1</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>+</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#008c00; background:#ffffe8; '>1</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#800000; background:#ffffe8; font-weight:bold; '>echo</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"1 + 1 is </span><span style='color:#797997; background:#ffffe8; '>$a</span><span style='color:#0f69ff; background:#ffffe8; '>\n</span><span style='color:#0000e6; background:#ffffe8; '>"</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#797997; background:#ffffe8; '>$typea</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#400000; background:#ffffe8; '>gettype</span><span style='color:#808030; background:#ffffe8; '>(</span><span style='color:#797997; background:#ffffe8; '>$a</span><span style='color:#808030; background:#ffffe8; '>)</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#800000; background:#ffffe8; font-weight:bold; '>echo</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"Type: </span><span style='color:#797997; background:#ffffe8; '>$typea</span><span style='color:#0000e6; background:#ffffe8; '> </span><span style='color:#0f69ff; background:#ffffe8; '>\n</span><span style='color:#0000e6; background:#ffffe8; '>"</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#5f5035; background:#ffffe8; '>?></span>
+</pre>
+</p>
+		<p>Результат:</p>
+		<p><div align=center><p><img src=".\section8_pictures\08_05.png"></p></div></p>
+		<h2>Приклад 2</h2>
+		<p>У цьому прикладі, змінній <i>$b</i> також присвоюється деяке значення і визначається тип змінної. Зверніть увагу, що хоча ми й нібито додаємо рядки, але PHP автоматично перетворює їх на цілі числа:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#5f5035; background:#ffffe8; '>&lt;?php</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#797997; background:#ffffe8; '>$b</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"1"</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>+</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"1"</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#800000; background:#ffffe8; font-weight:bold; '>echo</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"</span><span style='color:#0f69ff; background:#ffffe8; '>\"</span><span style='color:#0000e6; background:#ffffe8; '>1</span><span style='color:#0f69ff; background:#ffffe8; '>\"</span><span style='color:#0000e6; background:#ffffe8; '> + </span><span style='color:#0f69ff; background:#ffffe8; '>\"</span><span style='color:#0000e6; background:#ffffe8; '>1</span><span style='color:#0f69ff; background:#ffffe8; '>\"</span><span style='color:#0000e6; background:#ffffe8; '> is </span><span style='color:#797997; background:#ffffe8; '>$b</span><span style='color:#0000e6; background:#ffffe8; '> </span><span style='color:#0f69ff; background:#ffffe8; '>\n</span><span style='color:#0000e6; background:#ffffe8; '>"</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#797997; background:#ffffe8; '>$typeb</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#400000; background:#ffffe8; '>gettype</span><span style='color:#808030; background:#ffffe8; '>(</span><span style='color:#797997; background:#ffffe8; '>$b</span><span style='color:#808030; background:#ffffe8; '>)</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#800000; background:#ffffe8; font-weight:bold; '>echo</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"Type: </span><span style='color:#797997; background:#ffffe8; '>$typeb</span><span style='color:#0000e6; background:#ffffe8; '> </span><span style='color:#0f69ff; background:#ffffe8; '>\n</span><span style='color:#0000e6; background:#ffffe8; '>"</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#5f5035; background:#ffffe8; '>?></span>
+</pre>
+</p>
+		<p>Результат:</p>
+		<p><div align=center><p><img src=".\section8_pictures\08_06.png"></p></div></p>
+		<h2>Приклад 3</h2>
+		<p>Спробуємо додати рядок і ціле число. Результат записуємо у змінну <i>$c</i> та визначаємо її тип:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#5f5035; background:#ffffe8; '>&lt;?php</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#797997; background:#ffffe8; '>$c</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"1"</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>+</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#008c00; background:#ffffe8; '>1</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#800000; background:#ffffe8; font-weight:bold; '>echo</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"</span><span style='color:#0f69ff; background:#ffffe8; '>\"</span><span style='color:#0000e6; background:#ffffe8; '>1</span><span style='color:#0f69ff; background:#ffffe8; '>\"</span><span style='color:#0000e6; background:#ffffe8; '> + 1 is </span><span style='color:#797997; background:#ffffe8; '>$c</span><span style='color:#0000e6; background:#ffffe8; '> </span><span style='color:#0f69ff; background:#ffffe8; '>\n</span><span style='color:#0000e6; background:#ffffe8; '>"</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#797997; background:#ffffe8; '>$typec</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#400000; background:#ffffe8; '>gettype</span><span style='color:#808030; background:#ffffe8; '>(</span><span style='color:#797997; background:#ffffe8; '>$c</span><span style='color:#808030; background:#ffffe8; '>)</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#800000; background:#ffffe8; font-weight:bold; '>echo</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"Type: </span><span style='color:#797997; background:#ffffe8; '>$typec</span><span style='color:#0000e6; background:#ffffe8; '> </span><span style='color:#0f69ff; background:#ffffe8; '>\n</span><span style='color:#0000e6; background:#ffffe8; '>"</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#5f5035; background:#ffffe8; '>?></span>
+</pre>
+</p>
+		<p>Результат:</p>
+		<p><div align=center><p><img src=".\section8_pictures\08_07.png"></p></div></p>
+		<p>Як бачимо, PHP знову здійснив перетворення рядка у ціле число.</p>
+		<h2>Приклад 4</h2>
+		<p>Запишемо результат додавання двох символів у змінну <i>$d</i> і подивимось, який тип буде у результату:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#5f5035; background:#ffffe8; '>&lt;?php</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#797997; background:#ffffe8; '>$d</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>'1'</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>+</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>(</span><span style='color:#bb7977; background:#ffffe8; '>double</span><span style='color:#808030; background:#ffffe8; '>)</span><span style='color:#0000e6; background:#ffffe8; '>'1'</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#800000; background:#ffffe8; font-weight:bold; '>echo</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"'1' + '1' is </span><span style='color:#797997; background:#ffffe8; '>$d</span><span style='color:#0000e6; background:#ffffe8; '> </span><span style='color:#0f69ff; background:#ffffe8; '>\n</span><span style='color:#0000e6; background:#ffffe8; '>"</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#797997; background:#ffffe8; '>$typed</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>=</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#400000; background:#ffffe8; '>gettype</span><span style='color:#808030; background:#ffffe8; '>(</span><span style='color:#797997; background:#ffffe8; '>$d</span><span style='color:#808030; background:#ffffe8; '>)</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#800000; background:#ffffe8; font-weight:bold; '>echo</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#0000e6; background:#ffffe8; '>"Type: </span><span style='color:#797997; background:#ffffe8; '>$typed</span><span style='color:#0000e6; background:#ffffe8; '> </span><span style='color:#0f69ff; background:#ffffe8; '>\n</span><span style='color:#0000e6; background:#ffffe8; '>"</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '></span>
+<span style='color:#5f5035; background:#ffffe8; '>?></span>
+</pre>
+</p>
+		<p>Результат:</p>
+		<p><div align=center><p><img src=".\section8_pictures\08_08.png"></p></div></p>
+		<p>Написавши перед другим операндом <i>(double)</i>, ми змусили PHP перетворити його не у ціле число, а у число з плаваючою комою, тому у результату вийшов тип <i>double</i>.</p>
+		<h1>Передача даних у PHP</h1>
+		<p>Як ви вже, мабуть, знаєте, у HTTP є два основних способи передачі даних між клієнтом і сервером: методи GET та POST. Метод GET передає дані через URL, а POST - через тіло HTTP-запиту.</p>
+		<h2>Приклад</h2>
+		<p>У цьому прикладі створено просту форму для введення імені та віку користувача. При натисканні кнопки форма відправляє дані на сервер за допомогою POST-запиту.</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>form</span><span style='color:#274796; '> </span><span style='color:#074726; '>action</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"action.php"</span><span style='color:#274796; '> </span><span style='color:#074726; '>method</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"post"</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#a65700; '>></span>Your name: <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>input</span><span style='color:#274796; '> </span><span style='color:#074726; '>type</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"text"</span><span style='color:#274796; '> </span><span style='color:#074726; '>name</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"name"</span><span style='color:#a65700; '>/></span><span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#a65700; '>></span>Your age: <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>input</span><span style='color:#274796; '> </span><span style='color:#074726; '>type</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"text"</span><span style='color:#274796; '> </span><span style='color:#074726; '>name</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"age"</span><span style='color:#a65700; '>/></span><span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#a65700; '>></span>  
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#a65700; '>></span>input type="submit"<span style='color:#a65700; '>></span><span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>p</span><span style='color:#a65700; '>></span>
+<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>form</span><span style='color:#a65700; '>></span>
+</pre>
+</p>
+		<p>Дані, що передаються за допомогою методу POST, у PHP зберігаються у спеціальний асоціативний масив $_POST, де ключами є імена параметрів. Отже, ми можемо отрмати до них доступ наступним чином:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'>Hi <span style='color:#5f5035; background:#ffffe8; '>&lt;?php</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#800000; background:#ffffe8; font-weight:bold; '>echo</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#400000; background:#ffffe8; '>htmlspecialchars</span><span style='color:#808030; background:#ffffe8; '>(</span><span style='color:#797997; background:#ffffe8; '>$_POST</span><span style='color:#808030; background:#ffffe8; '>[</span><span style='color:#0000e6; background:#ffffe8; '>'name'</span><span style='color:#808030; background:#ffffe8; '>]</span><span style='color:#808030; background:#ffffe8; '>)</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#5f5035; background:#ffffe8; '>?></span>
+Your are <span style='color:#5f5035; background:#ffffe8; '>&lt;?php</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#800000; background:#ffffe8; font-weight:bold; '>echo</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#808030; background:#ffffe8; '>(</span><span style='color:#bb7977; background:#ffffe8; '>int</span><span style='color:#808030; background:#ffffe8; '>)</span><span style='color:#797997; background:#ffffe8; '>$_POST</span><span style='color:#808030; background:#ffffe8; '>[</span><span style='color:#0000e6; background:#ffffe8; '>'age'</span><span style='color:#808030; background:#ffffe8; '>]</span><span style='color:#800080; background:#ffffe8; '>;</span><span style='color:#000000; background:#ffffe8; '> </span><span style='color:#5f5035; background:#ffffe8; '>?></span> years old<span style='color:#008c00; '>.</span>
+</pre>
+</p>
+		<h1>SQL - Structured Query Language</h1>
+		<p>SQL - це мова запитів, що використовується у базах даних для того, щоб записувати або зчитувати інформацію. В SQL є чотири основних типи запитів:</p>
+		<p>
+    <ul>
+      <li>UPDATE</li>
+      <p>Оновити вже існуючі дані у базі.</p>
+      <li>INSERT INTO</li>
+      <p>Додати певні значення у базу.</p>
+      <li>SELECT</li>
+      <p>Вибрати і переглянути дані з бази.</p>
+      <li>DELETE</li>
+      <p>Видалити дані з бази.</p>
+    </ul>
+    </p>
+		<h2>Приклади</h2>
+		<p>Нехай у нас є база даних, що складається з таблиці <i>data</i> із наступним вмістом:</p>
+		<p><div align=center><p><img src=".\section8_pictures\08_09.png"></p></div></p>
+		<h3>UPDATE</h3>
+		<p>Нехай ми хочемо змінити дані для запису із іменем Emma. Тоді треба виконати такий запит:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>UPDATE</span> <span style='color:#800000; font-weight:bold; '>data</span>
+<span style='color:#800000; font-weight:bold; '>SET</span> <span style='color:#800000; font-weight:bold; '>year</span> <span style='color:#808030; '>=</span> <span style='color:#008c00; '>16</span>
+<span style='color:#800000; font-weight:bold; '>WHERE</span> <span style='color:#800000; font-weight:bold; '>id</span> <span style='color:#808030; '>=</span> <span style='color:#008c00; '>2</span><span style='color:#808030; '>;</span>
+</pre>
+</p>
+		<p>Результат виконання:</p>
+		<p><div align=center><p><img src=".\section8_pictures\08_10.png"></p></div></p>
+    <p>У запиті UPDATE необхідно перерахувати поля, що ви хочете змінити та вказати для них нові значення, а також вкзаати який саме рядок (або рядки) треба оновлювати.</p>
+		<h3>INSERT INTO</h3>
+		<p>Нехай нам необхідно в нашу таблицю вставити новий запис. Для цього треба виконати запит такого виду:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>INSERT</span> <span style='color:#800000; font-weight:bold; '>INTO</span> <span style='color:#800000; font-weight:bold; '>data</span>
+<span style='color:#800000; font-weight:bold; '>VALUES</span> <span style='color:#808030; '>(</span><span style='color:#008c00; '>3</span><span style='color:#808030; '>,</span> <span style='color:#008c00; '>18</span><span style='color:#808030; '>,</span> <span style='color:#0000e6; '>'Ben'</span><span style='color:#808030; '>)</span><span style='color:#808030; '>;</span>
+</pre>
+</p>
+		<p>Результат:</p>
+		<p><div align=center><p><img src=".\section8_pictures\08_11.png"></p></div></p>
+		<h3>DELETE</h3>
+		<p>Видалимо рядок із id = 1 за допомогою такого запиту:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>DELETE</span> <span style='color:#800000; font-weight:bold; '>FROM</span> <span style='color:#800000; font-weight:bold; '>data</span>
+<span style='color:#800000; font-weight:bold; '>WHERE</span> <span style='color:#800000; font-weight:bold; '>id</span> <span style='color:#808030; '>=</span> <span style='color:#008c00; '>1</span><span style='color:#808030; '>;</span>
+</pre>
+</p>
+		<p>Результат:</p>
+		<p><div align=center><p><img src=".\section8_pictures\08_12.png"></p></div></p>
+		<h3>SELECT</h3>
+		<p>За допомогою оператора SELECT можна вибирати дані. Виберемо імена всіх людей в таблиці, молодших 17 років:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>SELECT</span> name <span style='color:#800000; font-weight:bold; '>FROM</span> <span style='color:#800000; font-weight:bold; '>data</span>
+<span style='color:#800000; font-weight:bold; '>WHERE</span> <span style='color:#800000; font-weight:bold; '>year</span> <span style='color:#808030; '>&lt;</span> <span style='color:#008c00; '>17</span><span style='color:#808030; '>;</span>
+</pre>
+</p>
+		<p>Результат:</p>
+		<p><div align=center><p><img src=".\section8_pictures\08_14.png"></p></div></p>
+		<h1>MVC - Model View Controller</h1>
+		<p>MVC (модель, вигляд, контроллер) - це шаблон розробки, що полягає у виділенні окремих елементів програми, що відповідають за модель, відображення та маніпуляцію даними.</p>
+		<p><div align=center><p><img src=".\section8_pictures\08_15.png"></p></div></p>
+		<h2>Model (модель)</h2>
+		<p>Цей елемент MVC відповідає за зберігання інформації та організацію даних. Це може бути, наприклад, база даних MySQL або файл з даними.</p>
+		<h2>View (вигляд)</h2>
+		<p>Цей елемент MVC відповідає за відображення даних користувачу - тобто, це є інтерфейс користувача. Приклад: HTML, можливо PHP.</p>
+		<h2>Controller (контролер)</h2>
+		<p>Контролер відповідає за обробку запитів від користувача і взаємодіє з моделлю, щоб оновлювати або завантажувати з неї дані. Приклад: PHP.</p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+	</body>
+</html>

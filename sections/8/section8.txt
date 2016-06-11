@@ -1,0 +1,323 @@
+[MUSIC PLAYING] ALLISON BUCHHOLTZ-AU: All right, everyone, welcome back to section. Hopefully you all had a great Halloween weekend, or Halloweekend, as I like to say, all rested and recovered. And thankfully it's not snowing anymore. It's actually sunny outside. I was real happy about that. Not ready to drag out my winter boots. Hopefully, pset6 went pretty well. 
+
+If you are tired of C, I'm happy to say you're done with C for now. We have fully transitioned into web programming, so you'll be working in HTML, PHP, maybe a little bit of JavaScript. I don't know what next week's pset is, so I can't guarantee what your next pset will be, but this week's pset is CS50 Finance, which is basically implementing the sort of web page that allows you to buy and sell stock, and keep track of them. And it's pretty cool, because all of it is dynamically generated. You can have different users who each have their own information, and you're going to be implementing all of that. It takes a while. I definitely think this is easier than C psets, but it takes longer. You're learning a new language, PHP, which is very similar to C, but of course is going to require you to look up syntax and understand how to convert between the languages. 
+
+But I don't think there's anything super conceptually hard about this pset. It's just learning the new language and getting through all these little pieces. If you guys have read through the spec, it's pretty long. I think this one is like 21 pages, if I remember correctly. It's a long spec. So if you haven't read it-- 22. 32. 
+
+Wow. So I was off by 50% there. So, 32 pages. So it's long. There are lots of pieces, but none of the pieces should be that bad. It's just a lot. So definitely get started early if possible, as per usual, but I think it should feel a little nicer than especially the psets like recover and resize that are just very hard to wrap your head around. 
+
+So with that, we're going to dive in. I don't have your agenda slide today, but we're going to be talking about PHP. I'll be giving you kind of a crash course on some things that you might want to know about PHP. Different syntax things, things to look out for. We're going to be talking a little bit about SQL. Just very simple things there, and then also MVC is Model View Controller, which is how your pset is set up, so understanding how that works will be super useful. All right. So PHP. You guys should have done something very, very simple with PHP, which is this bottom thing here, where you submitted some form on the top here that had some name that you input, and it would say like hello, Ben, or hello, Allison, and it would pop up. So this is actually what it should've looked like from your pset, in case you guys wanted to know or didn't quite figure it out. 
+
+But we have these question marks here that indicate that this is PHP. They wrap it, and then htmlspecialcharge, remember, is just, make sure that you're safe from any crazy injection attack or if someone tries to put crazy malicious characters into your name field, it doesn't like up your server or whatnot. 
+
+And then if we notice, this HTML form had a method of $_GET, which, if we remember our superglobals from PHP, $_GET, $_POST, we'll be going into those in a little bit. But we know that we have some name here that corresponds to the name that we submitted. So this is just kind of like the very simple PHP HTML collaboration that you guys had from pset six. 
+
+But that doesn't really answer what is PHP. Obviously it's a language, but we haven't really talked about it in this section, so there's a little bit more about what PHP actually is. So PHP is just PHP hypertext preprocessor. 
+
+It's actually considered a programming language because it has logic, whereas if we remember talking about HTML, we called that a markup language versus a programming language because HTML is strictly modifying how things look on the page. It's just modifying whether something's bold, or whether it's a form, element, or something like that. It doesn't have any logic. It doesn't have loops or conditions. You can't error check things. You would either display things in a certain way or ask for things from the user. That's it. 
+
+So with PHP, it actually does allow us to do all of these more logical things, like validate the input or manipulate it in some way. We can combine it with HTML, as we just saw in your last pset and right now, and it allows us to create these dynamic web pages. So if you guys ever-- I don't know if you were like me, but in middle school they had us take this IT class where we created just HTML web pages, and they were static and click around to other things, but they never changed. 
+
+With dynamic ones, what we can do is, like with CS50 Finance, you're going to have different users. Depending on those users' preferences, and what they're buying or what they're selling for their stocks, you're going to display different things. So if there's some identifying characteristic for your user using this web page, we can dynamically decide what to display for them. It's not the same thing for every single person, which if we just had HTML, the page would be the same for every single person who visited. PHP allows us to personalize pages. 
+
+And then we can either put them in the same file, which, as in the case before here, we saw that we have HTML all here and then we have this little bit of PHP. We can do like that, or with CS50 Finance, if you guys have looked at the files-- and we should have time to step through a couple of them together at the end of the section-- we can see how you can actually keep them separate, which is actually a better thing to do. 
+
+So. Crash course. All the quick simple things you might need to know for PHP. Declaring variables. That blue's a little annoying, but hopefully you guys can see it. If not, I'll write it on the chalk board. The declaring variables. One thing to know is that, unlike C, PHP is loosely or dynamically typed, which means that you don't need to tell a variable what type it is. You can just simply say some variable is equal to whatever you want it to, and it will decide the type of that variable at run time for you. 
+
+As you'll see, this can create some very interesting things. But for most purposes, you don't need to specify the type. You can, and you can type cast things like you normally wouldn't see if you want to force it to be a certain type, but you don't have to. It's not going to yell at you if you just declare a variable and don't specify a type for it. 
+
+So in case you can't read this-- I know it's not the best. I thought it would show up better-- the way you initialize any variable is just with a dollar sign, what you want it to be called, and then what you're assigning it. So in this case, this is some $var = 3. So if we ever use $var somewhere, it will just be the same as putting 3 there. OK? 
+
+So, any variable, just dollar sign, whatever you want to call your variable, and whatever you want it to equal. Little cooler. Less to write for initializing a variable, right? Does that make sense to everyone? Just quick syntax difference between C and PHP. 
+
+Arrays are much cooler in PHP. We can give them keys. So the way to think about it is that, if we ever wanted to access an element within an array, we needed to know the index of it, right? So we know that with C, we could access the first element by doing array bracket zero, or if we want the first element, array bracket one. And if we wanted something in there, we might just have to iterate through, unless we actually knew the index. 
+
+One thing that is really cool with PHP arrays is that they're what we call associative. So we can associate some key to some value, and we're actually going to-- I will show you how we can use this in a second. But basically, if you ever want to initialize an array like that, you have some $array. 
+
+So in the same way, it's just some variable that we're creating. This could be called whatever you wanted. This could be $example. Just another variable. What makes it an array is the bracket syntax that we have here. Just like normal C. And we have some key to some value. So key1 goes to value1, key2 two goes to value2. These pairs are separated with a comma, just like normal arrays. 
+
+However. Big one. Keys are optional. You don't have to use them. And if you don't, then it's just normal. Question? Or, oh. 
+
+AUDIENCE: Well, about the right. Where's the memory coming from? Can it also be the same like [INAUDIBLE] and from the stack? Is that also using PHP? Like when we're linking them? 
+
+ALLISON BUCHHOLTZ-AU: With PHP, We don't tend to worry about where our memory's coming from. We don't spend a lot of time talking about that, so it's not really anything you need to worry about. So keys are optional. In the same way, if you don't want to make this associated, you just want a normal array where array zero is the first element and array one is the second element, you can do it exactly as you would in C. You have some variable that's going to be your array, and it equals these brackets here. Yes. 
+
+AUDIENCE: Does it have the same point to notation. Like, I can do like a array++, and that points to the second one. 
+
+ALLISON BUCHHOLTZ-AU: You can do-- Well, you can have some iterator, i, that you can do i++ and do a array of i in the same way. But that's it. So, like in this case, array of 1 would equal 20. Same sort of indexing notation. This is basically just an implicit thing here, where it says zero, zero to 10, to 1 to 20, 2 to 30. It's just implicit keys for it. What changes with PHP is that you now have the power to reassign those keys to do whatever you'd like. 
+
+So one thing is here. So I have just some examples here that I wrote up for you guys because I feel like examples always help more than just the abstract. So, in this case here, we have some associative array that is my first name, my last name, and I am echoing, which is just for all purposes here going to print out to the output here. 
+
+And it says, OK. Print out the value that corresponds to array at key Allison. And I can also send you guys all this code after class. So, when we run this, what do you think is going to happen? What's going to print out? AUDIENCE: Your last name. ALLISON BUCHHOLTZ-AU: My last name. It does. Right here. Print out. So if we were to change this and we were to add someone else to our list-- So let's say we have Emma here, and we associate your last name-- Let's see if I spell this right. 
+
+AUDIENCE: Yeah. 
+
+ALLISON BUCHHOLTZ-AU: Yes. 
+
+AUDIENCE: Good job. 
+
+ALLISON BUCHHOLTZ-AU: Lovely. So now if we have this here and we wanted to find your last name, you have it there. So you can just think of it as replacing this key here. You're just replacing the index. So it allows you to just search through an array much easier. You don't need to know the index. As long as this key that you're looking for exists somewhere in the array, PHP will find it and it will return the value associated with it. So it gives you a lot more power with your arrays. Yes. 
+
+AUDIENCE: If you have two keys the same, will it give you an error? ALLISON BUCHHOLTZ-AU: It should give you an error, yeah. Does that make a little more sense for you guys? And in the same way, we have an array here that doesn't have any keys. Also this is a syntax that you might want to be aware of, because you'll have to use this in your pset. 
+
+Whenever you're doing an echo, you have these quotes, and whenever you're referring to part of an array, you have to have these curly braces around them. It's kind of annoying, but you just have to do it. So just something to keep in mind. If you're running into errors of, I know that this exists in my array but it's throwing errors at me, try putting braces around it and it should work. 
+
+So in this case here, this is a normal C array that we're used to. Has three, five, and six, and we just want to print out the first element, so this should print out three. And I did run all these, so hopefully nothing changed. We see at the bottom here, it just prints out three. Cool. That make sense for everyone? Associative arrays. Much cooler than normal arrays. 
+
+This is why-- Did David show you the PHP implementation of pset6 during lecture at all? OK. So, I'll show you. I don't know it off the t-- 
+
+AUDIENCE: He did last week. 
+
+ALLISON BUCHHOLTZ-AU: Was it last week? 
+
+AUDIENCE: Yeah. 
+
+ALLISON BUCHHOLTZ-AU: Yeah. So speller can be done in like six lines with PHP, and part of the power of that is this associative array where you can just load each word in, and you have it equal to true or false. And so you can say, oh. Return dictionary at some word, and if it's there, it will return true. Otherwise, it won't find it and it'll return false. So kind of a cool little thing. 
+
+All right. So those are associative arrays. They're pretty cool. I really like them. And obviously this-- Ah. OK. Now it's working. Maybe. OK. Another thing. So, with equality, just a cool thing to keep in mind. With PHP, because it is dynamically typed, the type can change depending on when you run it, how you're running it. I actually have some cool examples that I'll show you guys. 
+
+But == just checks for equality after type juggling. So if you have something that's like the character 1 and number 1, PHP would tell you that those are equal because it can juggle the types of the two of them until it's equal, which maybe for your case is fine. 
+
+If you need to see if they are the same kind of value and the same type, you want this ===. And I don't think you have any case where you need to use that in your pset, but for a lot of you who will go on to do web pages for your final projects and things, it's a good thing to know that == and === are different, and it's a good distinction to understand. 
+
+OK. So. Foreach loops. They are a way to iterate through an array. So, just like arrays became so much cooler in PHP, your way to iterate through an array, I think, also becomes much cooler and much more powerful. So instead of having to create some for i equals 0 and whatever, and then update that i as you go through, we have this awesome foreach loop. 
+
+So here's the standard general structure of these two. So you either have foreach some array as the value you want to iterate as. So this is the name of the array variable that you want to reference, and this is what you want to call it within the loop. OK? So this corresponds to each element of the array, and you use this value within this loop. 
+
+I have an example. I know examples are so much better. And so this is if there are no keys, so this is like if we just have one where the keys are the normal indices for your array. Or this is also in the case if you have no use for the keys. If you don't care about the keys and you just want to iterate through with the values for each of those in whatever order, that's fine. 
+
+You can use the structure. Otherwise, if there are keys, our $value just changes to $key value. So it just changes to a key value pair. And then we can refer to $key and $value within our loop. OK? So. Example. Make it nicer. OK. 
+
+So we have this one here, which we have some are-- You can also create an array like this by having some variable equal to array with parentheses, or you can just do bracket. You should do the bracket, but this is another way to do it. So here we have some array of three elements of one, two, and three, and we have our foreach. 
+
+Notice this one corresponds to the array that we're iterating over, and this is what we're calling each thing in our array. And all this is doing is it's going to print out each value. So if we run it, we notice that we have value one, value two, value three. 
+
+And in the same way that typically arrays need to be of one type, arrays don't have to all be the same type here. So now we have some int. We have two strings. So your arrays can get much more powerful and maybe a little bit messier, depending on the way you want to look at it. So we can change this to whatever we want. We use value. That's just the standard thing we use. But, just important to know that we can call this like counter if we wanted. And as long as they match up, obviously everyone's happy. If you ever want to run a PHP run something like this command line you know this here, you just do PHP, and then whatever file you want to run. 
+
+So if you want to mess around with PHP, and more the logic and you don't really need to see like in a web browser, you can just run it in the command line like that and echo will print out whatever you like. OK. The other way that we have is like this. So this is a case where maybe you want to use both the key and the value, I know these are like super contrived examples but I hope they make it a little clearer. So here we have some array again, but this time, instead of just having you know there's no key. We have keys for each of these. So a is gonna be one, b will correspond to two, and c will correspond to three. And in this case, if we write it this way, we have access to both key and value for each of these. 
+
+So when we run this, we get each of those. So it prints out our keys and corresponding values. Another cool thing is that, and I know said like this one didn't have keys, but it always implicitly has a key because if you don't delegate a key, of course, your keys are just your indexes or indices so we could always also do this one. Like this. I will print out. So in this case, if you notice, we have our implicit keys of zero, one, and two here. 
+
+And the same way with this one, you can always just say r as value, and you just have access to the value. You don't care about your keys, even if your has keys, if you don't care about them, you don't necessarily need to put them in your foreach loop. Does that makes sense for everyone? 
+
+AUDIENCE: Can you just call the keys, too? ALLISON BUCHHOLTZ-AU: Yeah you could totally do that, too. Actually, wait. Hold on. would it-- No. If you want the key, then you need to do key to value. AUDIENCE: Add value. ALLISON BUCHHOLTZ-AU: Yeah. And you just never use value is all. 
+
+AUDIENCE: OK. ALLISON BUCHHOLTZ-AU: If you just put one thing in there, it's going to assume that you're talking about the value, not the key. Great question. All right. Cool. Actually, hold on. Let me see what I have. So before we get into post and get, I just want to show you guys a little bit about how it's dynamically typed, which is kind of cool. I have all these. I have like four examples up here, and I will send you all this code after class. 
+
+So here we have some variable a. That's just 1 plus 1, right? And we're going to print out what that's equal to, and then we have some type. And anyone have any guesses about what type it's going to be? 
+
+AUDIENCE: An int. 
+
+ALLISON BUCHHOLTZ-AU: Yeah, it's an int. So it just adds them together. It's an int. All good. So this next one, we have what look like strings. When we run this, it thinks, oh. You're actually trying to just add things. You just got confused. So I'm just going to fix it for you. You meant int. I know you meant int. 
+
+So this is one of the ways you can see, PHP has a mind of its own. Even though we explicitly said, look, these ones are strings. I mean the string one. But it says, oh, but you're trying to add them, so you must mean it's an integer. Just trust me on this. So it says it's an integer, and it adds them like normal. So kind of cool if you're going to get lazy with your things, or you want to add something. 
+
+A great thing is that, if you think back to pset2, something that was user inputted, right, that we think is a char or a string at first. Now we don't have to explicitly say, oh, make this an int. PHP would just be like, oh yeah. I know you meant an int. Silly you. You didn't mean a string. 
+
+So in that case, now that we have this, what do you guys think it's going to do here? We have a string and an int now. 
+
+AUDIENCE: It's still an int. 
+
+ALLISON BUCHHOLTZ-AU: It's still an int. And the reason is-- I would put more examples, but this one's fun. The reason it's doing it is because it's like you're trying to add things. So if you're trying to add things, I'm going to assume, reasonably, you have something reasonable that you could add. I'm just going to make it an int, and we're just going to add it, like usual. And then the same way, I think you guys get the idea. We also have this one here, which is just chars, and it does the same thing. It's like, you silly user. you know you want an int. 
+
+AUDIENCE: If we put a letter, will it do the [INAUDIBLE] value or not? ALLISON BUCHHOLTZ-AU: Oh, that's a good question. Let's see. Nope, still is an int. So it's a little crazy. This is just kind of to show you PHP can sometimes behave in irrational-- Not totally irrational, but it might behave in ways that you don't really expect. So, when in doubt, check the types of things. This function gettype can be super useful. 
+
+Typically, if you're doing anything with plusses or any mathematical operators, it's going to assume anything reasonable is just an int. So, you have char 1, or a string 1, or the actual int 1, it's going to assume that. If you want to typecast anything, you totally can. You could do something like double here, I believe. And in that case, it's going to say, oh. I'll make this a double because you explicitly said it's a double. You can always explicitly make PHP do something, but. 
+
+AUDIENCE: Wait, why is A plus 1 there? 
+
+ALLISON BUCHHOLTZ-AU: Oh. There. It was just an echo. That was my fault. So, you can explicitly tell it to make something of a certain type, but most of the time, it's going to dynamically decide that at runtime. So it's going to keep going through and it's going to be like, OK. What makes the most sense for this to be? Should it actually be a string? Should it be an int? Should it be a float? Should it be a double? And it will decide that for you. 
+
+You can force it to do what you want, but-- 
+
+AUDIENCE: Does that make it slower? ALLISON BUCHHOLTZ-AU: Well, I mean, C is very efficient. I think it's definitely slower because it has to the process as it's going. C, I'm almost sure is faster. But obviously there's a lot of cool things in here that we don't have to worry about. So, if we're searching through an array, we don't have to actually create some search through the array. We can just ask for the key and PHP will take care of it. 
+
+Cool. Awesome. Looks like the end of my examples. You guys are never going to forget that now. You're going to be like, oh, PHP is just like that mom who's like no, no, no. I know what you mean. I know what you want. OK. So this is, hopefully, useful for your pset, at least in the very beginning, because you are all about dealing with forms and things from the user. 
+
+So there are two ways that we pass around info with PHP and HTML when we're passing between those two things. So we have $_GET, which is passed through the URL, and we have $_POST, which is passed in the message body, and so we consider it hidden. But one thing to understand is that neither of these are considered secure. 
+
+If you have someone who is intercepting the messages going back and forth between you and the server, they can still get this data. They just have to look a little harder. It's not really that-- it's just hidden from the URL. It's still in the message body, though, so if they have access to that, it's really just like-- 
+
+It's like the difference between something being written on the outside of an envelope and something being written on a piece of paper inside. It's not that hard to open the envelope and get the piece of paper inside. Granted, it'd be much easier just read the outside. But that's how you can kind of think of these. Neither of these are really considered secure. OK? 
+
+Granted, doesn't really matter for your pset because you're not dealing with trade secrets, but it's typically one thing that we really like to emphasize because people think, oh, well, it's hidden. It must be super secure. No. It's not secure. It's just slightly less insecure, I guess. Or unsecure. 
+
+So we actually have an example. As you know, I love teach more with examples. I feel like this helps better. So, we have some simple form here which actually, if you guys are ever confused about PHP, this is really small, but php.net is actually really good documentation. I really like it. I was using it to prepare for this section, so I can vet it for you. 
+
+This is an example from them on how $_POST and $_GET work. The only difference between the two of these, besides where the information is displayed, whether it's in the URL or in the body, is also what the method is. So in your form for HTML-- This is a very simple HTML form. Can anyone tell me what it does? AUDIENCE: Ask for your name and age. ALLISON BUCHHOLTZ-AU: Exactly. So we have some form actions. That lets us know it's some act form. And what's going to happen is, when we hit Submit, it's going to call action.php, which is what this is, and it's going to call it with a method of $_POST. So in this case, your information is hidden. and it's just your name, some input type called name, some age, input type="text" that we also call age. And then if we hit Submit, Submit will call action.php. 
+
+So when we actually hit Submit, we know that it has posted, per se, and we'll actually see this in your problem set that hopefully we'll get to walk through a little bit. And all it's doing here is POST is some superglobal variable that we talked about during lecture. And how you can think about $_POST is that it's just an associative array. OK? So this is some key, this is some key, and whatever the user input becomes a value for each of those. OK? 
+
+So if we were to write what this array actually looked like right after we submitted the form, we would have, this is our $_POST, and some array where we have some name. Let's just say we'll do my name, and then we have some age, 21. Woo. So this is all $_POST is. $_POST is just an associative array, OK? 
+
+It just says, OK. What are the things we've asked for from the user? What are the variables that we're passing around that we've asked for in this form? And then what are the values associated with that? So in this case, if I submitted it with a name of Ally and an age of 21, this is what $_POST looks like. OK? And this is what this PHP file has access to. All right? 
+
+So in this case, this is just like getting any other thing from our array. Instead of an index in our array, we have some key. So this is going to give me the value at key name. So this is going to be Ally, and this right here is going to give me the value at $_POST where the key is age, which will be 21. You're going to be doing this quite a bit. Yeah, from which part? 
+
+AUDIENCE: When you were pointing at the bottom part. ALLISON BUCHHOLTZ-AU: This bottom part? OK. So, you understand this is our HTML form, and we have some method $_POST, which matters. This could also be $_GET, but for this purpose, we're just going to say it's $_POST. When we submit this form, this is part of a PHP file that's called. So this PHP file is now going to execute given the information from our HTML form. 
+
+So what it's doing is, when we hit Submit on our HTML form, it's passing you this superglobal, which is just an associative array. It's this. It's just like passing that to the file. And what it says is, OK, here's $_POST. It's your associative array. Do with it what you want. And we're saying, OK. Give me the value at name, and give me the value at age. 
+
+So these are just keys, and this is our array. Does that makes sense? 
+
+AUDIENCE: Mhmm. ALLISON BUCHHOLTZ-AU: Awesome. AUDIENCE: If you have to resubmit the form does it just write over the data? ALLISON BUCHHOLTZ-AU: Yeah. Mhmm? 
+
+AUDIENCE: Why do you have to specify that it's an int? 
+
+ALLISON BUCHHOLTZ-AU: In this case, the user is just forcing it to be an int. 
+
+AUDIENCE: OK. ALLISON BUCHHOLTZ-AU: I don't know if you would actually need that, but for their purposes, they decided that they wanted it to be an int. They're just typecasting it. Maybe they're using it as something else later on. This is just one snippet. Yes? 
+
+AUDIENCE: What if they typed 12, T-W-E-L-V-E, for age? ALLISON BUCHHOLTZ-AU: If they tried to type that as an int? AUDIENCE: Yeah. ALLISON BUCHHOLTZ-AU: I forget what that does. I think it might try to convert the first character to an int, or take the value and convert it, but I forget exactly what it. Be a fun thing to write a program and try. Do a couple lines. OK, so this is one of the main things that you're going to be doing. I'm going to hopefully walk through a couple of the files from the pset with you guys. It looks like we're going to have time, so we can do that. 
+
+But you're going to be doing a lot of things like this, where you're passing things from an HTML form into this PHP form that will then execute some set of instructions on the data that was provided. That's literally the gist of your pset. Yeah. 
+
+AUDIENCE: The type="submit", that makes a button on the HTML form. Is there way to call that button something? So would you be like name="submit"? Or is that button just going to be empty right now, because you only gave it a type, not a name. 
+
+ALLISON BUCHHOLTZ-AU: I think it's just going to be empty right now. We can definitely look in the pset, because we will definitely be looking at the register kind of thing. But yeah, you can definitely specify the text that you want on your button. OK, so SQL. 
+
+When you're buying and selling stocks, you need to keep track of those. So the way we're going to do that is with SQL, which is just a database. Think of it as a table where you're keeping all this information about your different users. And you guys are actually going to create one of these. It's pretty cool. 
+
+And there are just four main things that you need to know for this pset, and they are update, so you basically update the data. That assumes that it's already there. If it's not there, it's going to hit you with an error, so maybe you want to check. And you will update on-- I should actually- I have time, I'll write a couple of these. I will actually give you guys a couple of sample, full SQL commands, because these are just the main ones, but you can join them together. So I'll do that and I'll send that out to you with these notes. 
+
+So if you want to update something, need to tell it what you're updating and where you're updating it. So a typical SQL command would be update ID where something equals something. Or like update address where ID equals 3, and this would update the address field of your user who has an ID of three. OK? 
+
+So if you go to SQL and W3Schools, they have awesome examples. In fact, I might pull some up in a little bit. And then insert into, you're just inserting certain values there. So if you're trying to create some new entry, so you're creating a new user, you could do insert into whatever your database is called, and you would have all these values. 
+
+Then you have select, select values to view. So if you're trying to check to see if a user exists or you're trying to grab specific information about a user you're going to be using select. And then delete, I think, is pretty simple there. You're just deleting something from the table. And in fact, let me actually pull up some examples for you guys. Oh look, it's my 61 page. 
+
+So if we go to W3Schools, hopefully it's up again. Yes, Love it. We go to SQL. So, this is something here. So, this is a very simple SELECT. Man, I love this function. So, you can have SELECT some field FROM customers. In this case, customers refers to the online database that you're using, so whatever your table is called, and star just means select everything. Give me every one. 
+
+So, I just want to give you guys a couple of examples of where this is. So we have SELECT, UPDATE. So here is kind of the general syntax. So UPDATE, whatever your table name is, and then SET is where you're actually going to be what data you're changing. So this could be-- Let me make an example here. So this is going to be-- 
+
+OK. So I created a little database for us. We're going to have some ID, some year, and some named. So ID one going to be year '15, and we're just going to make it me. Who wants to be the second person in our table? Anyone. I'm just going to choose Emma because your name's quick. Emma, what year are you? 
+
+AUDIENCE: What year? 
+
+ALLISON BUCHHOLTZ-AU: Yeah. 
+
+AUDIENCE: '16. ALLISON BUCHHOLTZ-AU: '16. You're just going to be my guinea pig for today. OK, so we have these two people. Actually, let me do this. Let's say I heard her wrong, and I actually said she's a year younger. She's '17. What we want to do here, if we wanted to update Emma's year to be correct using that, what we'd do is we'd say UPDATE data over here. 
+
+And this can all be on one line, but since I'm compressed for space here, I'm going to write here. And we want to set. So this is the table we're updating. SET is going to be what column or what data are we actually changing. What we're changing is year, so we're going to say SET year = 16, and then WHERE tells us which user or what row are we actually updating this. 
+
+So where? We have two options here. What are the two? These are unique, right? So our names are unique and our ID is unique, so what are the two options for where we could do this? I'll give you one. We could do WHERE ID = 2, or we could do what if we're going off this paradigm here. 
+
+AUDIENCE: [INAUDIBLE]. ALLISON BUCHHOLTZ-AU: Exactly. So we could also do name = Emma. And either of these would work. And we ran this, it'd be like, OK. We'll change it. You're actually 16, so now you're right again. OK, so this would be super useful in your pset where maybe someone decided to buy 100 shares of Apple, and then they were like, just kidding. I only want 90 shares. And so they sell 10 of them, so you need to update the amount of stocks that they have. So, updating stocks, updating table. 
+
+OK. So that's one example there. That's the update syntax. DELETE. Oh. Insert into is our other one. So, this one here is very similar. We could just say, in this case let's add someone. We can add Ben this time. We do INSERT INTO, and we want the name of our table. In this case it's data. 
+
+And then we just want, you're going to say VALUES, and what you're going to do is, you actually need to make sure that you have something for each row that you want. You just put them in order. So in this case, we would say 3. You're 18, right Ben? 
+
+AUDIENCE: 19. ALLISON BUCHHOLTZ-AU: 19? AUDIENCE: 19. ALLISON BUCHHOLTZ-AU: Your year's '19? You graduate in '18, right? AUDIENCE: Oh. ALLISON BUCHHOLTZ-AU: Graduation year. AUDIENCE: OK. ALLISON BUCHHOLTZ-AU: I was like, are you already planning to take a year off here? So, '18, we have Ben. So in this case, it would go through, it would create a new entry here. Cool. Not too bad, right? A lot of this is going to be syntax for you guys. Concepts should come, hopefully, relatively easily. The syntax is the only thing that can be a little tricky. 
+
+And then our last one is DELETE, and as you notice, I highly recommend this website. It's great. There's a ton of stuff. So, in the same way that we had some UPDATE, DELETE is very similar. Instead we have Delete from Data. So in this case, our last one I'll write down here. Let's say we wanted to delete me. I cannot write today. DELETE from whatever table we're in, data. And there are actually three ways we could choose to delete me. 
+
+Can you guys tell me what the three ways are, how you could delete me? ID equals 1, where ID equals 1. We could do where year equals 15, or where name equals Allison. of course, there are only three different ways, because these are all unique. Typically in your table, and especially in your pset, you're going to set one of these columns to be unique. 
+
+It's probably going to be some unique ID number, because if you have-- actually, it might actually let you have two. I can't remember if it'll let you have two of the same thing. 
+
+AUDIENCE: Then it would change their behavior. 
+
+ALLISON BUCHHOLTZ-AU: It would. It'll cause behavior that is unexpected, that you can't really predict. So you will definitely have one column in your database that will be unique, and it's typically you can set it so that it's like a unique ID, and it will just update every time you insert into the table. Any time you create a new row, it will automatically increment and give it some unique ID. So hint for your pset. OK. So that is SQL. 
+
+So now we're going to talk about the very last thing, which ties in actually pretty well with your pset, if it would go forward. So MVC, model view controller. This is really just a way to keep things organized. In the same way with C we ask you guys to create functions and separate things out, this is just a way to separate out code when you're doing web development. 
+
+So it makes things much more elegant and simplified, and this is actually the way that your pset is actually set up, so whether you like it or not, you're going to learn it, even if you don't think you're learning it. And one thing is, it also allows you to do much more like a user collaboration. 
+
+So when I took CS50, I did a website for my final project, and I was like, I'll handle the database stuff. I'll do back end stuff, and my roommate who I was taking with it was very artsy. She does stage design, and she wanted to make it all pretty. So I'm like, OK. You can take care of all the front end stuff. 
+
+And the thing is, as we'll see very soon, that model view controller lets you completely separate that code so that I could work on implementing our pages, and manipulating information in our databases, and she could just make things pretty, and we were both really happy, because we got to do what we both wanted and we didn't have to deal with the other one. 
+
+So we hung out together. We like to hang out. I just didn't want to deal with all the CSS and HTML stuff. I was like, you make it pretty. I'll deal with the database. So we have this really cool, great little table. I love tables. And basically, the model you can think about is just your database. 
+
+I was the model person for my project. It's all about the storage of information and organizing that data. So it's what we like to call back end. So you guys will be dealing with the SQL database and the data files. That's your model. 
+
+Your view, as you might think, kind of makes sense, is what your user actually sees. It's the user interface. It's that front facing component. So that's what my roommate got to work on all the time. She was super happy. So that's all of the HTML, and there's very little PHP. 
+
+If you're just talking about what's being displayed to the user, we're talking about hypertext. We're talking about how it looks. We're not talking about logic, or conditions, or whatnot. All of that gets handled by the controller, OK? So that handles the user requests and gets the information. 
+
+So one thing you should know about your pset is that, in your views, anything that is actually displaying information should never be making calls to your model. All of that is handled in your controller. Your controller is the one mediating between these two. It will ask the model for certain information. It can iterate over that information, figure out what you actually need from it, what to do with it, and then it will pass on just the information you need to the view for you to print it out or display it to the user, OK? 
+
+Because we see the view as whatever is facing the user, so it will be much easier for them to figure out, oh, if you're making some call to your model and you're asking for all users who start with the letter A, and you're doing that in your view, anyone who can see your web page could potentially access that. 
+
+You don't necessarily want that. You don't want people to see more into the database than what they should be seeing. Just their specific preferences. So the controller handles all of that. So all of your .php files that we'll see you can consider your controller files. And that's where you're really going to be asking for things from your database, and iterating or manipulating it as necessary before passing it on to be viewed. 
+
+It's a really cool pset, in my opinion. I think it's a little more like instant gratification, because you implement a lot of little tiny things, and each thing should work on its own. Not like, do everything and then see if it works. Like with software where you're like, I'm really hoping this is right, because if it's not, there are a lot of places it could be wrong. 
+
+All right. Just making sure that I said everything I needed to say about MVC. Yeah. Cool. 
+
+So in CS50 Finance, we have our model, as I just said here. It's going to be MySQL and phpMyAdmin. I can definitely pull those up so you guys get a chance to look at it. Like I said before, it your SQL database acts as your model, and you can send what we call queries, which are just these sorts of things. These are called a query. This is a query, where you're just asking your database for something, or you're changing your database in some way. That's all it is. And you do that with the functions we've given you here. 
+
+You can also manipulate them by hand via phpMyAdmin, which we can definitely take a look at. I'll create a sample database with you guys. OK. So, controller. So in this case, if you notice, this is all PHP. Notice that's kind of your main thing of your controller is that it should be mostly PHP. If you have HTML in your controller, not really sure what's going on there. The same way as I said, if you manage to [INAUDIBLE] with HTML, I'm real interested. 
+
+So what we have here is you have some query. Query is a function that we built for you guys. It's like a wrapper to make queries to your database a little easier. If you didn't have that, the syntax for actually talking to your SQL database would be different, so we just supply it for you guys. We like to make life easy. 
+
+So in this case, can you guys tell me what this line is doing? SELECT * from some table. AUDIENCE: Select everything from this table. ALLISON BUCHHOLTZ-AU: Exactly. So it's saying, give me everything from this table. And it's storing it in some variable result. And this says, if result is not equal to false, then we do each of this. So if there's nothing here, if your table's empty or it just doesn't exist, it's going to return false. So in this case, we're just making sure that something was actually returned to us. 
+
+And then here, we have our great foreach loop that we're iterating over our result, and we're calling it row, and we say render this template where your data is this result. OK? So it's just processing the row of the result. Otherwise, it yells. So, this is an example of the controller. As you see, this is the only place-- Yeah, sorry? 
+
+AUDIENCE: Why is there an ampersand before row? 
+
+ALLISON BUCHHOLTZ-AU: An ampersand before row. We are just iterating. That's also an address of-- 
+
+AUDIENCE: So it's like C referencing. 
+
+ALLISON BUCHHOLTZ-AU: It's making sure that you're actually modifying the original and not a copy. It's in the same way with C where we're passing by reference here, just to make sure. 
+
+AUDIENCE: Is it not == instead of not = in PHP? 
+
+ALLISON BUCHHOLTZ-AU: It's not the ==. 
+
+AUDIENCE: Because equals in C is just-- 
+
+ALLISON BUCHHOLTZ-AU: It's just not =. Yeah, no. It's not ==. Because == in PHP checks for equality with toggling, granted, but extra quality. So, it's not == in PHP. It's one of the little syntax differences. Yeah. So we're just iterating through each row, and render, if you guys read through your spec, is just some other function that is actually going to process all the HTML and display it in your web browser for you. 
+
+OK. So, we like to think of your controllers as what handles the business logic. As you see here, this is where we're taking our data from the table, we are processing it in some way, and then we're passing it off. When we do render some template, some template is our view, and we're passing it only the data that it should get. Not all the data. Just the data that we want it to get. OK? Basically the data after processing. 
+
+So this is the view, this is the sum template that we have, and all this is doing is, you can have a little PHP in your view. It's not like a no PHP in view. You should just have very minimal PHP in view, and you should never be querying in your view. You should never be talking to your database in your view. That's the big difference. 
+
+So what's going on here is, we have PHP that's iterating through the row. So in this case, since we were iterating through each row and rendering something, this was probably like a two dimensional array where we have some row that is, in itself, an array, because we're iterating through it again. And we're just printing out the row name, then end it. 
+
+You shouldn't need this in the foreach. I've never seen that before actually. I just do foreach. OK, so that's the view. Let's see if we can walk through a little bit of your pset. We have 15 minutes, so I'm sure you guys would like that more than just ending early. Let me see if I can bring this up. 
+
+So I don't know how many of you guys have downloaded it and whatnot yet, but we have username here, and we have some password. And unfortunately, right now the database is empty, so we actually need to create a database. Well, that's weird. Did not expect that. Technical errors. Technical difficulties. We have some pset7. Cool. 
+
+So, one thing you can do is, with a query-- I'll create a table. So this is going to be users-- what you can do here is, if we have some-- Really now? OK. Obviously I'm not doing so hot. Oh. I know why. Because I never created my actual tables. So when you first start with a database, you obviously have to decide what are the things I need to have in here? 
+
+So if we just go off our data table here, we had some ID, which can just stay an int. And if we look over here, there's a cool thing that-- So index. If you do primary, it will make it the thing that your table is organized by, and it will also make it unique. So in this case, we'll make it primary, and I'm going to make this name, then we'll just make it a varchar of like 26 letters, because why not? 
+
+And then you can go to Save, and then if you see, we have some users here. So if we wanted to do an insert, we could do it this way, or if you wanted practice with your queries-- Oh boy. I have not used this in forever. I take this back. 
+
+You can edit this on your own either just by manually inserting information with something like, you can change any of these if you wanted to make-- If you want to suddenly get rid of name, you can drop, you can do all those things. If you need to ever manually change your table, I suggest doing it in phpMyAdmin versus trying to figure out the SQL queries in general. When you first start your pset, you're going to have to work in here, so get used to that. And then when you actually want to insert things into your table-- I really wonder where that is, because there's-- Here it is. That's what I wanted. So if you go to SQL, you could actually see, as we see here, we have SQL queries. 
+
+So if we wanted to select something or if we wanted to insert something, we can do insert into the users, right? I think you need the backslash. One thing to know is, if you're ever using this, you have to use these back apostrophes, which are typically, if you're on a Mac, right above tab. So a good thing to know. 
+
+You could insert into users, and we have our values, right? So we have values, and our values in this case would just be, we only have an ID so we could do one if we wanted. That's weird. OK. So that's just like a brief little thing with SQL, but it might be more useful to actually look at some of the files in here. 
+
+So go to Downloads. Oh, not Downloads. So, just a quick walkthrough of what's in each of these folders. It includes, we just have things that configure your browser, we have these constants, and we have these functions. If you're interested in any of them, I recommend looking at functions. One of them that is super useful, actually is this one here, dump. 
+
+So if you use this, it will actually just print out whatever variable that you like it to. So if you are having trouble figuring out what this array looks like, or what this data actually, how it's formatted, this is a great thing to use. Especially when you have a user with multiple stock, this is going to be something great to use. Because it might be formatted-- 
+
+I know at least for me when I did this pset, it was formatted in a way that I didn't quite expect. So I was trying to iterate over it and trying to manipulate it, but I didn't really understand what I was doing. So if you just dump it, it will print it out to the browser, and you can see exactly how it's formatted. It'll typically print it out as an array with its keys and its values. So it can help there. It can also help to make sure that you're actually grabbing the data that you thought you were. So if you were like, my table definitely says there's a user with this ID, but when you go to dump the variable, it's not there, you obviously know that's where an error's going to be. This is one of the best tools for debugging, in my opinion. And then there's a couple other things here, but for the most part, that's the one I want to draw your attention to, because it is very helpful. 
+
+Public, what we have here is, this is all of our CSS stuff. So CSS, fonts, our images, whatnot. This is all stuff that you don't have to modify. Can you guys think about if this has things like CSS in the fonts, would this be a model, or a view, or a controller? AUDIENCE: [INAUDIBLE] ALLISON BUCHHOLTZ-AU: It'd be more of a view, right? This is handling all things, how things look. So if we open this here, we see that all that's happening here is we're rendering something. OK? So this would very much qualify as a view for this. So this is just taking some, it's calling some portfolio.php that we have, and it's passing in title and portfolio. And it's just rendering that. Actually, I take that back. This is a controller, because render, remember, renders the view. So portfolio.php in this case would be your view. Sorry, guys. Portfolio.php is going to be your view, and this would just be your controller for that. And if we take a look at this last one here, templates, templates are all of your views here. So if we look, obviously we see a lot of HTML here. 
+
+So this one is just showing you what the login page should look like. You notice we have some form groups, have submit. Here's how you decide what is displayed on there. You have some button type="submit", and then you have what you want it to display in button. So that's how you would make it show up as whatever you'd like. 
+
+And we see here we have some username, some password, and when we actually hit Submit, it's going to be some post, and it's going to post to what? What's the controller for this view? When we hit Submit, what's going to be called? Do we know? It's right here, so login.php. Something you guys are going to implement. 
+
+So you can always tell what's going to be called after you hit Submit by this first line here. What the form action is. When this form is submitted, what action do we take? We call login.php, and we call it with this method of post, which has the hidden information. OK? So this is your view, and then obviously if we went to login.php-- Do we have it yet? Yeah. 
+
+So as we see here, this has a lot more logic. It's all our PHP here. We're trying to see if it was $_GET, if it was $_POST, validating things, querying, all this stuff. So those are just the three different things here. you don't have to change things. You'll be creating things in template, possibly, but as far as HTML or the styling of any of this goes, you can leave it as plain or as intricate as you'd like. 
+
+Some people get really into it and make some pretty awesome websites. You don't have to do that. If you have time, it's a really cool thing. You can mess around with CSS and HTML and get a much better feel for it, but don't feel pressured to. There's plenty for you to do on the back end with implementing log in, and register, and all of these things. 
+
+So hopefully that helps a little bit. do you guys have any questions about anything we've gone over, any other resources? I will definitely send all of my example PHP code to you guys, and then feel free to take pictures or whatnot of this. Also it's online. You can always just watch again. So if that's it, everyone good? Yes. 
+
+AUDIENCE: I just want to confirm, when we're doing select in SQL, the star means everything, right? ALLISON BUCHHOLTZ-AU: Yes. AUDIENCE: And then if you don't have the star, if you want it to take from a specific row, then you just put the name of-- ALLISON BUCHHOLTZ-AU: The name of the row and what you want you want the value of. 
+
+AUDIENCE: And then the date. ALLISON BUCHHOLTZ-AU: Whatever you're looking for, yeah. In the same way, if you do DELETE * from some table, it'll delete everything. So, * is just a wild card for everything. 
+
+AUDIENCE: OK. 
+
+ALLISON BUCHHOLTZ-AU: Cool. Awesome. Well, have a great Monday, guys. I'll see you next week. Good luck on your pset. 
