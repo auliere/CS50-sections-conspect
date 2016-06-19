@@ -1,0 +1,400 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="ua">
+	<head>	
+		<!-- <meta http-equiv="refresh" content="3" > -->
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title>CS50. Семінар 9.</title>
+		<script>
+			var show;
+			function hidetxt(type){
+			 param=document.getElementById(type);
+			 if(param.style.display == "none") {
+			 if(show) show.style.display = "none";
+			 param.style.display = "block";
+			 show = param;
+			 }else param.style.display = "none"
+			}
+		</script>
+	</head>
+	<body>
+
+		<h1>Вступ</h1>
+		<p>Це передостанній семінар. У цьому семінарі мова піде про мову Javascript.</p>
+		<h1>Javascript</h1>
+		<p>Javascript - це мова програмування, що створена для виконання на стороні клієнта (на відміну від PHP, призначеного для виконання на стороні сервера). Це означає, що код Javascript виконується на комп'ютері користувача тоді, коли він завантажує сторінку.</p>
+		<p>Синтаксис Javascript досить схожий на синтаксис PHP або C. Javascript - це динамічно типізована мова, типи усіх змінних визначаються під час роботи програми.</p>
+		<h2>Hello, world!</h2>
+		<p>Нижче наведено приклад сторінки, в яку включено простий Javascript-файл, і вміст цього файлу.</p>
+		<p><i>index.html:</i></p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#004a43; '>&lt;!DOCTYPE html></span>	
+<span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>	
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span>	
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>script</span><span style='color:#274796; '> </span><span style='color:#074726; '>type</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"text/javascript"</span><span style='color:#274796; '> </span><span style='color:#074726; '>src</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"hello.js"</span><span style='color:#a65700; '>></span><span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>script</span><span style='color:#a65700; '>></span>	
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>title</span><span style='color:#a65700; '>></span>Hello, world!<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>title</span><span style='color:#a65700; '>></span>	
+  <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span>	
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>body</span><span style='color:#a65700; '>></span>	
+    Body HTML here
+  <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>body</span><span style='color:#a65700; '>></span>	
+<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+</pre>
+</p>
+		<p><i>hello.js:</i></p>
+<p>
+<pre style='color:#000000;background:#ffffff;'>alert<span style='color:#808030; '>(</span><span style='color:#800000; '>"Hello, world!"</span><span style='color:#808030; '>)</span><span style='color:#808030; '>;</span>
+</pre>
+</p>
+		<p>Якщо відкрити у браузері сторінку <i>index.html</i>, то побачимо наступне:</p>
+		<p><div align=center><p><img src=".\section9_pictures\09_01.png"></p></div></p>
+		<p>Зверніть увагу, як ми включили в html-сторінку javascript-файл:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>script</span><span style='color:#274796; '> </span><span style='color:#074726; '>type</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"text/javascript"</span><span style='color:#274796; '> </span><span style='color:#074726; '>src</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"hello.js"</span><span style='color:#a65700; '>></span><span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>script</span><span style='color:#a65700; '>></span>
+</pre>
+</p>
+		<p>При завантаженні сторінки підключений файл автоматично виконується браузером. Функція <i>alert</i> відповідає за показ віконця з текстовим повідомленням.</p>
+		<h2>Оголошення змінних</h2>
+		<p>Локальні змінні у javascript оголошують наступним чином:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>var</span> <span style='color:#808030; '>&lt;</span>ім<span style='color:#800000; '>'</span><span style='color:#0000e6; '>я змінної> = &lt;значення змінної></span>
+</pre>
+</p>
+		<p>Глобальні змінні оголошують так само, але без слова <i>var</i>:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#808030; '>&lt;</span>ім<span style='color:#800000; '>'</span><span style='color:#0000e6; '>я змінної> = &lt;значення змінної></span>
+</pre>
+</p>
+		<p>Наприклад:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'>s <span style='color:#808030; '>=</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>CS50</span><span style='color:#800000; '>"</span><span style='color:#800080; '>;</span> <span style='color:#696969; '>//глобальна змінна</span>
+<span style='color:#800000; font-weight:bold; '>var</span> n <span style='color:#808030; '>=</span> <span style='color:#008000; '>3.14</span><span style='color:#800080; '>;</span> <span style='color:#696969; '>//локальна змінна</span>
+<span style='color:#800000; font-weight:bold; '>var</span> b <span style='color:#808030; '>=</span> <span style='color:#0f4d75; '>true</span><span style='color:#800080; '>;</span> <span style='color:#696969; '>//локальна змінна</span>
+</pre>
+</p>
+		<p>Щоб змінити тип змінної, треба просто присвоїти їй нове значення:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'>b <span style='color:#808030; '>=</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>make b a string</span><span style='color:#800000; '>"</span><span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<h2>Цикли</h2>
+		<p>Синтаксис циклів у Javascript аналогічний синтаксису C:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>for</span><span style='color:#808030; '>(</span><span style='color:#696969; '>/* ініціалізація */</span><span style='color:#800080; '>;</span> <span style='color:#696969; '>/* умова */</span><span style='color:#800080; '>;</span> <span style='color:#696969; '>/* дія */</span><span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+  <span style='color:#696969; '>/* код */</span>
+<span style='color:#800080; '>}</span>
+
+<span style='color:#800000; font-weight:bold; '>while</span><span style='color:#808030; '>(</span><span style='color:#696969; '>/* умова */</span><span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+  <span style='color:#696969; '>/* код */</span>
+<span style='color:#800080; '>}</span>
+
+<span style='color:#800000; font-weight:bold; '>do</span> <span style='color:#800080; '>{</span>
+  <span style='color:#696969; '>/* код */</span>
+<span style='color:#800080; '>}</span> <span style='color:#800000; font-weight:bold; '>while</span> <span style='color:#808030; '>(</span><span style='color:#696969; '>/* умова */</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<h2>Оголошення і виклик функцій</h2>
+		<p>Синтаксис оголошення функцій також схожий на С:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>function</span> sum<span style='color:#808030; '>(</span>x<span style='color:#808030; '>,</span>y<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+  <span style='color:#800000; font-weight:bold; '>return</span> x <span style='color:#808030; '>+</span> y<span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre>
+</p>
+		<p>У Javascript є іще один варіант оголошення функцій, за якого ми фактично присвоємо функцію змінній:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>var</span> sum <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span>x<span style='color:#808030; '>,</span> y<span style='color:#808030; '>)</span>
+<span style='color:#800080; '>{</span>
+  <span style='color:#800000; font-weight:bold; '>return</span> x <span style='color:#808030; '>+</span> y<span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre>
+</p>
+		<p>Щоб викликати функцію, треба просто записати її ім'я та аргументи у дужках, наприклад, так:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'>a <span style='color:#808030; '>=</span> sum<span style='color:#808030; '>(</span><span style='color:#008c00; '>5</span><span style='color:#808030; '>,</span> <span style='color:#008c00; '>3</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<h2>Масиви</h2>
+		<p>Приклад оголошення порожнього масиву:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>var</span> arr <span style='color:#808030; '>=</span> <span style='color:#808030; '>[</span><span style='color:#808030; '>]</span><span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<p>Приклад оголошення ініціалізованого масиву:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>var</span> arr2 <span style='color:#808030; '>=</span> <span style='color:#808030; '>[</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>Arrays</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>in</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> JS<span style='color:#808030; '>]</span><span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<p>Звернення до елемента масиву:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>var</span> thirdElement <span style='color:#808030; '>=</span> arr<span style='color:#808030; '>[</span><span style='color:#008c00; '>2</span><span style='color:#808030; '>]</span><span style='color:#800080; '>;</span> <span style='color:#696969; '>//thirdElement = "JS"</span>
+</pre>
+</p>
+		<p>У Javascript, як і у PHP, можна оголосити масив, в якому будуть елементи різних типів:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>var</span> arr3 <span style='color:#808030; '>=</span> <span style='color:#808030; '>[</span><span style='color:#008000; '>2.3</span><span style='color:#808030; '>,</span> <span style='color:#0f4d75; '>true</span><span style='color:#808030; '>,</span> <span style='color:#008c00; '>5</span><span style='color:#808030; '>]</span><span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<p>Також можна вставляти елементи у масив не послідовно:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'>arr3<span style='color:#808030; '>[</span><span style='color:#008c00; '>100</span><span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>legit</span><span style='color:#800000; '>"</span><span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<h2>Об'єкти</h2>
+		<p>Щоб створити пустий об'єкт у Javascript, достатньо при оголошенні змінної вказати пусті фігурні дужки:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>var</span> emptyObject <span style='color:#808030; '>=</span> <span style='color:#800080; '>{</span><span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<p>Створення нових властивостей, або полів об'єкта, відбувається одним із двох способів:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'>emptyObject<span style='color:#808030; '>[</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>newProperty</span><span style='color:#800000; '>"</span><span style='color:#808030; '>]</span> <span style='color:#808030; '>=</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>newValue</span><span style='color:#800000; '>"</span><span style='color:#800080; '>;</span> <span style='color:#696969; '>//Перший спосіб</span>
+emptyObject<span style='color:#808030; '>.</span>otherNewProperty <span style='color:#808030; '>=</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>otherNewValue</span><span style='color:#800000; '>"</span><span style='color:#800080; '>;</span> <span style='color:#696969; '>//Другий спосіб</span>
+</pre>
+</p>
+		<p>Доступ до полів об'єкта також можна отримати двома шляхами, як у прикладі:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>alert</span><span style='color:#808030; '>(</span>emptyObject<span style='color:#808030; '>.</span>otherNewProperty<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>	
+<span style='color:#800000; font-weight:bold; '>alert</span><span style='color:#808030; '>(</span>emptyObject<span style='color:#808030; '>[</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>otherNewProperty</span><span style='color:#800000; '>"</span><span style='color:#808030; '>]</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<p>При оголошенні масива, можна одразу задати у ньому поля:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>var</span> CS50 <span style='color:#808030; '>=</span> <span style='color:#800080; '>{</span> 
+  <span style='color:#808030; '>&lt;</span>ім<span style='color:#800000; '>'</span><span style='color:#0000e6; '>я поля>: &lt;значення>,</span>
+<span style='color:#0000e6; '>&#xa0;&#xa0;"course": "CS50", </span>
+<span style='color:#0000e6; '>&#xa0;&#xa0;"instructor": "David J. Malan </span><span style='color:#800000; '>'</span><span style='color:#008c00; '>99</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>, </span>
+<span style='color:#0000e6; '>&#xa0;&#xa0;</span><span style='color:#800000; '>"</span>tfs<span style='color:#800000; '>"</span><span style='color:#0000e6; '>: [</span><span style='color:#800000; '>"</span>R<span style='color:#808030; '>.</span>J<span style='color:#808030; '>.</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>, </span><span style='color:#800000; '>"</span>Ben<span style='color:#800000; '>"</span><span style='color:#0000e6; '>, </span><span style='color:#800000; '>"</span>Pat<span style='color:#800000; '>"</span><span style='color:#0000e6; '>, </span><span style='color:#800000; '>"</span>Chris<span style='color:#800000; '>"</span><span style='color:#0000e6; '>], </span>
+<span style='color:#0000e6; '>&#xa0;&#xa0;</span><span style='color:#800000; '>"</span>psets<span style='color:#800000; '>"</span><span style='color:#0000e6; '>: 8,  </span>
+<span style='color:#0000e6; '>&#xa0;&#xa0;</span><span style='color:#800000; '>"</span>taped<span style='color:#800000; '>"</span><span style='color:#0000e6; '>: true </span>
+<span style='color:#0000e6; '>};</span>
+</pre>
+</p>
+		<p>Приклад створення массиву об'єктів та доступу до цих об'єктів:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>var</span> cottage <span style='color:#808030; '>=</span> <span style='color:#808030; '>[</span> 
+  <span style='color:#800080; '>{</span>name<span style='color:#800080; '>:</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>James</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> house<span style='color:#800080; '>:</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>Winthrop</span><span style='color:#800000; '>"</span><span style='color:#800080; '>}</span><span style='color:#808030; '>,</span>  
+  <span style='color:#800080; '>{</span>name<span style='color:#800080; '>:</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>Molly</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> house<span style='color:#800080; '>:</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>Cabot</span><span style='color:#800000; '>"</span><span style='color:#800080; '>}</span><span style='color:#808030; '>,</span> 
+  <span style='color:#800080; '>{</span>name<span style='color:#800080; '>:</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>Carl</span><span style='color:#800000; '>"</span><span style='color:#808030; '>,</span> house<span style='color:#800080; '>:</span> <span style='color:#800000; '>"</span><span style='color:#0000e6; '>Kirkland</span><span style='color:#800000; '>"</span><span style='color:#800080; '>}</span> 
+<span style='color:#808030; '>]</span><span style='color:#800080; '>;</span> 
+<span style='color:#696969; '>//Цикл для доступу до елементів масиву</span>
+<span style='color:#800000; font-weight:bold; '>for</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>var</span> i <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span> i <span style='color:#808030; '>&lt;</span> cottage<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>length</span><span style='color:#800080; '>;</span> i<span style='color:#808030; '>++</span><span style='color:#808030; '>)</span> 
+<span style='color:#800080; '>{</span> 
+<span style='color:#800000; font-weight:bold; '>alert</span><span style='color:#808030; '>(</span>cottage<span style='color:#808030; '>[</span>i<span style='color:#808030; '>]</span><span style='color:#808030; '>.</span>name<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> 
+<span style='color:#800080; '>}</span>
+</pre>
+</p>
+    <h1>DOM - Document-Object Model</h1>
+		<p>Document-Object Model (об'єктна модель документа) - це стандартний програмний інтерфейс, що дозволяє отримувати доступ до елементів веб-сторінки, а також змінювати їх вміст. Кожна веб-сторінка може бути представлена у вигляді деревовидної структури:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#004a43; '>&lt;!DOCTYPE html></span> 
+<span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span> 
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span> 
+    title<span style='color:#a65700; '>></span>hello, world<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>title</span><span style='color:#a65700; '>></span> 
+  <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span> 
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>body</span><span style='color:#a65700; '>></span> 
+     hello, world 
+  <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>body</span><span style='color:#a65700; '>></span> 
+<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+</pre>
+</p>
+		<p><div align=center><p><img src=".\section9_pictures\09_02.png"></p></div></p>
+		<p>DOM - це спосіб для доступу до об'єктів цієї деревовидної структури. Приклад доступу до елементів вищенаведеної сторінки:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'>document<span style='color:#808030; '>.</span>title
+document<span style='color:#808030; '>.</span>body
+document<span style='color:#808030; '>.</span>body<span style='color:#808030; '>.</span>innerHTML
+</pre>
+</p>
+		<p>Також з DOM можна отримати доступ до елемента за значеннями його полів Id, Class або Tag, використовуючи відповідну функцію:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'>document<span style='color:#808030; '>.</span>getElementById<span style='color:#808030; '>(</span><span style='color:#808030; '>&lt;</span>id елемента<span style='color:#808030; '>></span><span style='color:#808030; '>)</span>	
+document<span style='color:#808030; '>.</span>getElementsByClassName<span style='color:#808030; '>(</span><span style='color:#808030; '>&lt;</span><span style='color:#800000; font-weight:bold; '>class</span> елемента<span style='color:#808030; '>></span><span style='color:#808030; '>)</span>	
+document<span style='color:#808030; '>.</span>getElementsByTagName<span style='color:#808030; '>(</span><span style='color:#808030; '>&lt;</span>Tag елемента<span style='color:#808030; '>></span><span style='color:#808030; '>)</span>
+</pre>
+</p>
+		<h1>Події (Events)</h1>
+		<p>Події у Javascript - це засіб для реагування об'єктів на сторінці на дії користувача. За допомогою подій можна задати, що відбуватиметься при натисканні користувача на кнопку або на зображення.</p>
+		<p>Приклад роботи з подіями:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#696969; '>//Подія: завантаження сторінки</span>
+window<span style='color:#808030; '>.</span>onload <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span> 
+  <span style='color:#800000; font-weight:bold; '>var</span> searchButton <span style='color:#808030; '>=</span>  document<span style='color:#808030; '>.</span>getElementById<span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>search_button</span><span style='color:#800000; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> 
+  <span style='color:#696969; '>//Подія: натискання на кнопку</span>
+  searchButton<span style='color:#808030; '>.</span>onclick <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+      <span style='color:#800000; font-weight:bold; '>alert</span><span style='color:#808030; '>(</span><span style='color:#800000; '>"</span><span style='color:#0000e6; '>You clicked the search button</span><span style='color:#800000; '>"</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> 
+  <span style='color:#800080; '>}</span> 
+<span style='color:#800080; '>}</span>
+</pre>
+</p>
+		<p>У вищенаведеному коді запрограмовано реакцію на дві події: завантаження сторінки та натискання на певну кнопку на сторінці. Схематично це можна зобразити так:</p>
+		<p><div align=center><p><img src=".\section9_pictures\09_03.png"></p></div></p>
+		<h1>jQuery</h1>
+		<p>jQuery - це корисна бібліотека, що є надбудовою над Javascript. Якщо у Javascript немає якоїсь вбудованої можливості або функції, наймовірніше, що вже є бібліотека, у якій таку функціональність реалізували, а jQuery є однією з найбільших та найпопулярніших бібліотек.</p>
+		<p>Хоча у цьому семінарі не передбачено розгляд jQuery, рекомендуємо ознайомитись із бібліотекою за допомогою її документації або інших ресурсів.</p>
+		<h1>Приклади</h1>
+		<h2>Приклад 1. Вечірка</h2>
+		<p>Створимо просту веб-сторінку, що викорстовує Javascript для зміни фону сторінки.</p>
+		<p>Код сторінки <i>party.html:</i></p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#004a43; '>&lt;!doctype html></span>
+<span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>link</span><span style='color:#274796; '> </span><span style='color:#074726; '>rel</span><span style='color:#274796; '> </span><span style='color:#808030; '>=</span><span style='color:#274796; '> </span><span style='color:#0000e6; '>"stylesheet"</span><span style='color:#274796; '> </span><span style='color:#074726; '>type</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"text/css"</span><span style='color:#274796; '> </span><span style='color:#074726; '>href</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"party.css"</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>body</span><span style='color:#274796; '> </span><span style='color:#074726; '>id</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"background"</span><span style='color:#a65700; '>></span>
+        <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>a</span><span style='color:#274796; '> </span><span style='color:#074726; '>id</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"party"</span><span style='color:#274796; '> </span><span style='color:#074726; '>href</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"#"</span><span style='color:#a65700; '>></span>CLICK HERE TO PARTY<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>a</span><span style='color:#a65700; '>></span>
+         <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>script</span><span style='color:#274796; '> </span><span style='color:#074726; '>type</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"text/javascript"</span><span style='color:#274796; '> </span><span style='color:#074726; '>src</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"party.js"</span><span style='color:#a65700; '>></span> <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>script</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>body</span><span style='color:#a65700; '>></span>
+<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+</pre>
+</p>
+		<p>Код опису стилів <i>party.css</i>:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>a</span> <span style='color:#800080; '>{</span>
+  <span style='color:#bb7977; font-weight:bold; '>font-family</span><span style='color:#808030; '>:</span> <span style='color:#800000; '>'</span><span style='color:#0000e6; '>Helvetica Nueue</span><span style='color:#800000; '>'</span><span style='color:#808030; '>,</span> Helvetica<span style='color:#808030; '>,</span> Verdana<span style='color:#808030; '>,</span> <span style='color:#074726; '>sans-serif</span><span style='color:#800080; '>;</span>
+  <span style='color:#bb7977; font-weight:bold; '>font-size</span><span style='color:#808030; '>:</span> <span style='color:#008c00; '>48</span><span style='color:#006600; '>px</span><span style='color:#800080; '>;</span>
+  <span style='color:#bb7977; font-weight:bold; '>font-weight</span><span style='color:#808030; '>:</span> <span style='color:#074726; '>bold</span><span style='color:#800080; '>;</span>
+  <span style='color:#bb7977; font-weight:bold; '>color</span><span style='color:#808030; '>:</span> <span style='color:#797997; '>blue</span><span style='color:#800080; '>;</span>
+  <span style='color:#bb7977; font-weight:bold; '>text-decoration</span><span style='color:#808030; '>:</span> <span style='color:#074726; '>none</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre>
+</p>
+		<p>Створимо файл <i>party.js</i>. Для того, щоб змінити колір тла сторінки, необхідно отримати об'єкт, що являє собою тло:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>var</span> background <span style='color:#808030; '>=</span> document<span style='color:#808030; '>.</span>getElementById<span style='color:#808030; '>(</span><span style='color:#800000; '>'</span><span style='color:#0000e6; '>background</span><span style='color:#800000; '>'</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<p>А також потрібно, щоб якийсь об'єкт реагував на натискання на ньому. Нехай це буде посилання, розташоване на веб-сторінці. Отримаємо цей об'єкт за допомогою DOM:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>var</span> button <span style='color:#808030; '>=</span> document<span style='color:#808030; '>.</span>getElementById<span style='color:#808030; '>(</span><span style='color:#800000; '>'</span><span style='color:#0000e6; '>party</span><span style='color:#800000; '>'</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<p>Далі, визначимо в обробнику події <i>onclick</i> функцію, яка в майбутньому змінюватиме тло сторінки:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'>button<span style='color:#808030; '>.</span>onclick <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+<span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<p>Тепер у тілі цієї функції, оголосимо три змінні, що визначають червоний, зелений і синій компоненти кольору відповідно. Кожну змінну ініціалізуємо випадковим значенням, а результат встановимо у якості тла сторінки:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>var</span> red <span style='color:#808030; '>=</span> <span style='color:#797997; '>Math</span><span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>floor</span><span style='color:#808030; '>(</span><span style='color:#797997; '>Math</span><span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>random</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>*</span> <span style='color:#008c00; '>255</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>var</span> green <span style='color:#808030; '>=</span> <span style='color:#797997; '>Math</span><span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>floor</span><span style='color:#808030; '>(</span><span style='color:#797997; '>Math</span><span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>random</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>*</span> <span style='color:#008c00; '>255</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>var</span> blue <span style='color:#808030; '>=</span> <span style='color:#797997; '>Math</span><span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>floor</span><span style='color:#808030; '>(</span><span style='color:#797997; '>Math</span><span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>random</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>*</span> <span style='color:#008c00; '>255</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+background<span style='color:#808030; '>.</span>style<span style='color:#808030; '>.</span>background <span style='color:#808030; '>=</span> <span style='color:#800000; '>'</span><span style='color:#0000e6; '>rgb(</span><span style='color:#800000; '>'</span> <span style='color:#808030; '>+</span> red <span style='color:#808030; '>+</span> <span style='color:#800000; '>'</span><span style='color:#0000e6; '>,</span><span style='color:#800000; '>'</span> <span style='color:#808030; '>+</span> green <span style='color:#808030; '>+</span> <span style='color:#800000; '>'</span><span style='color:#0000e6; '>,</span><span style='color:#800000; '>'</span> <span style='color:#808030; '>+</span> blue <span style='color:#808030; '>+</span> <span style='color:#800000; '>'</span><span style='color:#0000e6; '>)</span><span style='color:#800000; '>'</span><span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<p>Релультом нашої роботи буде файл <i>party.js</i>:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>var</span> background <span style='color:#808030; '>=</span> document<span style='color:#808030; '>.</span>getElementById<span style='color:#808030; '>(</span><span style='color:#800000; '>'</span><span style='color:#0000e6; '>background</span><span style='color:#800000; '>'</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>var</span> button <span style='color:#808030; '>=</span> document<span style='color:#808030; '>.</span>getElementById<span style='color:#808030; '>(</span><span style='color:#800000; '>'</span><span style='color:#0000e6; '>party</span><span style='color:#800000; '>'</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+button<span style='color:#808030; '>.</span>onclick <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+  <span style='color:#800000; font-weight:bold; '>var</span> red <span style='color:#808030; '>=</span> <span style='color:#797997; '>Math</span><span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>floor</span><span style='color:#808030; '>(</span><span style='color:#797997; '>Math</span><span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>random</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>*</span> <span style='color:#008c00; '>255</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>var</span> green <span style='color:#808030; '>=</span> <span style='color:#797997; '>Math</span><span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>floor</span><span style='color:#808030; '>(</span><span style='color:#797997; '>Math</span><span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>random</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>*</span> <span style='color:#008c00; '>255</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>var</span> blue <span style='color:#808030; '>=</span> <span style='color:#797997; '>Math</span><span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>floor</span><span style='color:#808030; '>(</span><span style='color:#797997; '>Math</span><span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>random</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>*</span> <span style='color:#008c00; '>255</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+  background<span style='color:#808030; '>.</span>style<span style='color:#808030; '>.</span>background <span style='color:#808030; '>=</span> <span style='color:#800000; '>'</span><span style='color:#0000e6; '>rgb(</span><span style='color:#800000; '>'</span> <span style='color:#808030; '>+</span> red <span style='color:#808030; '>+</span> <span style='color:#800000; '>'</span><span style='color:#0000e6; '>,</span><span style='color:#800000; '>'</span> <span style='color:#808030; '>+</span> green <span style='color:#808030; '>+</span> <span style='color:#800000; '>'</span><span style='color:#0000e6; '>,</span><span style='color:#800000; '>'</span> <span style='color:#808030; '>+</span> blue <span style='color:#808030; '>+</span> <span style='color:#800000; '>'</span><span style='color:#0000e6; '>)</span><span style='color:#800000; '>'</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<p>Демонстрацію роботи прикладу можна подивитись <a href=".\src9\party.html" target="_blank">тут</a>.</p>
+		<h2>Приклад 2. Годинник</h2>
+		<p>Створимо сторінку, яка відображатиме поточний час. Вміст файлу <i>clock.html</i>:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#004a43; '>&lt;!doctype html></span>
+<span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>body</span><span style='color:#a65700; '>></span>
+        <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>div</span><span style='color:#274796; '> </span><span style='color:#074726; '>id</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"clock"</span><span style='color:#a65700; '>></span> This should be a clock!<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>div</span><span style='color:#a65700; '>></span>
+        <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>script</span><span style='color:#274796; '> </span><span style='color:#074726; '>type</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"text/javascript"</span><span style='color:#274796; '> </span><span style='color:#074726; '>src</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"clock.js"</span><span style='color:#a65700; '>></span><span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>script</span><span style='color:#a65700; '>></span>
+        <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>script</span><span style='color:#a65700; '>></span>
+    <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>body</span><span style='color:#a65700; '>></span>
+<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+</pre>
+</p>
+		<p>Розробимо скрипт для сторінки, і помістимо його у файл <i>clock.js</i>. Найперше, що треба зробити - це отримати об'єкт DOM, у якому буде відображатись годинник:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>var</span> clock <span style='color:#808030; '>=</span> document<span style='color:#808030; '>.</span>getElementById<span style='color:#808030; '>(</span><span style='color:#800000; '>'</span><span style='color:#0000e6; '>clock</span><span style='color:#800000; '>'</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<p>Функція setInterval виконує функцію, що передається їй у якості першого аргумента, раз у стільки мілісекунд, скільки передано у якості другого аргумента. Використаємо цю функцію для генерації годинника:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>setInterval</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+  <span style='color:#696969; '>// Генеруємо годинник тут</span>
+<span style='color:#800080; '>}</span><span style='color:#808030; '>,</span> <span style='color:#008c00; '>100</span><span style='color:#808030; '>)</span>
+</pre>
+</p>
+		<p>У тілі функції для генерації годинника встановимо у якості тесту елемента <i>clock</i> поточний час, використавши системний об'єкт <i>Date</i>:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>var</span> date <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> <span style='color:#797997; '>Date</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>var</span> html <span style='color:#808030; '>=</span> <span style='color:#800000; '>'</span><span style='color:#800000; '>'</span><span style='color:#800080; '>;</span>
+html <span style='color:#808030; '>+=</span> <span style='color:#800000; '>'</span><span style='color:#0000e6; '>&lt;h1></span><span style='color:#800000; '>'</span> <span style='color:#808030; '>+</span> date<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>getHours</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>+</span> <span style='color:#800000; '>'</span><span style='color:#0000e6; '>:</span><span style='color:#800000; '>'</span> <span style='color:#808030; '>+</span> date<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>getMinutes</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>+</span> <span style='color:#800000; '>'</span><span style='color:#0000e6; '>:</span><span style='color:#800000; '>'</span> <span style='color:#808030; '>+</span> date<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>getSeconds</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>+</span> <span style='color:#800000; '>'</span><span style='color:#0000e6; '>&lt;/h1></span><span style='color:#800000; '>'</span><span style='color:#800080; '>;</span>
+clock<span style='color:#808030; '>.</span>innerHTML <span style='color:#808030; '>=</span> html<span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<p>Результатом роботи буде файл <i>clock.js</i>:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>var</span> clock <span style='color:#808030; '>=</span> document<span style='color:#808030; '>.</span>getElementById<span style='color:#808030; '>(</span><span style='color:#800000; '>'</span><span style='color:#0000e6; '>clock</span><span style='color:#800000; '>'</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>setInterval</span><span style='color:#808030; '>(</span><span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+  <span style='color:#696969; '>// Генеруємо годинник тут</span>
+  <span style='color:#800000; font-weight:bold; '>var</span> date <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> <span style='color:#797997; '>Date</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>var</span> html <span style='color:#808030; '>=</span> <span style='color:#800000; '>'</span><span style='color:#800000; '>'</span><span style='color:#800080; '>;</span>
+  html <span style='color:#808030; '>+=</span> <span style='color:#800000; '>'</span><span style='color:#0000e6; '>&lt;h1></span><span style='color:#800000; '>'</span> <span style='color:#808030; '>+</span> date<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>getHours</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>+</span> <span style='color:#800000; '>'</span><span style='color:#0000e6; '>:</span><span style='color:#800000; '>'</span> <span style='color:#808030; '>+</span> date<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>getMinutes</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>+</span> <span style='color:#800000; '>'</span><span style='color:#0000e6; '>:</span><span style='color:#800000; '>'</span> <span style='color:#808030; '>+</span> date<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>getSeconds</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>+</span> <span style='color:#800000; '>'</span><span style='color:#0000e6; '>&lt;/h1></span><span style='color:#800000; '>'</span><span style='color:#800080; '>;</span>
+  clock<span style='color:#808030; '>.</span>innerHTML <span style='color:#808030; '>=</span> html<span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span><span style='color:#808030; '>,</span> <span style='color:#008c00; '>100</span><span style='color:#808030; '>)</span>
+</pre>
+</p>
+		<p>Демонстрацію роботи прикладу можна подивитись <a href=".\src9\clock.html" target="_blank">тут</a>.</p>
+		<h2>Приклад 3. Twitter</h2>
+		<p>Багато хто сьогодні користується сервісом Twitter, у якому є обмеження на кількість симолів у записах. За допомогою Javascript ми можемо створити схоже на Twitter поле вводу з обмеженням на кількість символів.</p>
+		<p>Для початку створимо html-сторінку з заготовкою (<i>twitter.html</i>):</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#004a43; '>&lt;!doctype html></span>
+<span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+ <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span>
+ <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>head</span><span style='color:#a65700; '>></span>
+ <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>body</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>textarea</span><span style='color:#274796; '> </span><span style='color:#074726; '>id</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"text"</span><span style='color:#274796; '> </span><span style='color:#074726; '>style</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"</span><span style='color:#bb7977; font-weight:bold; '>width</span><span style='color:#808030; '>:</span><span style='color:#274796; '> </span><span style='color:#008c00; '>500</span><span style='color:#006600; '>px</span><span style='color:#800080; '>;</span><span style='color:#274796; '> </span><span style='color:#bb7977; font-weight:bold; '>height</span><span style='color:#808030; '>:</span><span style='color:#274796; '> </span><span style='color:#008c00; '>150</span><span style='color:#006600; '>px</span><span style='color:#800080; '>;</span><span style='color:#0000e6; '>"</span><span style='color:#a65700; '>></span><span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>textarea</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>h1</span><span style='color:#a65700; '>></span>Characters left: <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>span</span><span style='color:#274796; '> </span><span style='color:#074726; '>id</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"characters-remaining"</span><span style='color:#a65700; '>></span><span style='color:#008c00; '>140</span><span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>span</span><span style='color:#a65700; '>></span>
+  <span style='color:#a65700; '>&lt;</span><span style='color:#800000; font-weight:bold; '>script</span><span style='color:#274796; '> </span><span style='color:#074726; '>type</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"text/javascript"</span><span style='color:#274796; '> </span><span style='color:#074726; '>src</span><span style='color:#808030; '>=</span><span style='color:#0000e6; '>"twitter.js"</span><span style='color:#a65700; '>></span> <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>script</span><span style='color:#a65700; '>></span>
+ <span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>body</span><span style='color:#a65700; '>></span>
+<span style='color:#a65700; '>&lt;/</span><span style='color:#800000; font-weight:bold; '>html</span><span style='color:#a65700; '>></span>
+</pre>
+</p>
+		<p>Створимо файл <i>twitter.js</i>, у якому буде міститись код, який накладає обмеження на кількість символів. Отримаємо об'єкти поля введення та кількості символів, які лишилсь у користувача. Створимо обробник події натискання на клавішу у полі введення:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>var</span> textarea <span style='color:#808030; '>=</span> document<span style='color:#808030; '>.</span>getElementById<span style='color:#808030; '>(</span><span style='color:#800000; '>'</span><span style='color:#0000e6; '>text</span><span style='color:#800000; '>'</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>var</span> remaining <span style='color:#808030; '>=</span> document<span style='color:#808030; '>.</span>getElementById<span style='color:#808030; '>(</span><span style='color:#800000; '>'</span><span style='color:#0000e6; '>characters-remaining</span><span style='color:#800000; '>'</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#696969; '>//Обробник натискання</span>
+textarea<span style='color:#808030; '>.</span>onkeypress <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span>e<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+  <span style='color:#696969; '>//Встановимо обмеження тут</span>
+<span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<p>В обробнику обмеження, отримаємо кількість символів, які ввів користувач, обчислимо кількість символів, які залишились та покажемо їх на веб-сторінці. Якщо у користувача не залишилось символів, то повернемо результат <i>false</i> - це попередить появу нових символів у полі вводу:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>var</span> r <span style='color:#808030; '>=</span> <span style='color:#008c00; '>140</span> <span style='color:#808030; '>-</span> textarea<span style='color:#808030; '>.</span>value<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>length</span><span style='color:#800080; '>;</span>
+remaining<span style='color:#808030; '>.</span>innerHTML <span style='color:#808030; '>=</span> r<span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>r <span style='color:#808030; '>&lt;=</span> <span style='color:#008c00; '>0</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+  <span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#0f4d75; '>false</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre>
+</p>
+		<p>Результатом роботи є файл <i>twitter.js</i>:</p>
+<p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#800000; font-weight:bold; '>var</span> textarea <span style='color:#808030; '>=</span> document<span style='color:#808030; '>.</span>getElementById<span style='color:#808030; '>(</span><span style='color:#800000; '>'</span><span style='color:#0000e6; '>text</span><span style='color:#800000; '>'</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800000; font-weight:bold; '>var</span> remaining <span style='color:#808030; '>=</span> document<span style='color:#808030; '>.</span>getElementById<span style='color:#808030; '>(</span><span style='color:#800000; '>'</span><span style='color:#0000e6; '>characters-remaining</span><span style='color:#800000; '>'</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+textarea<span style='color:#808030; '>.</span>onkeypress <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span>e<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+  <span style='color:#800000; font-weight:bold; '>var</span> r <span style='color:#808030; '>=</span> <span style='color:#008c00; '>140</span> <span style='color:#808030; '>-</span> textarea<span style='color:#808030; '>.</span>value<span style='color:#808030; '>.</span><span style='color:#800000; font-weight:bold; '>length</span><span style='color:#800080; '>;</span>
+  remaining<span style='color:#808030; '>.</span>innerHTML <span style='color:#808030; '>=</span> r<span style='color:#800080; '>;</span>
+  <span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>r <span style='color:#808030; '>&lt;=</span> <span style='color:#008c00; '>0</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+    <span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#0f4d75; '>false</span><span style='color:#800080; '>;</span>
+  <span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+</pre>
+</p>
+		<p>Демонстрацію роботи прикладу можна подивитись <a href=".\src9\twitter.html" target="_blank">тут</a>.</p>
+	</body>
+</html>
